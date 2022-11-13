@@ -49,7 +49,7 @@ On the SD-Card go to `/etc/netplan/` and edit the `50-cloud-init.yaml` file to i
 > **_NOTE:_**
 > The default Turtlebot username is `ubuntu` and th password is `turtlebot`.
 
-#####Boot and connect to the Raspberry Pi
+##### Boot and connect to the Raspberry Pi
 
 Put the SD-Card in your Raspi and power it on. You can either connect a monitor to find out its IP-adress or use your hotspot / router interface to look at it.
 Open a Linux or Windows Terminal initiate a SSH connection via.
@@ -143,3 +143,19 @@ Now again go to your Extensions tab and install the following Extensions. Make s
     
 Go to `File` and click on `Open Folder...`, the default is your user directory: `/home/ubuntu`
 
+
+### Taking Pictures with OpenCV
+
+Install PIP3
+
+    sudo apt install python3-pip
+
+Install Open CV
+
+    sudo pip3 install -U opencv-python
+
+If you're using the Raspberry Pi Camera, activate it by adding
+
+    start_x=1
+
+to ```/boot/firmware/config.txt``` .
