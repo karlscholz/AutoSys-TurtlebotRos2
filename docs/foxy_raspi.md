@@ -6,10 +6,14 @@ page_id: foxy_raspi
 ## Instructions for ROS2 Foxy on Raspberry Pi
 
 > **_NOTE:_**
-> This tutorial is tested on Raspberry Pi 4B with 4GB RAM. It is part of the Turtlebot3 waffle.
+> This tutorial is tested on Raspberry Pi 4B with 4GB RAM. It is part of the Turtlebot3 waffle. 
 
 
 ### Prepare SD Card
+
+> **_NOTE:_**
+> based on https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/#pc-setup for ROS2 Foxy
+
 
 ##### Download the Foxy image for Raspi4b 
 
@@ -45,6 +49,16 @@ On the SD-Card go to `/etc/netplan/` and edit the `50-cloud-init.yaml` file to i
                 access-points:
                     YOURWIFISSID:
                         password: YOURWIFIPASSWORD
+
+If you're working directly on your pi, use 
+
+    sudo nano /etc/netplan/50-cloud-init.yaml
+
+to edit the file. and then 
+    
+    sudo netplan apply
+
+to apply the changes.
 
 > **_NOTE:_**
 > The default Turtlebot username is `ubuntu` and th password is `turtlebot`.
@@ -159,7 +173,7 @@ Setting up the camera
 
         start_x=1
 
-    to ```/boot/firmware/config.txt``` .
+    to `/boot/firmware/config.txt` .
 
 -   If you're using any other USB Webcam, install the following dependencies 
 
@@ -174,3 +188,116 @@ Test it by writing the following code in a python file, e.g. `takePicture.py` an
     cv.imwrite('image.png', frame)
 
 You should now see a new file called `image.png`. If you're sshed on the Raspi with VSCode, you can just click on it and VSCode will be able to display it.
+
+
+### Create a ROS2 Package and run your first ROS2 Node
+
+> **_NOTE:_**
+> based on https://medium.com/schmiedeone/getting-started-with-ros2-part-2-747dd63bdcb
+
+
+Create a workspace for your ROS2 packages, in this example we created it inside this repository.
+
+    mkdir -p ~/AutoSys-TurtlebotRos2/turtlebot3_ws/src
+
+cd into the workspace and build it.
+
+    cd ~/AutoSys-TurtlebotRos2/turtlebot3_ws
+    colcon build
+
+To create a new package, cd into the `src` folder and run the following command. `Talker_listener` is the name of the package.
+
+    cd ~/AutoSys-TurtlebotRos2/turtlebot3_ws/src
+    ros2 pkg create --build-type ament_python talker_listener
+
+Create your Node file in `.../src/talker_listener/talker_listener` as talker_node.py. Copy the code from below.
+    import rclpy
+    from rclpy.node import Node
+
+    from std_msgs.msg import String
+
+
+    class MinimalPublisher(Node):
+
+        def __init__(self):
+            super().__init__('minimal_publisher')
+            self.publisher_ = self.create_publisher(String, 'topic', 10)
+            timer_period = 0.5  # seconds
+            self.timer = self.create_timer(timer_period, self.timer_callback)
+            self.i = 0
+
+        def timer_callback(self):
+            msg = String()
+            msg.data = 'Hello World: %d' % self.i
+            self.publisher_.publish(msg)
+            self.get_logger().info('Publishing: "%s"' % msg.data)
+            self.i += 1
+
+
+    def main(args=None):
+        rclpy.init(args=args)
+
+        minimal_publisher = MinimalPublisher()
+
+        rclpy.spin(minimal_publisher)
+
+        # Destroy the node explicitly
+        # (optional - otherwise it will be done automatically
+        # when the garbage collector destroys the node object)
+        minimal_publisher.destroy_node()
+        rclpy.shutdown()
+
+
+    if __name__ == '__main__':
+        main()
+
+Navigate to `~/AutoSys-TurtlebotRos2/turtlebot3_ws/src/talker_listener/package.xml` and add a line for every dependency you need. In this case we need `rclpy` and `std_msgs`.
+
+    <exec_depend>rclpy</exec_depend>
+    <exec_depend>std_msgs</exec_depend>
+
+For example if you're using OpenCV, you would add the following line:
+
+    <exec_depend>opencv-python</exec_depend>
+
+To add an entry point, go to `~/AutoSys-TurtlebotRos2/turtlebot3_ws/src/talker_listener/setup.py` and add the following line to the `setup()` function.
+
+    entry_points={
+        'console_scripts': [
+            'talker_node = talker_listener.talker_node:main',
+        ],
+    },
+
+If `entry_points` already exists, add the line to the dictionary.
+
+Before we build, it is useful to check `~/AutoSys-TurtlebotRos2/turtlebot3_ws/src/talker_listener/setup.cfg` and make sure that the following lines are uncommented.
+
+    [develop]
+    script-dir=$base/lib/talker_listener
+    [install]
+    install-scripts=$base/lib/talker_listener
+
+Optionally you can check for missing dependencies by rosdep2. First install rosdep2 via
+
+    sudo apt install python3-rosdep2 -y
+    rosdep update
+
+    rosdep install -i --from-path src --rosdistro foxy -y
+
+Now we can build the package. Make sure you're in the workspace folder.
+
+    cd ~/AutoSys-TurtlebotRos2/turtlebot3_ws
+    colcon build
+
+At last: source the terminal by using
+    
+    . install/setup.bash
+
+and finally run the node with
+
+    ros2 run talker_listener talker_node
+
+check it by running one of the following commands
+
+    ros2 topic list
+    ros2 topic echo /topic
