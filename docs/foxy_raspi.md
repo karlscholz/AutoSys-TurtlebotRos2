@@ -154,8 +154,23 @@ Install Open CV
 
     sudo pip3 install -U opencv-python
 
-If you're using the Raspberry Pi Camera, activate it by adding
+Setting up the camera
+- If you're using the Raspberry Pi Camera, activate it by adding
 
-    start_x=1
+        start_x=1
 
-to ```/boot/firmware/config.txt``` .
+    to ```/boot/firmware/config.txt``` .
+
+-   If you're using any other USB Webcam, install the following dependencies 
+
+        apt-get install ffmpeg libsm6 libxext6  -y
+
+Test it by writing the following code in a python file, e.g. `takePicture.py` and run it with the button on the top right. If there is a dropdown menu: choose `Run Python File`. 
+
+    import cv2 as cv
+
+    cap = cv.VideoCapture(0)
+    ret, frame = cap.read()
+    cv.imwrite('image.png', frame)
+
+You should now see a new file called 'image.png'. If you're sshed on the Raspi with VSCode, you can just click on it and VSCode will be able to display it.
