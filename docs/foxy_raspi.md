@@ -173,4 +173,4 @@ Test it by writing the following code in a python file, e.g. `takePicture.py` an
     ret, frame = cap.read()
     cv.imwrite('image.png', frame)
 
-You should now see a new file called 'image.png'. If you're sshed on the Raspi with VSCode, you can just click on it and VSCode will be able to display it.
+You should now see a new file called `image.png`. If you're sshed on the Raspi with VSCode, you can just click on it and VSCode will be able to display it.
