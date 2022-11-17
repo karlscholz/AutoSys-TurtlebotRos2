@@ -35,8 +35,9 @@ while True:
 
     cv.putText(img, str(int(fps)), (10,30), cv.FONT_HERSHEY_COMPLEX, 1.0, (255,255,0), 1)
     img = cv.resize(img, (img.shape[1] * liveViewScale,img.shape[0] * liveViewScale), interpolation=cv.INTER_AREA)
-    cv.imshow('VideoFeed', img)
-
+    #cv.imshow('VideoFeed', img)
+    cv.imwrite("img_test.jpg",img)
+    break
     if cv.waitKey(20) & 0xFF==ord('e'):
         capture.release()
         cv.destroyAllWindows()
