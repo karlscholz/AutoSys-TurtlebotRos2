@@ -33,7 +33,7 @@ class MinimalPublisher(Node):
         preTime = 0
 
         success, img = capture.read()
-        cv.imwrite('TestPose.jpg',img)
+        #cv.imwrite('TestPose.jpg',img)
         imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         results = pose.process(imgRGB)
         #print(results.pose_landmarks)
