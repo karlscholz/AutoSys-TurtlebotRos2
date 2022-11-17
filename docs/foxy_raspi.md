@@ -202,7 +202,7 @@ Create a workspace for your ROS2 packages, in this example we created it inside 
 
 cd into the workspace and build it.
 
-    cd ~/AutoSys-TurtlebotRos2/turtlebot3_ws
+    cd ~/AutoSys-TurtlebotRos2/ros2_ws
     colcon build
 
 To create a new package, cd into the `src` folder and run the following command. `Talker_listener` is the name of the package.
