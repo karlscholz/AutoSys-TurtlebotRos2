@@ -198,7 +198,7 @@ You should now see a new file called `image.png`. If you're sshed on the Raspi w
 
 Create a workspace for your ROS2 packages, in this example we created it inside this repository.
 
-    mkdir -p ~/AutoSys-TurtlebotRos2/turtlebot3_ws/src
+    mkdir -p ~/AutoSys-TurtlebotRos2/ros2_ws/src
 
 cd into the workspace and build it.
 
@@ -207,7 +207,7 @@ cd into the workspace and build it.
 
 To create a new package, cd into the `src` folder and run the following command. `Talker_listener` is the name of the package.
 
-    cd ~/AutoSys-TurtlebotRos2/turtlebot3_ws/src
+    cd ~/AutoSys-TurtlebotRos2/ros2_ws/src
     ros2 pkg create --build-type ament_python talker_listener
 
 Create your Node file in `.../src/talker_listener/talker_listener` as talker_node.py. Copy the code from below.
@@ -251,7 +251,7 @@ Create your Node file in `.../src/talker_listener/talker_listener` as talker_nod
     if __name__ == '__main__':
         main()
 
-Navigate to `~/AutoSys-TurtlebotRos2/turtlebot3_ws/src/talker_listener/package.xml` and add a line for every dependency you need. In this case we need `rclpy` and `std_msgs`.
+Navigate to `~/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener/package.xml` and add a line for every dependency you need. In this case we need `rclpy` and `std_msgs`.
 
     <exec_depend>rclpy</exec_depend>
     <exec_depend>std_msgs</exec_depend>
@@ -260,7 +260,7 @@ For example if you're using OpenCV, you would add the following line:
 
     <exec_depend>opencv-python</exec_depend>
 
-To add an entry point, go to `~/AutoSys-TurtlebotRos2/turtlebot3_ws/src/talker_listener/setup.py` and add the following line to the `setup()` function.
+To add an entry point, go to `~/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener/setup.py` and add the following line to the `setup()` function.
 
     entry_points={
         'console_scripts': [
@@ -270,7 +270,7 @@ To add an entry point, go to `~/AutoSys-TurtlebotRos2/turtlebot3_ws/src/talker_l
 
 If `entry_points` already exists, add the line to the dictionary.
 
-Before we build, it is useful to check `~/AutoSys-TurtlebotRos2/turtlebot3_ws/src/talker_listener/setup.cfg` and make sure that the following lines are uncommented.
+Before we build, it is useful to check `~/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener/setup.cfg` and make sure that the following lines are uncommented.
 
     [develop]
     script-dir=$base/lib/talker_listener
@@ -286,7 +286,7 @@ Optionally you can check for missing dependencies by rosdep2. First install rosd
 
 Now we can build the package. Make sure you're in the workspace folder.
 
-    cd ~/AutoSys-TurtlebotRos2/turtlebot3_ws
+    cd ~/AutoSys-TurtlebotRos2/ros2_ws
     colcon build
 
 At last: source the terminal by using

@@ -1,3 +1,0 @@
-[console_scripts]
-talker_node = talker_listener.talker_node:main
-
