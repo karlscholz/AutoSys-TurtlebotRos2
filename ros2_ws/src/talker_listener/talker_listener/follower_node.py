@@ -71,20 +71,20 @@ def main(args=None):
 
     except KeyboardInterrupt as e:
         print("Ended with: KeyboardInterrupt")
-        print("Stopping \"Follower\" - Node")
-        node = rclpy.create_node('stop_follower')
-        pub = node.create_publisher(Twist, 'cmd_vel', 10)
-        twist = Twist()
-        twist.linear.x = 0.0
-        twist.linear.y = 0.0
-        twist.linear.z = 0.0
+    
+    #stop regardless of how the node stopped spinning:
+    print("Stopping \"Follower\" - Node")
+    node = rclpy.create_node('stop_follower')
+    pub = node.create_publisher(Twist, 'cmd_vel', 10)
+    twist = Twist()
+    twist.linear.x = 0.0
+    twist.linear.y = 0.0
+    twist.linear.z = 0.0
 
-        twist.angular.x = 0.0
-        twist.angular.y = 0.0
-        twist.angular.z = 0.0
-        pub.publish(twist)
-    #finally:
-        
+    twist.angular.x = 0.0
+    twist.angular.y = 0.0
+    twist.angular.z = 0.0
+    pub.publish(twist)
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
