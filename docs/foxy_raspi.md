@@ -3,26 +3,26 @@ title: foxy on Raspberry Pi
 page_id: foxy_raspi
 ---
 
-## Instructions for ROS2 Foxy on Raspberry Pi
+# Instructions for ROS2 Foxy on Raspberry Pi
 
 > **_NOTE:_**
 > This tutorial is tested on Raspberry Pi 4B with 4GB RAM. It is part of the Turtlebot3 waffle. 
 
 
-### Prepare SD Card
+## Prepare SD Card
 
 > **_NOTE:_**
 > based on https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/#pc-setup for ROS2 Foxy
 
 
-##### Download the Foxy image for Raspi4b 
+## Download the Foxy image for Raspi4b 
 
 Extract the .img file from the .zip
 
     https://www.robotis.com/service/download.php?no=2064
 
 
-##### Download and install Raspberry Pi Imager
+## Download and install Raspberry Pi Imager
 
     https://www.raspberrypi.org/software/
 
@@ -30,7 +30,7 @@ Extract the .img file from the .zip
 - select the .img and the SD-Card write the image to the SD-Card
 
 
-##### Setup the SD-Card
+## Setup the SD-Card
 
 Connect the SD-Card to a Computer that is able to mount ext4 file systems or connect it to a Linux VM under Windows.
 
@@ -63,7 +63,7 @@ to apply the changes.
 > **_NOTE:_**
 > The default Turtlebot username is `ubuntu` and th password is `turtlebot`.
 
-##### Boot and connect to the Raspberry Pi
+## Boot and connect to the Raspberry Pi
 
 Put the SD-Card in your Raspi and power it on. You can either connect a monitor to find out its IP-adress or use your hotspot / router interface to look at it.
 Open a Linux or Windows Terminal initiate a SSH connection via.
@@ -71,10 +71,10 @@ Open a Linux or Windows Terminal initiate a SSH connection via.
     ssh ubuntu@<IPADRESS>
 
 
-### Setup Ubuntu for ROS2 Foxy on Turtlebot3
+## Setup Ubuntu for ROS2 Foxy on Turtlebot3
 
 
-##### Update everything preinstalled
+## Update everything preinstalled
 
 Confirm that `export ROS_DOMAIN_ID=30 # Default ROS2 Domain ID for TurtleBot3` is in your bashrc file(usually last line) by:
 
@@ -93,7 +93,7 @@ ROS2 should now be working now, check it by running:
     ros2 topic list
 
 
-##### Install LiDAR Driver for Turtlebot3
+## Install LiDAR Driver for Turtlebot3
 
 Run the following commands. You can paste them all in at once. It'll clone a git repo, install the necessary dependencies and build the driver from source. At the end it'll set the LiDAR version as an environment variable in `.bashrc`.
 
@@ -106,7 +106,7 @@ Run the following commands. You can paste them all in at once. It'll clone a git
     source ~/.bashrc
 
 
-##### Setup OpenCR
+## Setup OpenCR
 
 Run the following commands. Again you can paste them all in at once.
 
@@ -125,9 +125,9 @@ Upload firmware to the OpenCR.
     ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr
 
 
-### Setup Visual Studio Code for Programming
+## Setup Visual Studio Code for Programming
 
-##### Install and Setup VSCode
+## Install and Setup VSCode
 
 Install VSCode on your Machine(Windows, Linux, Mac)
     
@@ -138,7 +138,7 @@ and install the following Extensions:
     Remote-SSH
 
 
-##### Connect VSCode with the Raspi via SSH
+## Connect VSCode with the Raspi via SSH
 
 Open VSCode and click on the green >< in the bottom left corner. 
 Select `Remote-SSH: Connect to Host...` and the click on the `+ Add New SSH Host` button.
@@ -158,7 +158,7 @@ Now again go to your Extensions tab and install the following Extensions. Make s
 Go to `File` and click on `Open Folder...`, the default is your user directory: `/home/ubuntu`
 
 
-### Taking Pictures with OpenCV
+## Taking Pictures with OpenCV
 
 Install PIP3
 
@@ -190,7 +190,7 @@ Test it by writing the following code in a python file, e.g. `takePicture.py` an
 You should now see a new file called `image.png`. If you're sshed on the Raspi with VSCode, you can just click on it and VSCode will be able to display it.
 
 
-### Create a ROS2 Package and run your first ROS2 Node
+## Create a ROS2 Package and run your first ROS2 Node
 
 > **_NOTE:_**
 > based on https://medium.com/schmiedeone/getting-started-with-ros2-part-2-747dd63bdcb
@@ -302,7 +302,7 @@ check it by running one of the following commands
     ros2 topic list
     ros2 topic echo /topic
 
-### Create Follower Node
+## Create Follower Node
 
 Install the following package
 
@@ -324,7 +324,12 @@ Make your new Node known to `setup.py` by adding this line: `'follower = talker_
 > **_NOTE:_**
 > We got the file `PoseEstimationMin.py` by doing the "Advanced Computer Vision with Python - Full Course" from freeCodeCamp on youtube [https://youtu.be/01sAkU_NvOY]. It uses OpenCV and Mediapipe to detect the pose of a person in a frame. We use it to get the landmarks of the foot and kneww for our follower node.
 
-##### Adding the libraries
+## Install additional libraries
+
+    pip install mediapipe
+    pip install protobuf==3.20.0
+
+## Adding the libraries
 
 Import the libraries for the Computer Vision Part and the ROS2 Node `Twist`, which contains the driving commands for the Turtlebot.
 
@@ -334,7 +339,7 @@ Import the libraries for the Computer Vision Part and the ROS2 Node `Twist`, whi
 
     from geometry_msgs.msg import Twist
 
-##### Modyfing the Publisher.
+## Modyfing the Publisher.
 
 In the __init__ function we swap out the datatype `String`with `Twist` and change the topic `topic` to `cmd_vel`.
 
@@ -344,7 +349,7 @@ Next, we change the Method `timer_callback(self)` to include the logic of our pr
 
 # TODO LOGIC
 
-##### Implementing stop on code abort
+## Implementing stop on code abort
 
 If we stop the Node, the Turtlebot will just continue driving with the last command it got. To get the Turtlebot to stop when the Node gets destroyed or `CTRL+C` is input in the console, we put a try and catch block from start to the call of the `spin` Medhod in `main(args=none)`.
     
