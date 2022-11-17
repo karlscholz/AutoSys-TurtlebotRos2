@@ -1,16 +1,13 @@
 import rclpy
 import cv2 as cv
 import mediapipe as mp
+import numpy as np
 from rclpy.node import Node
-import time 
-
-from std_msgs.msg import String
 from geometry_msgs.msg import Twist
 
 
 class MinimalPublisher(Node):
-    msg = Twist()
-    
+    msg = Twist()   
 
     def __init__(self):
         super().__init__('minimal_publisher')
@@ -29,40 +26,62 @@ class MinimalPublisher(Node):
 
 
         capture = cv.VideoCapture(0)
-        liveViewScale = 2
-        preTime = 0
 
         success, img = capture.read()
         #cv.imwrite('TestPose.jpg',img)
         imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         results = pose.process(imgRGB)
-        #print(results.pose_landmarks)
         if results.pose_landmarks:
-            mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
+            dist_l = 0
+            dist_r = 0
+            if results.pose_landmarks.landmark[25]:
+            #   mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
+                dist_l = np.sqrt((results.pose_landmarks.landmark[25].x-results.pose_landmarks.landmark[27].x)**2+ (results.pose_landmarks.landmark[25].y-results.pose_landmarks.landmark[27].y)**2)
+            if results.pose_landmarks.landmark[28]:  
+                dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[26].x)**2+ (results.pose_landmarks.landmark[28].y-results.pose_landmarks.landmark[28].y)**2)
+            if dist_l == 0 and dist_r == 0:
+                self.msg.linear.x = 0.0
+                self.msg.linear.y = 0.0
+                self.msg.linear.z = 0.0
 
-        curTime = time.time()
-        fps = 1/(curTime-preTime)
-        preTime = curTime
-
-
-        cv.putText(img, str(int(fps)), (10,30), cv.FONT_HERSHEY_COMPLEX, 1.0, (255,255,0), 1)
-        img = cv.resize(img, (img.shape[1] * liveViewScale,img.shape[0] * liveViewScale), interpolation=cv.INTER_AREA)
-
-    
-        self.msg.angular.z = float(self.i)
+                self.msg.angular.x = 0.0
+                self.msg.angular.y = 0.0
+                self.msg.angular.z = 0.0
+            else:
+                middle = imgRGB.shape[1]/2
+                deadzone = 0.1*imgRGB.shape[1]
+                if dist_l >= dist_r:
+                    dir = (results.pose_landmarks.landmark[25].x+results.pose_landmarks.landmark[27].x)/2 
+                else:
+                    dir = (results.pose_landmarks.landmark[26].x+results.pose_landmarks.landmark[28].x)/2  
+                if abs(dir-middle) < deadzone:
+                    self.msg.angular.x = 0.0
+                    self.msg.angular.y = 0.0
+                    self.msg.angular.z = 0.0
+                elif dir-middle < 0:
+                    self.msg.angular.z = 0.5
+                    print("Left")
+                else:
+                    self.msg.angular.z = -0.5
+                    print("Right")
+        
         self.publisher_.publish(self.msg)
         self.get_logger().info(f"Publishing: {self.msg.angular.z}")
-        if self.i >= 0.5:
-            self.switch = 0
-        if self.i <= -0.5:
-            self.switch = 1
-        if self.switch == 1:
-            self.i += 0.1
-        elif self.switch == 0:
-            self.i -= 0.1
+     
 
 
 def main(args=None):
+    capture = cv.VideoCapture(0)
+    suc, img = capture.read()
+    mpDraw = mp.solutions.drawing_utils
+    mpPose = mp.solutions.pose
+    pose = mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
+    imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+    results = pose.process(img)
+    if results.pose_landmarks:
+        mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
+    cv.imwrite("img_test.jpg",img)
+
     try:
         rclpy.init(args=args)
         minimal_publisher = MinimalPublisher()
@@ -90,6 +109,7 @@ def main(args=None):
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
     minimal_publisher.destroy_node()
+    node.destroy_node()
     rclpy.shutdown()
 
 
