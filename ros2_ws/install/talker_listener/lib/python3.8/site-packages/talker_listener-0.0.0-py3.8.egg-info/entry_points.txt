@@ -1,0 +1,4 @@
+[console_scripts]
+follower = talker_listener.follower_node:main
+talker_listener = talker_listener.talker_node:main
+
