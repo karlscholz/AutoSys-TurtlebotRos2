@@ -12,7 +12,7 @@ class MinimalPublisher(Node):
     def __init__(self):
         super().__init__('minimal_publisher')
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
-        timer_period = 0.5  # seconds
+        timer_period = 1.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
         self.switch = 0
@@ -27,17 +27,20 @@ class MinimalPublisher(Node):
 
         capture = cv.VideoCapture(0)
 
-        success, img = capture.read()
+        success, img = capture.read() 
+
+        capture.release()
+        print(success)
         #cv.imwrite('TestPose.jpg',img)
         imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         results = pose.process(imgRGB)
         if results.pose_landmarks:
             dist_l = 0
             dist_r = 0
-            if results.pose_landmarks.landmark[25]:
+            if results.pose_landmarks.landmark[25, 27]:
             #   mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
                 dist_l = np.sqrt((results.pose_landmarks.landmark[25].x-results.pose_landmarks.landmark[27].x)**2+ (results.pose_landmarks.landmark[25].y-results.pose_landmarks.landmark[27].y)**2)
-            if results.pose_landmarks.landmark[28]:  
+            if results.pose_landmarks.landmark[26, 28]:  
                 dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[26].x)**2+ (results.pose_landmarks.landmark[28].y-results.pose_landmarks.landmark[28].y)**2)
             if dist_l == 0 and dist_r == 0:
                 self.msg.linear.x = 0.0
@@ -71,16 +74,6 @@ class MinimalPublisher(Node):
 
 
 def main(args=None):
-    capture = cv.VideoCapture(0)
-    suc, img = capture.read()
-    mpDraw = mp.solutions.drawing_utils
-    mpPose = mp.solutions.pose
-    pose = mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-    imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
-    results = pose.process(img)
-    if results.pose_landmarks:
-        mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
-    cv.imwrite("img_test.jpg",img)
 
     try:
         rclpy.init(args=args)
