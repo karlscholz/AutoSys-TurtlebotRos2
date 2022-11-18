@@ -83,4 +83,6 @@ and the following command on your Pi
 
     ros2 topic echo /cmd_vel
 
-Check if the messages are recieved by the Pi.
+Check if the messages are recieved by the Pi. If it's not working, a common cause is that the firewall is enabled. Disable the firewall on both devices by running
+
+    sudo ufw disable
