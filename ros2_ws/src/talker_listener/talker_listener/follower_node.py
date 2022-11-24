@@ -4,6 +4,8 @@ import mediapipe as mp
 import numpy as np
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
+from sensor_msgs.msg import Image 
+from cv_bridge import CvBridge
 
 
 class MinimalPublisher(Node):
@@ -24,15 +26,6 @@ class MinimalPublisher(Node):
         mpPose = mp.solutions.pose
         pose = mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
-
-        capture = cv.VideoCapture(0)
-
-        success, img = capture.read() 
-
-        capture.release()
-        print(success)
-        #cv.imwrite('TestPose.jpg',img)
-        imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         results = pose.process(imgRGB)
         if results.pose_landmarks:
             dist_l = 0
