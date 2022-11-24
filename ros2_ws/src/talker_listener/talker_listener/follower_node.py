@@ -28,7 +28,6 @@ class MinimalPublisher(Node):
         capture = cv.VideoCapture(0)
 
         success, img = capture.read()
-        #cv.imwrite('TestPose.jpg',img)
         imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         results = pose.process(imgRGB)
         if results.pose_landmarks:

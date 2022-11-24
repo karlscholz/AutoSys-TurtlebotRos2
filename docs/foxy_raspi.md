@@ -279,6 +279,7 @@ Before we build, it is useful to check `~/AutoSys-TurtlebotRos2/ros2_ws/src/talk
 
 Optionally you can check for missing dependencies by rosdep2. First install rosdep2 via
 
+    cd ~/AutoSys-TurtlebotRos2/ros2_ws
     sudo apt install python3-rosdep2 -y
     rosdep update
 
