@@ -1,6 +1,6 @@
 ---
 title: foxy on PC
-page_id: foxy_raspi
+page_id: foxy_pc
 ---
 
 # Instructions for ROS2 Foxy on PC
@@ -18,7 +18,12 @@ Look at your WSL IP-adress by running `ifconfig` in WSL and note that it looks w
 
 Enable Hyper-V by pressing the Windows key and type `Turn Windows features on or off`, search for `Hyper-V` and enable it. After that, restart your computer.
 
-After the reboot, search for `Hyper-V Manager` in your start menu and open it. In the left pane, click on the name of your computer. Select `Action` in the top bar and choose `Virtual Switch Manager`. 
+After the reboot, search for `Hyper-V Manager` in your start menu and open it. If you don't see it in the start menu, type `mmc` in the start menu and follow these instructions on manually installing the snap in feature via 
+https://social.technet.microsoft.com/Forums/en-US/adbec344-39b9-4de0-803a-2351b8eb7cad/no-hyperv-quick-create-option-in-start-menu-after-following-setup-guides?forum=win10itprovirt
+Before `Hyper-V Manager` is visible in mmc, you'll probably need to install the `RSAT Tools for Windows 10`: 
+https://www.microsoft.com/en-us/download/details.aspx?id=45520
+
+In the left pane, click on the name of your computer. Select `Action` in the top bar and choose `Virtual Switch Manager`. 
 
 Click on `New Virtual Switch` in the left pane and select `External Network` as type. Click on `Create Virtual Switch` and name it `WSLBridge`. Choose the network adapter that is connected to your router. (Choose the only LAN or WLAN (whichever you're using) one, that says nothing about `Virtual ...`, `TeamViewer`, `VPN XYZ` or anything simelar.) Make sure that the Box under VLAN-ID is **NOT** ticked. This may cause issues with the internet connection on windows. Next, click `OK` and close the window.
 
@@ -86,3 +91,11 @@ and the following command on your Pi
 Check if the messages are recieved by the Pi. If it's not working, a common cause is that the firewall is enabled. Disable the firewall on both devices by running
 
     sudo ufw disable
+
+You can also run the bringup launch file on the Turtlebot to test if it is driving:
+
+    ros2 launch turtlebot3_bringup robot.launch.py
+
+And RViz2 on the PC to see the robot in the simulation:
+
+    rviz2
