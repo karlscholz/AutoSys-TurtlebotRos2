@@ -1,0 +1,37 @@
+[0.589s] Invoking command in '/home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc': PYTHONPATH=/home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/prefix_override:/home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/picproc build --build-base /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/build install --record /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/install.log --install-scripts $base/lib/picproc --single-version-externally-managed
+[0.756s] running egg_info
+[0.756s] creating build/picproc/picproc.egg-info
+[0.757s] writing build/picproc/picproc.egg-info/PKG-INFO
+[0.757s] writing dependency_links to build/picproc/picproc.egg-info/dependency_links.txt
+[0.757s] writing entry points to build/picproc/picproc.egg-info/entry_points.txt
+[0.757s] writing requirements to build/picproc/picproc.egg-info/requires.txt
+[0.757s] writing top-level names to build/picproc/picproc.egg-info/top_level.txt
+[0.758s] writing manifest file 'build/picproc/picproc.egg-info/SOURCES.txt'
+[0.785s] reading manifest file 'build/picproc/picproc.egg-info/SOURCES.txt'
+[0.785s] writing manifest file 'build/picproc/picproc.egg-info/SOURCES.txt'
+[0.785s] running build
+[0.786s] running build_py
+[0.786s] creating /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/build
+[0.786s] creating /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/build/lib
+[0.786s] creating /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/build/lib/picproc
+[0.786s] copying picproc/__init__.py -> /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/build/lib/picproc
+[0.786s] copying picproc/picproc_node.py -> /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/build/lib/picproc
+[0.786s] running install
+[0.787s] running install_lib
+[0.788s] creating /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/lib/python3.8/site-packages/picproc
+[0.788s] copying /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/build/lib/picproc/__init__.py -> /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/lib/python3.8/site-packages/picproc
+[0.788s] copying /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/build/lib/picproc/picproc_node.py -> /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/lib/python3.8/site-packages/picproc
+[0.788s] byte-compiling /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/lib/python3.8/site-packages/picproc/__init__.py to __init__.cpython-38.pyc
+[0.789s] byte-compiling /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/lib/python3.8/site-packages/picproc/picproc_node.py to picproc_node.cpython-38.pyc
+[0.790s] running install_data
+[0.790s] creating /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/share/ament_index
+[0.791s] creating /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/share/ament_index/resource_index
+[0.791s] creating /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/share/ament_index/resource_index/packages
+[0.791s] copying resource/picproc -> /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/share/ament_index/resource_index/packages
+[0.791s] copying package.xml -> /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/share/picproc
+[0.791s] running install_egg_info
+[0.792s] Copying build/picproc/picproc.egg-info to /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/lib/python3.8/site-packages/picproc-0.0.0-py3.8.egg-info
+[0.793s] running install_scripts
+[0.807s] Installing picproc_node script to /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/lib/picproc
+[0.807s] writing list of installed files to '/home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/install.log'
+[0.823s] Invoked command in '/home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc' returned '0': PYTHONPATH=/home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/prefix_override:/home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/install/picproc/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/picproc build --build-base /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/build install --record /home/user/AutoSys-TurtlebotRos2/picproc_ws/src/picproc/build/picproc/install.log --install-scripts $base/lib/picproc --single-version-externally-managed

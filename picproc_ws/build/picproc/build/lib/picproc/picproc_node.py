@@ -4,6 +4,7 @@ from rclpy.node import Node # Handles the creation of nodes
 from sensor_msgs.msg import Image # Image is the message type
 from cv_bridge import CvBridge # Package to convert between ROS and OpenCV Images
 import cv2 as cv# OpenCV library
+import numpy as np
 from geometry_msgs.msg import Twist
 import mediapipe as mp
 
@@ -13,24 +14,24 @@ class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('minimal_publisher')
-        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 1000)
 
     def readImg(self,imgRGBin):
         self.imgRGB = imgRGBin
+        #cv.imshow('input', self.imgRGB)
 
     def calcCmd(self):
         mpDraw = mp.solutions.drawing_utils
         mpPose = mp.solutions.pose
         pose = mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-
         results = pose.process(self.imgRGB)
         if results.pose_landmarks:
             dist_l = 0
             dist_r = 0
-            if results.pose_landmarks.landmark[25, 27]:
+            if results.pose_landmarks.landmark[25] and results.pose_landmarks.landmark[27]:
             #   mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
                 dist_l = np.sqrt((results.pose_landmarks.landmark[25].x-results.pose_landmarks.landmark[27].x)**2+ (results.pose_landmarks.landmark[25].y-results.pose_landmarks.landmark[27].y)**2)
-            if results.pose_landmarks.landmark[26, 28]:  
+            if results.pose_landmarks.landmark[26] and results.pose_landmarks.landmark[28]:  
                 dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[26].x)**2+ (results.pose_landmarks.landmark[28].y-results.pose_landmarks.landmark[28].y)**2)
             if dist_l == 0 and dist_r == 0:
                 self.msg.linear.x = 0.0
@@ -41,8 +42,8 @@ class MinimalPublisher(Node):
                 self.msg.angular.y = 0.0
                 self.msg.angular.z = 0.0
             else:
-                middle = imgRGB.shape[1]/2
-                deadzone = 0.1*imgRGB.shape[1]
+                middle = self.imgRGB.shape[1]/2
+                deadzone = 0.1*self.imgRGB.shape[1]
                 if dist_l >= dist_r:
                     dir = (results.pose_landmarks.landmark[25].x+results.pose_landmarks.landmark[27].x)/2 
                 else:
@@ -57,6 +58,9 @@ class MinimalPublisher(Node):
                 else:
                     self.msg.angular.z = -0.5
                     print("Right")
+
+        cv.imshow('frame', self.imgRGB)
+        cv.imshow('frame2', self.imgRGB)
         
         self.publisher_.publish(self.msg)
         self.get_logger().info(f"Publishing: {self.msg.angular.z}")
