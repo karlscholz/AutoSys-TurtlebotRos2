@@ -3,7 +3,7 @@ install/*
 log/*
 
 picproc_ws/*
-!picproc_ws/src/picproc/picproc*
+!picproc_ws/src/picproc/*
 
 ros2_ws/*
-!ros2_ws/src/talker_listener/talker_listener*
+!ros2_ws/src/talker_listener/*
