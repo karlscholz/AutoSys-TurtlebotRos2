@@ -1,0 +1,48 @@
+[0.772s] Invoking command in '/home/user/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener': PYTHONPATH=/home/user/AutoSys-TurtlebotRos2/build/talker_listener/prefix_override:/home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/talker_listener build --build-base /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build install --record /home/user/AutoSys-TurtlebotRos2/build/talker_listener/install.log --install-scripts $base/lib/talker_listener --single-version-externally-managed
+[0.939s] running egg_info
+[0.940s] creating ../../../build/talker_listener/talker_listener.egg-info
+[0.940s] writing ../../../build/talker_listener/talker_listener.egg-info/PKG-INFO
+[0.941s] writing dependency_links to ../../../build/talker_listener/talker_listener.egg-info/dependency_links.txt
+[0.941s] writing entry points to ../../../build/talker_listener/talker_listener.egg-info/entry_points.txt
+[0.942s] writing requirements to ../../../build/talker_listener/talker_listener.egg-info/requires.txt
+[0.942s] writing top-level names to ../../../build/talker_listener/talker_listener.egg-info/top_level.txt
+[0.947s] writing manifest file '../../../build/talker_listener/talker_listener.egg-info/SOURCES.txt'
+[0.973s] reading manifest file '../../../build/talker_listener/talker_listener.egg-info/SOURCES.txt'
+[0.975s] writing manifest file '../../../build/talker_listener/talker_listener.egg-info/SOURCES.txt'
+[0.975s] running build
+[0.975s] running build_py
+[0.977s] creating /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build
+[0.977s] creating /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib
+[0.977s] creating /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener
+[0.978s] copying talker_listener/__init__.py -> /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener
+[0.978s] copying talker_listener/picture_publisher.py -> /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener
+[0.979s] copying talker_listener/follower_node.py -> /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener
+[0.979s] copying talker_listener/PoseEstimationMin.py -> /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener
+[0.979s] copying talker_listener/talker_node.py -> /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener
+[0.980s] running install
+[0.981s] running install_lib
+[0.982s] creating /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener
+[0.982s] copying /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener/__init__.py -> /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener
+[0.982s] copying /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener/picture_publisher.py -> /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener
+[0.983s] copying /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener/follower_node.py -> /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener
+[0.983s] copying /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener/PoseEstimationMin.py -> /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener
+[0.983s] copying /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build/lib/talker_listener/talker_node.py -> /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener
+[0.983s] byte-compiling /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener/__init__.py to __init__.cpython-38.pyc
+[0.984s] byte-compiling /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener/picture_publisher.py to picture_publisher.cpython-38.pyc
+[0.984s] byte-compiling /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener/follower_node.py to follower_node.cpython-38.pyc
+[0.984s] byte-compiling /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener/PoseEstimationMin.py to PoseEstimationMin.cpython-38.pyc
+[0.984s] byte-compiling /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener/talker_node.py to talker_node.cpython-38.pyc
+[0.985s] running install_data
+[0.985s] creating /home/user/AutoSys-TurtlebotRos2/install/talker_listener/share/ament_index
+[0.985s] creating /home/user/AutoSys-TurtlebotRos2/install/talker_listener/share/ament_index/resource_index
+[0.985s] creating /home/user/AutoSys-TurtlebotRos2/install/talker_listener/share/ament_index/resource_index/packages
+[0.985s] copying resource/talker_listener -> /home/user/AutoSys-TurtlebotRos2/install/talker_listener/share/ament_index/resource_index/packages
+[0.986s] copying package.xml -> /home/user/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener
+[0.986s] running install_egg_info
+[0.986s] Copying ../../../build/talker_listener/talker_listener.egg-info to /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages/talker_listener-0.0.0-py3.8.egg-info
+[0.987s] running install_scripts
+[1.000s] Installing follower script to /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/talker_listener
+[1.001s] Installing picture_publisher script to /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/talker_listener
+[1.001s] Installing talker_listener script to /home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/talker_listener
+[1.001s] writing list of installed files to '/home/user/AutoSys-TurtlebotRos2/build/talker_listener/install.log'
+[1.043s] Invoked command in '/home/user/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener' returned '0': PYTHONPATH=/home/user/AutoSys-TurtlebotRos2/build/talker_listener/prefix_override:/home/user/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/talker_listener build --build-base /home/user/AutoSys-TurtlebotRos2/build/talker_listener/build install --record /home/user/AutoSys-TurtlebotRos2/build/talker_listener/install.log --install-scripts $base/lib/talker_listener --single-version-externally-managed

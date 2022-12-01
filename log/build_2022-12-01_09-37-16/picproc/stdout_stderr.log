@@ -1,0 +1,35 @@
+running egg_info
+creating ../../../build/picproc/picproc.egg-info
+writing ../../../build/picproc/picproc.egg-info/PKG-INFO
+writing dependency_links to ../../../build/picproc/picproc.egg-info/dependency_links.txt
+writing entry points to ../../../build/picproc/picproc.egg-info/entry_points.txt
+writing requirements to ../../../build/picproc/picproc.egg-info/requires.txt
+writing top-level names to ../../../build/picproc/picproc.egg-info/top_level.txt
+writing manifest file '../../../build/picproc/picproc.egg-info/SOURCES.txt'
+reading manifest file '../../../build/picproc/picproc.egg-info/SOURCES.txt'
+writing manifest file '../../../build/picproc/picproc.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/user/AutoSys-TurtlebotRos2/build/picproc/build
+creating /home/user/AutoSys-TurtlebotRos2/build/picproc/build/lib
+creating /home/user/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc
+copying picproc/__init__.py -> /home/user/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc
+copying picproc/picproc_node.py -> /home/user/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc
+running install
+running install_lib
+creating /home/user/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc
+copying /home/user/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc/__init__.py -> /home/user/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc
+copying /home/user/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc/picproc_node.py -> /home/user/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc
+byte-compiling /home/user/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc/__init__.py to __init__.cpython-38.pyc
+byte-compiling /home/user/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc/picproc_node.py to picproc_node.cpython-38.pyc
+running install_data
+creating /home/user/AutoSys-TurtlebotRos2/install/picproc/share/ament_index
+creating /home/user/AutoSys-TurtlebotRos2/install/picproc/share/ament_index/resource_index
+creating /home/user/AutoSys-TurtlebotRos2/install/picproc/share/ament_index/resource_index/packages
+copying resource/picproc -> /home/user/AutoSys-TurtlebotRos2/install/picproc/share/ament_index/resource_index/packages
+copying package.xml -> /home/user/AutoSys-TurtlebotRos2/install/picproc/share/picproc
+running install_egg_info
+Copying ../../../build/picproc/picproc.egg-info to /home/user/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc-0.0.0-py3.8.egg-info
+running install_scripts
+Installing picproc_node script to /home/user/AutoSys-TurtlebotRos2/install/picproc/lib/picproc
+writing list of installed files to '/home/user/AutoSys-TurtlebotRos2/build/picproc/install.log'
