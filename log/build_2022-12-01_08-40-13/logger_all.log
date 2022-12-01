@@ -1,0 +1,252 @@
+[0.886s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.886s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffffa22b3bb0>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=4, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffffa22b3bb0>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffffa22bb160>)
+[1.072s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.072s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.072s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.073s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.073s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.073s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.073s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/ubuntu/AutoSys-TurtlebotRos2'
+[1.074s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.074s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.076s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.076s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.076s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.151s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.151s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.151s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.152s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.152s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.152s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.153s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.153s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.153s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['ignore', 'ignore_ament_install']
+[1.154s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'ignore'
+[1.154s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'ignore_ament_install'
+[1.154s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['colcon_pkg']
+[1.154s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'colcon_pkg'
+[1.155s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['colcon_meta']
+[1.155s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'colcon_meta'
+[1.155s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['ros']
+[1.155s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'ros'
+[1.156s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['cmake', 'python']
+[1.156s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'cmake'
+[1.156s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'python'
+[1.156s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['python_setup_py']
+[1.157s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'python_setup_py'
+[1.157s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.158s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.158s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.158s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.159s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.159s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.160s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extensions ['ignore', 'ignore_ament_install']
+[1.160s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extension 'ignore'
+[1.161s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extension 'ignore_ament_install'
+[1.161s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extensions ['colcon_pkg']
+[1.161s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extension 'colcon_pkg'
+[1.161s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extensions ['colcon_meta']
+[1.162s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extension 'colcon_meta'
+[1.162s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extensions ['ros']
+[1.162s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extension 'ros'
+[1.162s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extensions ['cmake', 'python']
+[1.163s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extension 'cmake'
+[1.163s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extension 'python'
+[1.163s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extensions ['python_setup_py']
+[1.163s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws) by extension 'python_setup_py'
+[1.164s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/build) by extensions ['ignore', 'ignore_ament_install']
+[1.165s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/build) by extension 'ignore'
+[1.165s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/build) ignored
+[1.166s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/install) by extensions ['ignore', 'ignore_ament_install']
+[1.166s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/install) by extension 'ignore'
+[1.167s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/install) ignored
+[1.168s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/log) by extensions ['ignore', 'ignore_ament_install']
+[1.168s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/log) by extension 'ignore'
+[1.168s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/log) ignored
+[1.169s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extensions ['ignore', 'ignore_ament_install']
+[1.169s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extension 'ignore'
+[1.170s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extension 'ignore_ament_install'
+[1.170s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extensions ['colcon_pkg']
+[1.170s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extension 'colcon_pkg'
+[1.170s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extensions ['colcon_meta']
+[1.170s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extension 'colcon_meta'
+[1.170s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extensions ['ros']
+[1.171s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extension 'ros'
+[1.171s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extensions ['cmake', 'python']
+[1.171s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extension 'cmake'
+[1.171s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extension 'python'
+[1.172s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extensions ['python_setup_py']
+[1.172s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src) by extension 'python_setup_py'
+[1.172s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src/picproc) by extensions ['ignore', 'ignore_ament_install']
+[1.173s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src/picproc) by extension 'ignore'
+[1.173s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src/picproc) by extension 'ignore_ament_install'
+[1.173s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src/picproc) by extensions ['colcon_pkg']
+[1.173s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src/picproc) by extension 'colcon_pkg'
+[1.173s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src/picproc) by extensions ['colcon_meta']
+[1.174s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src/picproc) by extension 'colcon_meta'
+[1.174s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src/picproc) by extensions ['ros']
+[1.174s] Level 1:colcon.colcon_core.package_identification:_identify(picproc_ws/src/picproc) by extension 'ros'
+[1.188s] DEBUG:colcon.colcon_core.package_identification:Package 'picproc_ws/src/picproc' with type 'ros.ament_python' and name 'picproc'
+[1.189s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extensions ['ignore', 'ignore_ament_install']
+[1.189s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extension 'ignore'
+[1.190s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extension 'ignore_ament_install'
+[1.190s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extensions ['colcon_pkg']
+[1.190s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extension 'colcon_pkg'
+[1.190s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extensions ['colcon_meta']
+[1.190s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extension 'colcon_meta'
+[1.191s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extensions ['ros']
+[1.191s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extension 'ros'
+[1.191s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extensions ['cmake', 'python']
+[1.192s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extension 'cmake'
+[1.192s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extension 'python'
+[1.192s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extensions ['python_setup_py']
+[1.192s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws) by extension 'python_setup_py'
+[1.193s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/build) by extensions ['ignore', 'ignore_ament_install']
+[1.193s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/build) by extension 'ignore'
+[1.193s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/build) ignored
+[1.194s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/install) by extensions ['ignore', 'ignore_ament_install']
+[1.194s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/install) by extension 'ignore'
+[1.194s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/install) ignored
+[1.195s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/log) by extensions ['ignore', 'ignore_ament_install']
+[1.196s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/log) by extension 'ignore'
+[1.196s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/log) ignored
+[1.197s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extensions ['ignore', 'ignore_ament_install']
+[1.197s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extension 'ignore'
+[1.197s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extension 'ignore_ament_install'
+[1.197s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extensions ['colcon_pkg']
+[1.198s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extension 'colcon_pkg'
+[1.198s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extensions ['colcon_meta']
+[1.198s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extension 'colcon_meta'
+[1.198s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extensions ['ros']
+[1.198s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extension 'ros'
+[1.199s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extensions ['cmake', 'python']
+[1.199s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extension 'cmake'
+[1.199s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extension 'python'
+[1.200s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extensions ['python_setup_py']
+[1.200s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src) by extension 'python_setup_py'
+[1.200s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src/talker_listener) by extensions ['ignore', 'ignore_ament_install']
+[1.201s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src/talker_listener) by extension 'ignore'
+[1.201s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src/talker_listener) by extension 'ignore_ament_install'
+[1.201s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src/talker_listener) by extensions ['colcon_pkg']
+[1.201s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src/talker_listener) by extension 'colcon_pkg'
+[1.202s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src/talker_listener) by extensions ['colcon_meta']
+[1.202s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src/talker_listener) by extension 'colcon_meta'
+[1.202s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src/talker_listener) by extensions ['ros']
+[1.202s] Level 1:colcon.colcon_core.package_identification:_identify(ros2_ws/src/talker_listener) by extension 'ros'
+[1.205s] DEBUG:colcon.colcon_core.package_identification:Package 'ros2_ws/src/talker_listener' with type 'ros.ament_python' and name 'talker_listener'
+[1.205s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.214s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.215s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.215s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.215s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.389s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.390s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.414s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 7 installed packages in /home/ubuntu/turtlebot3_ws/install
+[1.423s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 173 installed packages in /opt/ros/foxy
+[1.429s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'picproc' build argument 'cmake_args' from command line to 'None'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'picproc' build argument 'cmake_target' from command line to 'None'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'picproc' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'picproc' build argument 'cmake_clean_cache' from command line to 'False'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'picproc' build argument 'cmake_clean_first' from command line to 'False'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'picproc' build argument 'cmake_force_configure' from command line to 'False'
+[1.859s] Level 5:colcon.colcon_core.verb:set package 'picproc' build argument 'ament_cmake_args' from command line to 'None'
+[1.859s] Level 5:colcon.colcon_core.verb:set package 'picproc' build argument 'catkin_cmake_args' from command line to 'None'
+[1.859s] Level 5:colcon.colcon_core.verb:set package 'picproc' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.859s] DEBUG:colcon.colcon_core.verb:Building package 'picproc' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/AutoSys-TurtlebotRos2/build/picproc', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc', 'merge_install': False, 'path': '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/src/picproc', 'symlink_install': False, 'test_result_base': None}
+[1.864s] Level 5:colcon.colcon_core.verb:set package 'talker_listener' build argument 'cmake_args' from command line to 'None'
+[1.864s] Level 5:colcon.colcon_core.verb:set package 'talker_listener' build argument 'cmake_target' from command line to 'None'
+[1.865s] Level 5:colcon.colcon_core.verb:set package 'talker_listener' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.865s] Level 5:colcon.colcon_core.verb:set package 'talker_listener' build argument 'cmake_clean_cache' from command line to 'False'
+[1.865s] Level 5:colcon.colcon_core.verb:set package 'talker_listener' build argument 'cmake_clean_first' from command line to 'False'
+[1.865s] Level 5:colcon.colcon_core.verb:set package 'talker_listener' build argument 'cmake_force_configure' from command line to 'False'
+[1.865s] Level 5:colcon.colcon_core.verb:set package 'talker_listener' build argument 'ament_cmake_args' from command line to 'None'
+[1.865s] Level 5:colcon.colcon_core.verb:set package 'talker_listener' build argument 'catkin_cmake_args' from command line to 'None'
+[1.865s] Level 5:colcon.colcon_core.verb:set package 'talker_listener' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.866s] DEBUG:colcon.colcon_core.verb:Building package 'talker_listener' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/AutoSys-TurtlebotRos2/build/talker_listener', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener', 'merge_install': False, 'path': '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener', 'symlink_install': False, 'test_result_base': None}
+[1.869s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.890s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.892s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/src/picproc' with build type 'ament_python'
+[1.892s] Level 1:colcon.colcon_core.shell:create_environment_hook('picproc', 'ament_prefix_path')
+[1.930s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.932s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/hook/ament_prefix_path.ps1'
+[1.936s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/hook/ament_prefix_path.dsv'
+[1.940s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/hook/ament_prefix_path.sh'
+[1.951s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.952s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.988s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener' with build type 'ament_python'
+[1.989s] Level 1:colcon.colcon_core.shell:create_environment_hook('talker_listener', 'ament_prefix_path')
+[1.999s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/hook/ament_prefix_path.ps1'
+[2.004s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/hook/ament_prefix_path.dsv'
+[2.006s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/hook/ament_prefix_path.sh'
+[2.015s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.016s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.378s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/src/picproc'
+[4.401s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.401s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[7.217s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener'
+[7.236s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[7.237s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[13.721s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/src/picproc': PYTHONPATH=/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/picproc build --build-base /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build install --prefix /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc --record /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/install.log --single-version-externally-managed
+[13.796s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener': PYTHONPATH=/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/talker_listener build --build-base /home/ubuntu/AutoSys-TurtlebotRos2/build/talker_listener/build install --prefix /home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener --record /home/ubuntu/AutoSys-TurtlebotRos2/build/talker_listener/install.log --single-version-externally-managed
+[17.679s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/src/picproc' returned '0': PYTHONPATH=/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/picproc build --build-base /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build install --prefix /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc --record /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/install.log --single-version-externally-managed
+[17.813s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc' for CMake module files
+[17.820s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc' for CMake config files
+[17.832s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib'
+[17.834s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/bin'
+[17.835s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/pkgconfig/picproc.pc'
+[17.838s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages'
+[17.839s] Level 1:colcon.colcon_core.shell:create_environment_hook('picproc', 'pythonpath')
+[17.883s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/hook/pythonpath.ps1'
+[17.899s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/hook/pythonpath.dsv'
+[17.908s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/hook/pythonpath.sh'
+[17.922s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/bin'
+[17.924s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(picproc)
+[17.958s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/package.ps1'
+[17.985s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/package.dsv'
+[18.018s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/package.sh'
+[18.033s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/package.bash'
+[18.054s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc/package.zsh'
+[18.066s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/colcon-core/packages/picproc)
+[18.145s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener' returned '0': PYTHONPATH=/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/talker_listener build --build-base /home/ubuntu/AutoSys-TurtlebotRos2/build/talker_listener/build install --prefix /home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener --record /home/ubuntu/AutoSys-TurtlebotRos2/build/talker_listener/install.log --single-version-externally-managed
+[18.149s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener' for CMake module files
+[18.155s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener' for CMake config files
+[18.164s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/lib'
+[18.165s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/bin'
+[18.166s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/lib/pkgconfig/talker_listener.pc'
+[18.168s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/lib/python3.8/site-packages'
+[18.169s] Level 1:colcon.colcon_core.shell:create_environment_hook('talker_listener', 'pythonpath')
+[18.184s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/hook/pythonpath.ps1'
+[18.187s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/hook/pythonpath.dsv'
+[18.191s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/hook/pythonpath.sh'
+[18.195s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/bin'
+[18.196s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(talker_listener)
+[18.216s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/package.ps1'
+[18.224s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/package.dsv'
+[18.228s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/package.sh'
+[18.233s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/package.bash'
+[18.236s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/talker_listener/package.zsh'
+[18.240s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/AutoSys-TurtlebotRos2/install/talker_listener/share/colcon-core/packages/talker_listener)
+[18.243s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[18.245s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[18.246s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[18.247s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[18.334s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[18.335s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[18.336s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[43.370s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.NoReply: Did not receive a reply. Possible causes include: the remote application did not send a reply, the message bus security policy blocked the reply, the reply timeout expired, or the network connection was broken.
+[43.371s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[43.382s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/AutoSys-TurtlebotRos2/install/local_setup.ps1'
+[43.387s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ubuntu/AutoSys-TurtlebotRos2/install/_local_setup_util_ps1.py'
+[43.394s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/AutoSys-TurtlebotRos2/install/setup.ps1'
+[43.405s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/AutoSys-TurtlebotRos2/install/local_setup.sh'
+[43.408s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ubuntu/AutoSys-TurtlebotRos2/install/_local_setup_util_sh.py'
+[43.410s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/AutoSys-TurtlebotRos2/install/setup.sh'
+[43.418s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/AutoSys-TurtlebotRos2/install/local_setup.bash'
+[43.421s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/AutoSys-TurtlebotRos2/install/setup.bash'
+[43.429s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/AutoSys-TurtlebotRos2/install/local_setup.zsh'
+[43.432s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/AutoSys-TurtlebotRos2/install/setup.zsh'
