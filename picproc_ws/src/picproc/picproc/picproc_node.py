@@ -4,6 +4,7 @@ from rclpy.node import Node # Handles the creation of nodes
 from sensor_msgs.msg import Image # Image is the message type
 from cv_bridge import CvBridge # Package to convert between ROS and OpenCV Images
 import cv2 as cv# OpenCV library
+import numpy as np
 from geometry_msgs.msg import Twist
 import mediapipe as mp
 
@@ -22,15 +23,14 @@ class MinimalPublisher(Node):
         mpDraw = mp.solutions.drawing_utils
         mpPose = mp.solutions.pose
         pose = mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-
         results = pose.process(self.imgRGB)
         if results.pose_landmarks:
             dist_l = 0
             dist_r = 0
-            if results.pose_landmarks.landmark[25, 27]:
+            if results.pose_landmarks.landmark[25] and results.pose_landmarks.landmark[27]:
             #   mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
                 dist_l = np.sqrt((results.pose_landmarks.landmark[25].x-results.pose_landmarks.landmark[27].x)**2+ (results.pose_landmarks.landmark[25].y-results.pose_landmarks.landmark[27].y)**2)
-            if results.pose_landmarks.landmark[26, 28]:  
+            if results.pose_landmarks.landmark[26] and results.pose_landmarks.landmark[28]:  
                 dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[26].x)**2+ (results.pose_landmarks.landmark[28].y-results.pose_landmarks.landmark[28].y)**2)
             if dist_l == 0 and dist_r == 0:
                 self.msg.linear.x = 0.0
@@ -57,6 +57,9 @@ class MinimalPublisher(Node):
                 else:
                     self.msg.angular.z = -0.5
                     print("Right")
+
+        #cv.imshow('frame', self.imgRGB)
+        #cv.imshow('frame2', self.imgRGB) #once again, because last imshow is always black for some reason
         
         self.publisher_.publish(self.msg)
         self.get_logger().info(f"Publishing: {self.msg.angular.z}")
