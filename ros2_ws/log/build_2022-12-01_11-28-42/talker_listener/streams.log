@@ -1,0 +1,26 @@
+[4.523s] Invoking command in '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener': PYTHONPATH=/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/talker_listener build --build-base /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/build install --prefix /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener --record /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/install.log --single-version-externally-managed
+[5.995s] running egg_info
+[6.000s] writing ../../build/talker_listener/talker_listener.egg-info/PKG-INFO
+[6.001s] writing dependency_links to ../../build/talker_listener/talker_listener.egg-info/dependency_links.txt
+[6.003s] writing entry points to ../../build/talker_listener/talker_listener.egg-info/entry_points.txt
+[6.004s] writing requirements to ../../build/talker_listener/talker_listener.egg-info/requires.txt
+[6.005s] writing top-level names to ../../build/talker_listener/talker_listener.egg-info/top_level.txt
+[6.202s] reading manifest file '../../build/talker_listener/talker_listener.egg-info/SOURCES.txt'
+[6.208s] writing manifest file '../../build/talker_listener/talker_listener.egg-info/SOURCES.txt'
+[6.209s] running build
+[6.210s] running build_py
+[6.211s] copying talker_listener/picture_publisher.py -> /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/build/lib/talker_listener
+[6.214s] running install
+[6.218s] running install_lib
+[6.225s] copying /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/build/lib/talker_listener/picture_publisher.py -> /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages/talker_listener
+[6.230s] byte-compiling /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages/talker_listener/picture_publisher.py to picture_publisher.cpython-38.pyc
+[6.238s] running install_data
+[6.242s] running install_egg_info
+[6.250s] removing '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages/talker_listener-0.0.0-py3.8.egg-info' (and everything under it)
+[6.253s] Copying ../../build/talker_listener/talker_listener.egg-info to /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages/talker_listener-0.0.0-py3.8.egg-info
+[6.262s] running install_scripts
+[6.363s] Installing follower script to /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/talker_listener
+[6.366s] Installing picture_publisher script to /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/talker_listener
+[6.370s] Installing talker_listener script to /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/talker_listener
+[6.375s] writing list of installed files to '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/install.log'
+[6.527s] Invoked command in '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener' returned '0': PYTHONPATH=/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/talker_listener build --build-base /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/build install --prefix /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener --record /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/install.log --single-version-externally-managed

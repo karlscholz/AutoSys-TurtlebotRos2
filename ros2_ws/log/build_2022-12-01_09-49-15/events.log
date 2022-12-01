@@ -1,0 +1,25 @@
+[0.000000] (-) TimerEvent: {}
+[0.001236] (talker_listener) JobQueued: {'identifier': 'talker_listener', 'dependencies': OrderedDict()}
+[0.003008] (talker_listener) JobStarted: {'identifier': 'talker_listener'}
+[0.099610] (-) TimerEvent: {}
+[0.210768] (-) TimerEvent: {}
+[0.314075] (-) TimerEvent: {}
+[0.415512] (-) TimerEvent: {}
+[0.516918] (-) TimerEvent: {}
+[0.618160] (-) TimerEvent: {}
+[0.719442] (-) TimerEvent: {}
+[0.820787] (-) TimerEvent: {}
+[0.922181] (-) TimerEvent: {}
+[1.023896] (-) TimerEvent: {}
+[1.125301] (-) TimerEvent: {}
+[1.229997] (-) TimerEvent: {}
+[1.331341] (-) TimerEvent: {}
+[1.433276] (-) TimerEvent: {}
+[1.540503] (-) TimerEvent: {}
+[1.645147] (-) TimerEvent: {}
+[1.748826] (-) TimerEvent: {}
+[1.851425] (-) TimerEvent: {}
+[1.957140] (-) TimerEvent: {}
+[2.068964] (-) TimerEvent: {}
+[2.101322] (talker_listener) JobEnded: {'identifier': 'talker_listener', 'rc': 0}
+[2.112040] (-) EventReactorShutdown: {}

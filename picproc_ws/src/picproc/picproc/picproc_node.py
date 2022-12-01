@@ -79,7 +79,7 @@ class ImageSubscriber(Node):
     # from the video_frames topic. The queue size is 10 messages.
     self.subscription = self.create_subscription(Image,'Image', self.listener_callback,10)
     self.subscription # prevent unused variable warning
-      
+       
     # Used to convert between ROS and OpenCV images
     self.br = CvBridge()
     self.minimal_publisher = MinimalPublisher()
@@ -112,7 +112,7 @@ def main(args=None):
   
   # Spin the node so the callback function is called.
   rclpy.spin(image_subscriber)
-  
+  print ("hier wollen wir nicht hin")
   # Destroy the node explicitly
   # (optional - otherwise it will be done automatically
   # when the garbage collector destroys the node object)

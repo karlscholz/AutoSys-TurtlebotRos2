@@ -1,0 +1,128 @@
+[0.000000] (-) TimerEvent: {}
+[0.001328] (picproc) JobQueued: {'identifier': 'picproc', 'dependencies': OrderedDict()}
+[0.002408] (picproc) JobStarted: {'identifier': 'picproc'}
+[0.099218] (-) TimerEvent: {}
+[0.200673] (-) TimerEvent: {}
+[0.301581] (-) TimerEvent: {}
+[0.402413] (-) TimerEvent: {}
+[0.503336] (-) TimerEvent: {}
+[0.604138] (-) TimerEvent: {}
+[0.704921] (-) TimerEvent: {}
+[0.805805] (-) TimerEvent: {}
+[0.906624] (-) TimerEvent: {}
+[1.007463] (-) TimerEvent: {}
+[1.108401] (-) TimerEvent: {}
+[1.209762] (-) TimerEvent: {}
+[1.311344] (-) TimerEvent: {}
+[1.412798] (-) TimerEvent: {}
+[1.514227] (-) TimerEvent: {}
+[1.616119] (-) TimerEvent: {}
+[1.719873] (-) TimerEvent: {}
+[1.821460] (-) TimerEvent: {}
+[1.923577] (-) TimerEvent: {}
+[2.027572] (-) TimerEvent: {}
+[2.129149] (-) TimerEvent: {}
+[2.236849] (-) TimerEvent: {}
+[2.338059] (-) TimerEvent: {}
+[2.439340] (-) TimerEvent: {}
+[2.540856] (-) TimerEvent: {}
+[2.645038] (-) TimerEvent: {}
+[2.746371] (-) TimerEvent: {}
+[2.847674] (-) TimerEvent: {}
+[2.949695] (-) TimerEvent: {}
+[3.051010] (-) TimerEvent: {}
+[3.154115] (-) TimerEvent: {}
+[3.255452] (-) TimerEvent: {}
+[3.356817] (-) TimerEvent: {}
+[3.458241] (-) TimerEvent: {}
+[3.559544] (-) TimerEvent: {}
+[3.660914] (-) TimerEvent: {}
+[3.767222] (-) TimerEvent: {}
+[3.869245] (-) TimerEvent: {}
+[3.970559] (-) TimerEvent: {}
+[4.071987] (-) TimerEvent: {}
+[4.173488] (-) TimerEvent: {}
+[4.277968] (-) TimerEvent: {}
+[4.379247] (-) TimerEvent: {}
+[4.481595] (-) TimerEvent: {}
+[4.583445] (-) TimerEvent: {}
+[4.684639] (-) TimerEvent: {}
+[4.786021] (-) TimerEvent: {}
+[4.888055] (-) TimerEvent: {}
+[4.989980] (-) TimerEvent: {}
+[5.092446] (-) TimerEvent: {}
+[5.193752] (-) TimerEvent: {}
+[5.296129] (-) TimerEvent: {}
+[5.397499] (-) TimerEvent: {}
+[5.499108] (-) TimerEvent: {}
+[5.600465] (-) TimerEvent: {}
+[5.702281] (-) TimerEvent: {}
+[5.803593] (-) TimerEvent: {}
+[5.907889] (-) TimerEvent: {}
+[6.010038] (-) TimerEvent: {}
+[6.111324] (-) TimerEvent: {}
+[6.213336] (-) TimerEvent: {}
+[6.317199] (-) TimerEvent: {}
+[6.418614] (-) TimerEvent: {}
+[6.520542] (-) TimerEvent: {}
+[6.621878] (-) TimerEvent: {}
+[6.724996] (-) TimerEvent: {}
+[6.829003] (-) TimerEvent: {}
+[6.932099] (-) TimerEvent: {}
+[7.033969] (-) TimerEvent: {}
+[7.135399] (-) TimerEvent: {}
+[7.237619] (-) TimerEvent: {}
+[7.339924] (-) TimerEvent: {}
+[7.443149] (-) TimerEvent: {}
+[7.537058] (picproc) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/picproc', 'build', '--build-base', '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/build/picproc/build', 'install', '--prefix', '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install/picproc', '--record', '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/build/picproc/install.log', '--single-version-externally-managed'], 'cwd': '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/src/picproc', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'ubuntu', 'SSH_CLIENT': '192.168.137.1 65136 22', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib', 'BROWSER': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/bin/helpers/browser.sh', 'MOTD_SHOWN': 'pam', 'HOME': '/home/ubuntu', 'OLDPWD': '/home/ubuntu', 'TERM_PROGRAM_VERSION': '1.73.1', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-b0b33ef1-024f-484c-a8b2-38d89f5fbf7d.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/node', 'ROS_IP': '192.168.21.151', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install:/home/ubuntu/turtlebot3_ws/install', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'ubuntu', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/bin/remote-cli:/home/ubuntu/.local/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-f4545bc553.sock', 'TERM_PROGRAM': 'vscode', 'ROS_DOMAIN_ID': '30', 'AMENT_PREFIX_PATH': '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install/picproc:/home/ubuntu/turtlebot3_ws/install/turtlebot3:/home/ubuntu/turtlebot3_ws/install/turtlebot3_teleop:/home/ubuntu/turtlebot3_ws/install/turtlebot3_bringup:/home/ubuntu/turtlebot3_ws/install/turtlebot3_node:/home/ubuntu/turtlebot3_ws/install/turtlebot3_example:/home/ubuntu/turtlebot3_ws/install/turtlebot3_description:/home/ubuntu/turtlebot3_ws/install/ld08_driver:/opt/ros/foxy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/build/picproc', 'TURTLEBOT3_MODEL': 'waffle', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.137.1 65136 192.168.137.159 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'LDS_MODEL': 'LDS-02', 'PYTHONPATH': '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install/picproc/lib/python3.8/site-packages:/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install/picproc/lib/python3.8/site-packages:/home/ubuntu/turtlebot3_ws/build/turtlebot3_teleop:/home/ubuntu/turtlebot3_ws/install/turtlebot3_teleop/lib/python3.8/site-packages:/home/ubuntu/turtlebot3_ws/build/turtlebot3_example:/home/ubuntu/turtlebot3_ws/install/turtlebot3_example/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'ROS_HOSTNAME': '192.168.21.151', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/ubuntu/turtlebot3_ws/install/turtlebot3:/home/ubuntu/turtlebot3_ws/install/turtlebot3_bringup:/home/ubuntu/turtlebot3_ws/install/turtlebot3_node:/home/ubuntu/turtlebot3_ws/install/turtlebot3_description:/home/ubuntu/turtlebot3_ws/install/ld08_driver'}, 'shell': False}
+[7.568152] (-) TimerEvent: {}
+[7.670343] (-) TimerEvent: {}
+[7.772426] (-) TimerEvent: {}
+[7.877050] (-) TimerEvent: {}
+[7.979463] (-) TimerEvent: {}
+[8.081540] (-) TimerEvent: {}
+[8.182418] (-) TimerEvent: {}
+[8.283477] (-) TimerEvent: {}
+[8.384559] (-) TimerEvent: {}
+[8.485406] (-) TimerEvent: {}
+[8.586438] (-) TimerEvent: {}
+[8.688186] (-) TimerEvent: {}
+[8.789114] (-) TimerEvent: {}
+[8.890581] (-) TimerEvent: {}
+[8.991663] (-) TimerEvent: {}
+[9.094645] (-) TimerEvent: {}
+[9.196279] (-) TimerEvent: {}
+[9.297922] (-) TimerEvent: {}
+[9.340717] (picproc) StdoutLine: {'line': b'running egg_info\n'}
+[9.343560] (picproc) StdoutLine: {'line': b'writing ../../build/picproc/picproc.egg-info/PKG-INFO\n'}
+[9.345057] (picproc) StdoutLine: {'line': b'writing dependency_links to ../../build/picproc/picproc.egg-info/dependency_links.txt\n'}
+[9.346278] (picproc) StdoutLine: {'line': b'writing entry points to ../../build/picproc/picproc.egg-info/entry_points.txt\n'}
+[9.347423] (picproc) StdoutLine: {'line': b'writing requirements to ../../build/picproc/picproc.egg-info/requires.txt\n'}
+[9.348839] (picproc) StdoutLine: {'line': b'writing top-level names to ../../build/picproc/picproc.egg-info/top_level.txt\n'}
+[9.398134] (-) TimerEvent: {}
+[9.499262] (-) TimerEvent: {}
+[9.544892] (picproc) StdoutLine: {'line': b"reading manifest file '../../build/picproc/picproc.egg-info/SOURCES.txt'\n"}
+[9.550395] (picproc) StdoutLine: {'line': b"writing manifest file '../../build/picproc/picproc.egg-info/SOURCES.txt'\n"}
+[9.551766] (picproc) StdoutLine: {'line': b'running build\n'}
+[9.552647] (picproc) StdoutLine: {'line': b'running build_py\n'}
+[9.554610] (picproc) StdoutLine: {'line': b'copying picproc/picproc_node.py -> /home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/build/picproc/build/lib/picproc\n'}
+[9.556325] (picproc) StdoutLine: {'line': b'running install\n'}
+[9.558643] (picproc) StdoutLine: {'line': b'running install_lib\n'}
+[9.564576] (picproc) StdoutLine: {'line': b'copying /home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/build/picproc/build/lib/picproc/picproc_node.py -> /home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install/picproc/lib/python3.8/site-packages/picproc\n'}
+[9.568083] (picproc) StdoutLine: {'line': b'byte-compiling /home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install/picproc/lib/python3.8/site-packages/picproc/picproc_node.py to picproc_node.cpython-38.pyc\n'}
+[9.576731] (picproc) StdoutLine: {'line': b'running install_data\n'}
+[9.579408] (picproc) StdoutLine: {'line': b'running install_egg_info\n'}
+[9.587876] (picproc) StdoutLine: {'line': b"removing '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install/picproc/lib/python3.8/site-packages/picproc-0.0.0-py3.8.egg-info' (and everything under it)\n"}
+[9.592531] (picproc) StdoutLine: {'line': b'Copying ../../build/picproc/picproc.egg-info to /home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install/picproc/lib/python3.8/site-packages/picproc-0.0.0-py3.8.egg-info\n'}
+[9.601414] (-) TimerEvent: {}
+[9.602414] (picproc) StdoutLine: {'line': b'running install_scripts\n'}
+[9.701770] (-) TimerEvent: {}
+[9.728491] (picproc) StdoutLine: {'line': b'Installing picproc_node script to /home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/install/picproc/lib/picproc\n'}
+[9.732142] (picproc) StdoutLine: {'line': b"writing list of installed files to '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/build/picproc/install.log'\n"}
+[9.802305] (-) TimerEvent: {}
+[9.904525] (-) TimerEvent: {}
+[9.931570] (picproc) CommandEnded: {'returncode': 0}
+[10.008086] (-) TimerEvent: {}
+[10.109603] (-) TimerEvent: {}
+[10.132642] (picproc) JobEnded: {'identifier': 'picproc', 'rc': 0}
+[10.143131] (-) EventReactorShutdown: {}

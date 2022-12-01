@@ -1,0 +1,119 @@
+[0.000000] (-) TimerEvent: {}
+[0.001048] (talker_listener) JobQueued: {'identifier': 'talker_listener', 'dependencies': OrderedDict()}
+[0.002398] (talker_listener) JobStarted: {'identifier': 'talker_listener'}
+[0.099395] (-) TimerEvent: {}
+[0.200625] (-) TimerEvent: {}
+[0.301857] (-) TimerEvent: {}
+[0.404416] (-) TimerEvent: {}
+[0.505225] (-) TimerEvent: {}
+[0.606092] (-) TimerEvent: {}
+[0.709099] (-) TimerEvent: {}
+[0.811535] (-) TimerEvent: {}
+[0.913611] (-) TimerEvent: {}
+[1.014458] (-) TimerEvent: {}
+[1.115231] (-) TimerEvent: {}
+[1.216014] (-) TimerEvent: {}
+[1.316784] (-) TimerEvent: {}
+[1.417839] (-) TimerEvent: {}
+[1.519414] (-) TimerEvent: {}
+[1.621917] (-) TimerEvent: {}
+[1.723286] (-) TimerEvent: {}
+[1.824305] (-) TimerEvent: {}
+[1.925175] (-) TimerEvent: {}
+[2.026198] (-) TimerEvent: {}
+[2.127570] (-) TimerEvent: {}
+[2.228649] (-) TimerEvent: {}
+[2.331076] (-) TimerEvent: {}
+[2.432066] (-) TimerEvent: {}
+[2.533177] (-) TimerEvent: {}
+[2.634157] (-) TimerEvent: {}
+[2.735442] (-) TimerEvent: {}
+[2.837434] (-) TimerEvent: {}
+[2.939287] (-) TimerEvent: {}
+[3.041287] (-) TimerEvent: {}
+[3.146330] (-) TimerEvent: {}
+[3.248048] (-) TimerEvent: {}
+[3.349404] (-) TimerEvent: {}
+[3.450911] (-) TimerEvent: {}
+[3.553328] (-) TimerEvent: {}
+[3.661969] (-) TimerEvent: {}
+[3.766844] (-) TimerEvent: {}
+[3.868333] (-) TimerEvent: {}
+[3.969622] (-) TimerEvent: {}
+[4.070951] (-) TimerEvent: {}
+[4.172310] (-) TimerEvent: {}
+[4.273678] (-) TimerEvent: {}
+[4.377560] (-) TimerEvent: {}
+[4.479513] (-) TimerEvent: {}
+[4.582639] (-) TimerEvent: {}
+[4.685923] (-) TimerEvent: {}
+[4.789206] (-) TimerEvent: {}
+[4.892877] (-) TimerEvent: {}
+[5.000279] (-) TimerEvent: {}
+[5.101877] (-) TimerEvent: {}
+[5.203292] (-) TimerEvent: {}
+[5.304806] (-) TimerEvent: {}
+[5.406324] (-) TimerEvent: {}
+[5.507881] (-) TimerEvent: {}
+[5.609500] (-) TimerEvent: {}
+[5.710832] (-) TimerEvent: {}
+[5.812384] (-) TimerEvent: {}
+[5.914284] (-) TimerEvent: {}
+[6.022138] (-) TimerEvent: {}
+[6.124567] (-) TimerEvent: {}
+[6.195406] (talker_listener) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/talker_listener', 'build', '--build-base', '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/build', 'install', '--prefix', '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener', '--record', '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/install.log', '--single-version-externally-managed'], 'cwd': '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/src/talker_listener', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'ubuntu', 'SSH_CLIENT': '192.168.137.1 57719 22', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib', 'BROWSER': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/bin/helpers/browser.sh', 'MOTD_SHOWN': 'pam', 'HOME': '/home/ubuntu', 'OLDPWD': '/home/ubuntu/AutoSys-TurtlebotRos2', 'TERM_PROGRAM_VERSION': '1.73.1', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-44d5239c-a471-432e-a5fb-88f6a2745302.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/node', 'ROS_IP': '192.168.21.151', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install:/home/ubuntu/turtlebot3_ws/install', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'ubuntu', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/ubuntu/.vscode-server/bin/6261075646f055b99068d3688932416f2346dd3b/bin/remote-cli:/home/ubuntu/.local/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-f4545bc553.sock', 'TERM_PROGRAM': 'vscode', 'ROS_DOMAIN_ID': '30', 'AMENT_PREFIX_PATH': '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener:/home/ubuntu/turtlebot3_ws/install/turtlebot3:/home/ubuntu/turtlebot3_ws/install/turtlebot3_teleop:/home/ubuntu/turtlebot3_ws/install/turtlebot3_bringup:/home/ubuntu/turtlebot3_ws/install/turtlebot3_node:/home/ubuntu/turtlebot3_ws/install/turtlebot3_example:/home/ubuntu/turtlebot3_ws/install/turtlebot3_description:/home/ubuntu/turtlebot3_ws/install/ld08_driver:/opt/ros/foxy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener', 'TURTLEBOT3_MODEL': 'waffle', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.137.1 57719 192.168.137.159 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'LDS_MODEL': 'LDS-02', 'PYTHONPATH': '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages:/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages:/home/ubuntu/turtlebot3_ws/build/turtlebot3_teleop:/home/ubuntu/turtlebot3_ws/install/turtlebot3_teleop/lib/python3.8/site-packages:/home/ubuntu/turtlebot3_ws/build/turtlebot3_example:/home/ubuntu/turtlebot3_ws/install/turtlebot3_example/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'ROS_HOSTNAME': '192.168.21.151', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/ubuntu/turtlebot3_ws/install/turtlebot3:/home/ubuntu/turtlebot3_ws/install/turtlebot3_bringup:/home/ubuntu/turtlebot3_ws/install/turtlebot3_node:/home/ubuntu/turtlebot3_ws/install/turtlebot3_description:/home/ubuntu/turtlebot3_ws/install/ld08_driver'}, 'shell': False}
+[6.227626] (-) TimerEvent: {}
+[6.333865] (-) TimerEvent: {}
+[6.434730] (-) TimerEvent: {}
+[6.536043] (-) TimerEvent: {}
+[6.636910] (-) TimerEvent: {}
+[6.737781] (-) TimerEvent: {}
+[6.838832] (-) TimerEvent: {}
+[6.940619] (-) TimerEvent: {}
+[7.041584] (-) TimerEvent: {}
+[7.150091] (-) TimerEvent: {}
+[7.254554] (-) TimerEvent: {}
+[7.356737] (-) TimerEvent: {}
+[7.457664] (-) TimerEvent: {}
+[7.558797] (-) TimerEvent: {}
+[7.659816] (-) TimerEvent: {}
+[7.761057] (-) TimerEvent: {}
+[7.837537] (talker_listener) StdoutLine: {'line': b'running egg_info\n'}
+[7.841244] (talker_listener) StdoutLine: {'line': b'writing ../../build/talker_listener/talker_listener.egg-info/PKG-INFO\n'}
+[7.843511] (talker_listener) StdoutLine: {'line': b'writing dependency_links to ../../build/talker_listener/talker_listener.egg-info/dependency_links.txt\n'}
+[7.845828] (talker_listener) StdoutLine: {'line': b'writing entry points to ../../build/talker_listener/talker_listener.egg-info/entry_points.txt\n'}
+[7.847960] (talker_listener) StdoutLine: {'line': b'writing requirements to ../../build/talker_listener/talker_listener.egg-info/requires.txt\n'}
+[7.850282] (talker_listener) StdoutLine: {'line': b'writing top-level names to ../../build/talker_listener/talker_listener.egg-info/top_level.txt\n'}
+[7.861323] (-) TimerEvent: {}
+[7.966508] (-) TimerEvent: {}
+[8.068594] (-) TimerEvent: {}
+[8.169930] (-) TimerEvent: {}
+[8.238895] (talker_listener) StdoutLine: {'line': b"reading manifest file '../../build/talker_listener/talker_listener.egg-info/SOURCES.txt'\n"}
+[8.251793] (talker_listener) StdoutLine: {'line': b"writing manifest file '../../build/talker_listener/talker_listener.egg-info/SOURCES.txt'\n"}
+[8.255179] (talker_listener) StdoutLine: {'line': b'running build\n'}
+[8.259623] (talker_listener) StdoutLine: {'line': b'running build_py\n'}
+[8.262473] (talker_listener) StdoutLine: {'line': b'copying talker_listener/picture_publisher.py -> /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/build/lib/talker_listener\n'}
+[8.267159] (talker_listener) StdoutLine: {'line': b'running install\n'}
+[8.270628] (-) TimerEvent: {}
+[8.272202] (talker_listener) StdoutLine: {'line': b'running install_lib\n'}
+[8.282808] (talker_listener) StdoutLine: {'line': b'copying /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/build/lib/talker_listener/picture_publisher.py -> /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages/talker_listener\n'}
+[8.292129] (talker_listener) StdoutLine: {'line': b'byte-compiling /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages/talker_listener/picture_publisher.py to picture_publisher.cpython-38.pyc\n'}
+[8.308372] (talker_listener) StdoutLine: {'line': b'running install_data\n'}
+[8.313708] (talker_listener) StdoutLine: {'line': b'running install_egg_info\n'}
+[8.328907] (talker_listener) StdoutLine: {'line': b"removing '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages/talker_listener-0.0.0-py3.8.egg-info' (and everything under it)\n"}
+[8.334060] (talker_listener) StdoutLine: {'line': b'Copying ../../build/talker_listener/talker_listener.egg-info to /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/python3.8/site-packages/talker_listener-0.0.0-py3.8.egg-info\n'}
+[8.351476] (talker_listener) StdoutLine: {'line': b'running install_scripts\n'}
+[8.373764] (-) TimerEvent: {}
+[8.480473] (-) TimerEvent: {}
+[8.547703] (talker_listener) StdoutLine: {'line': b'Installing follower script to /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/talker_listener\n'}
+[8.550124] (talker_listener) StdoutLine: {'line': b'Installing picture_publisher script to /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/talker_listener\n'}
+[8.552399] (talker_listener) StdoutLine: {'line': b'Installing talker_listener script to /home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/install/talker_listener/lib/talker_listener\n'}
+[8.557505] (talker_listener) StdoutLine: {'line': b"writing list of installed files to '/home/ubuntu/AutoSys-TurtlebotRos2/ros2_ws/build/talker_listener/install.log'\n"}
+[8.580966] (-) TimerEvent: {}
+[8.688136] (-) TimerEvent: {}
+[8.774485] (talker_listener) CommandEnded: {'returncode': 0}
+[8.790241] (-) TimerEvent: {}
+[8.895272] (-) TimerEvent: {}
+[8.999907] (-) TimerEvent: {}
+[9.004904] (talker_listener) JobEnded: {'identifier': 'talker_listener', 'rc': 0}
+[9.012599] (-) EventReactorShutdown: {}
