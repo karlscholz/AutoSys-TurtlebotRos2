@@ -7,6 +7,7 @@ import cv2 as cv# OpenCV library
 import numpy as np
 from geometry_msgs.msg import Twist
 import mediapipe as mp
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 
 
 class MinimalPublisher(Node):
@@ -68,6 +69,7 @@ class ImageSubscriber(Node):
   """
   Create an ImageSubscriber class, which is a subclass of the Node class.
   """
+  qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
   def __init__(self):
     """
     Class constructor to set up the node
@@ -77,7 +79,8 @@ class ImageSubscriber(Node):
       
     # Create the subscriber. This subscriber will receive an Image
     # from the video_frames topic. The queue size is 10 messages.
-    self.subscription = self.create_subscription(Image,'Image', self.listener_callback,10)
+    
+    self.subscription = self.create_subscription(Image,'imagePi', self.listener_callback,self.qosProfile)
     self.subscription # prevent unused variable warning
       
     # Used to convert between ROS and OpenCV images
