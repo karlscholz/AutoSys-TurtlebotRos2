@@ -43,7 +43,7 @@ class MinimalPublisher(Node):
         cv_image = self.cam_cleaner.last_frame
         cv.resize(cv_image,(int(cv_image.shape[1]/4),int(cv_image.shape[0]/4)),interpolation=cv.INTER_LINEAR)
         #print(success)
-        cv.putText(cv_image, f'{self.iCounter}',(100,100), cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+        cv.putText(cv_image, f'{self.iCounter}',(50,50), cv.FONT_HERSHEY_TRIPLEX, 1, (255,0,0), thickness=2)
         print(self.iCounter)
         self.publisher_.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
         cv.imwrite("img_last_send.jpg",cv_image)
