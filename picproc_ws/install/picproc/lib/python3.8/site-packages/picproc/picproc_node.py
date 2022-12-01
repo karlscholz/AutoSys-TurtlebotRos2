@@ -12,10 +12,10 @@ from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 
 class MinimalPublisher(Node):
     msg = Twist()   
-
+    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
     def __init__(self):
         super().__init__('minimal_publisher')
-        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', self.qosProfile)
 
     def readImg(self,imgRGBin):
         self.imgRGB = imgRGBin
@@ -25,6 +25,8 @@ class MinimalPublisher(Node):
         mpPose = mp.solutions.pose
         pose = mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
         results = pose.process(self.imgRGB)
+        #cv.imshow('image', self.imgRGB)
+        #cv.imshow('prevents crashing', self.imgRGB)
         if results.pose_landmarks:
             dist_l = 0
             dist_r = 0
@@ -58,6 +60,8 @@ class MinimalPublisher(Node):
                 else:
                     self.msg.angular.z = -0.5
                     print("Right")
+                
+            
 
         #cv.imshow('frame', self.imgRGB)
         #cv.imshow('frame2', self.imgRGB) #once again, because last imshow is always black for some reason
@@ -96,6 +100,7 @@ class ImageSubscriber(Node):
  
     # Convert ROS Image message to OpenCV image
     currImage = self.br.imgmsg_to_cv2(data)
+    #cv.imwrite("img.jpg",currImage)
 
     self.minimal_publisher.readImg(currImage)
     print("start cal")

@@ -9,6 +9,7 @@ from geometry_msgs.msg import Twist
 import mediapipe as mp
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 
+from time import sleep
 
 class MinimalPublisher(Node):
     msg = Twist()   
@@ -25,6 +26,8 @@ class MinimalPublisher(Node):
         mpPose = mp.solutions.pose
         pose = mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
         results = pose.process(self.imgRGB)
+        #cv.imshow('image', self.imgRGB)
+        #cv.imshow('prevents crashing', self.imgRGB)
         if results.pose_landmarks:
             dist_l = 0
             dist_r = 0
@@ -58,6 +61,8 @@ class MinimalPublisher(Node):
                 else:
                     self.msg.angular.z = -0.5
                     print("Right")
+                
+            
 
         #cv.imshow('frame', self.imgRGB)
         #cv.imshow('frame2', self.imgRGB) #once again, because last imshow is always black for some reason
@@ -69,7 +74,8 @@ class ImageSubscriber(Node):
   """
   Create an ImageSubscriber class, which is a subclass of the Node class.
   """
-  qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
+  iReceiveCounter = 0
+  qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.SYSTEM_DEFAULT,depth=1)
   def __init__(self):
     """
     Class constructor to set up the node
@@ -80,7 +86,7 @@ class ImageSubscriber(Node):
     # Create the subscriber. This subscriber will receive an Image
     # from the video_frames topic. The queue size is 10 messages.
     
-    self.subscription = self.create_subscription(Image,'imagePi', self.listener_callback,self.qosProfile)
+    self.subscription = self.create_subscription(Image,'imagePi', self.listener_callback, self.qosProfile)
     self.subscription # prevent unused variable warning
       
     # Used to convert between ROS and OpenCV images
@@ -93,15 +99,25 @@ class ImageSubscriber(Node):
     """
     # Display the message on the console
     self.get_logger().info('Receiving Image')
- 
+    
     # Convert ROS Image message to OpenCV image
     currImage = self.br.imgmsg_to_cv2(data)
+    
+    self.iReceiveCounter += 1
+    cv.putText(currImage, f'{self.iReceiveCounter}',(200,200), cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+    #cv.destroyAllWindows()
+    cv.imshow("das erste?", currImage)
+    cv.waitKey(1)
 
+    # if self.iReceiveCounter >= 5:
+    #     cv.imshow("das zweite?", currImage)
+    #     cv.imshow("das zweite prevent?", currImage)
     self.minimal_publisher.readImg(currImage)
     print("start cal")
     self.minimal_publisher.calcCmd()
     print("cmd_vel")
     
+
   
 def main(args=None):
   
