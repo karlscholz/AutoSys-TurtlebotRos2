@@ -9,6 +9,7 @@ from geometry_msgs.msg import Twist
 import mediapipe as mp
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 
+from time import sleep
 
 class MinimalPublisher(Node):
     msg = Twist()   
@@ -27,39 +28,48 @@ class MinimalPublisher(Node):
         results = pose.process(self.imgRGB)
         #cv.imshow('image', self.imgRGB)
         #cv.imshow('prevents crashing', self.imgRGB)
+        middle = self.imgRGB.shape[1]/2
+        deadzonePer = 0.2
+        print(f"middle = {middle}")
+        cv.line(self.imgRGB,(int(middle),0),(int(middle),self.imgRGB.shape[0]),(255,0,0),thickness=2)
+        cv.line(self.imgRGB,(int(middle-deadzonePer*middle),0),(int(middle-deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
+        cv.line(self.imgRGB,(int(middle+deadzonePer*middle),0),(int(middle+deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         if results.pose_landmarks:
             dist_l = 0
             dist_r = 0
+            mpDraw.draw_landmarks(self.imgRGB, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
             if results.pose_landmarks.landmark[25] and results.pose_landmarks.landmark[27]:
-            #   mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
                 dist_l = np.sqrt((results.pose_landmarks.landmark[25].x-results.pose_landmarks.landmark[27].x)**2+ (results.pose_landmarks.landmark[25].y-results.pose_landmarks.landmark[27].y)**2)
+                print(f"distl = {dist_l}")
             if results.pose_landmarks.landmark[26] and results.pose_landmarks.landmark[28]:  
-                dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[26].x)**2+ (results.pose_landmarks.landmark[28].y-results.pose_landmarks.landmark[28].y)**2)
-            if dist_l == 0 and dist_r == 0:
-                self.msg.linear.x = 0.0
-                self.msg.linear.y = 0.0
-                self.msg.linear.z = 0.0
-
+                dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[28].x)**2+ (results.pose_landmarks.landmark[26].y-results.pose_landmarks.landmark[28].y)**2)
+                print(f"distr = {dist_r}")
+            
+            deadzone = deadzonePer*self.imgRGB.shape[1]
+            if dist_l >= dist_r:
+                dir = (results.pose_landmarks.landmark[25].x+results.pose_landmarks.landmark[27].x)/2 * self.imgRGB.shape[1]
+            else:
+                dir = (results.pose_landmarks.landmark[26].x+results.pose_landmarks.landmark[28].x)/2 * self.imgRGB.shape[1]
+            print(f"dir = {dir}")
+            if abs(dir-middle) < deadzone:
                 self.msg.angular.x = 0.0
                 self.msg.angular.y = 0.0
                 self.msg.angular.z = 0.0
-            else:
-                middle = self.imgRGB.shape[1]/2
-                deadzone = 0.1*self.imgRGB.shape[1]
-                if dist_l >= dist_r:
-                    dir = (results.pose_landmarks.landmark[25].x+results.pose_landmarks.landmark[27].x)/2 
-                else:
-                    dir = (results.pose_landmarks.landmark[26].x+results.pose_landmarks.landmark[28].x)/2  
-                if abs(dir-middle) < deadzone:
-                    self.msg.angular.x = 0.0
-                    self.msg.angular.y = 0.0
-                    self.msg.angular.z = 0.0
-                elif dir-middle < 0:
-                    self.msg.angular.z = 0.5
-                    print("Left")
-                else:
-                    self.msg.angular.z = -0.5
-                    print("Right")
+            elif dir < middle:
+                self.msg.angular.z = 0.5
+                cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                print("Left")
+            elif dir > middle:
+                self.msg.angular.z = -0.5
+                cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                print("Right")
+        else:
+            self.msg.linear.x = 0.0
+            self.msg.linear.y = 0.0
+            self.msg.linear.z = 0.0
+            self.msg.angular.x = 0.0
+            self.msg.angular.y = 0.0
+            self.msg.angular.z = 0.0
                 
             
 
@@ -73,7 +83,8 @@ class ImageSubscriber(Node):
   """
   Create an ImageSubscriber class, which is a subclass of the Node class.
   """
-  qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
+  iReceiveCounter = 0
+  qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.SYSTEM_DEFAULT,depth=1)
   def __init__(self):
     """
     Class constructor to set up the node
@@ -83,15 +94,8 @@ class ImageSubscriber(Node):
       
     # Create the subscriber. This subscriber will receive an Image
     # from the video_frames topic. The queue size is 10 messages.
-<<<<<<< HEAD
-
-    self.get_logger().info('1')
-    self.subscription = self.create_subscription(Image,'imagePi', self.listener_callback,10)
-    self.get_logger().info('2')
-=======
     
-    self.subscription = self.create_subscription(Image,'imagePi', self.listener_callback,self.qosProfile)
->>>>>>> 81cae4752434a2633104e8cb54f79abe810c3f69
+    self.subscription = self.create_subscription(Image,'imagePi', self.listener_callback, self.qosProfile)
     self.subscription # prevent unused variable warning
        
     # Used to convert between ROS and OpenCV images
@@ -104,16 +108,26 @@ class ImageSubscriber(Node):
     """
     # Display the message on the console
     self.get_logger().info('Receiving Image')
- 
+    
     # Convert ROS Image message to OpenCV image
     currImage = self.br.imgmsg_to_cv2(data)
-    #cv.imwrite("img.jpg",currImage)
+    
+    self.iReceiveCounter += 1
+    cv.putText(currImage, f'{self.iReceiveCounter}',(200,200), cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+    #cv.destroyAllWindows()
 
+
+    # if self.iReceiveCounter >= 5:
+    #     cv.imshow("das zweite?", currImage)
+    #     cv.imshow("das zweite prevent?", currImage)
     self.minimal_publisher.readImg(currImage)
     print("start cal")
     self.minimal_publisher.calcCmd()
+    cv.imshow("das erste?", self.minimal_publisher.imgRGB)
+    cv.waitKey(1)
     print("cmd_vel")
     
+
   
 def main(args=None):
   
@@ -127,7 +141,7 @@ def main(args=None):
   
   # Spin the node so the callback function is called.
   rclpy.spin(image_subscriber)
-  
+  print ("hier wollen wir nicht hin")
   # Destroy the node explicitly
   # (optional - otherwise it will be done automatically
   # when the garbage collector destroys the node object)

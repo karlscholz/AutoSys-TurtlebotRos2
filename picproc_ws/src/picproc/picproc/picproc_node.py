@@ -29,26 +29,27 @@ class MinimalPublisher(Node):
         #cv.imshow('image', self.imgRGB)
         #cv.imshow('prevents crashing', self.imgRGB)
         middle = self.imgRGB.shape[1]/2
+        deadzonePer = 0.2
         print(f"middle = {middle}")
         cv.line(self.imgRGB,(int(middle),0),(int(middle),self.imgRGB.shape[0]),(255,0,0),thickness=2)
-        cv.line(self.imgRGB,(int(middle-0.1*middle),0),(int(middle-0.1*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
-        cv.line(self.imgRGB,(int(middle+0.1*middle),0),(int(middle+0.1*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
+        cv.line(self.imgRGB,(int(middle-deadzonePer*middle),0),(int(middle-deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
+        cv.line(self.imgRGB,(int(middle+deadzonePer*middle),0),(int(middle+deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         if results.pose_landmarks:
             dist_l = 0
             dist_r = 0
             mpDraw.draw_landmarks(self.imgRGB, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
-            if results.pose_landmarks.landmark[25] and results.pose_landmarks.landmark[27]:
+            if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[26]:
                 dist_l = np.sqrt((results.pose_landmarks.landmark[25].x-results.pose_landmarks.landmark[27].x)**2+ (results.pose_landmarks.landmark[25].y-results.pose_landmarks.landmark[27].y)**2)
                 print(f"distl = {dist_l}")
-            if results.pose_landmarks.landmark[26] and results.pose_landmarks.landmark[28]:  
+            if results.pose_landmarks.landmark[23] and results.pose_landmarks.landmark[25]:  
                 dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[28].x)**2+ (results.pose_landmarks.landmark[26].y-results.pose_landmarks.landmark[28].y)**2)
                 print(f"distr = {dist_r}")
-
-            deadzone = 0.1*self.imgRGB.shape[1]
+            
+            deadzone = deadzonePer*self.imgRGB.shape[1]
             if dist_l >= dist_r:
-                dir = (results.pose_landmarks.landmark[25].x+results.pose_landmarks.landmark[27].x)/2 * self.imgRGB.shape[1]
+                dir = (results.pose_landmarks.landmark[24].x+results.pose_landmarks.landmark[26].x)/2 * self.imgRGB.shape[1]
             else:
-                dir = (results.pose_landmarks.landmark[26].x+results.pose_landmarks.landmark[28].x)/2 * self.imgRGB.shape[1]
+                dir = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[25].x)/2 * self.imgRGB.shape[1]
             print(f"dir = {dir}")
             if abs(dir-middle) < deadzone:
                 self.msg.angular.x = 0.0
@@ -111,8 +112,8 @@ class ImageSubscriber(Node):
     # Convert ROS Image message to OpenCV image
     currImage = self.br.imgmsg_to_cv2(data)
     
-    self.iReceiveCounter += 1
-    cv.putText(currImage, f'{self.iReceiveCounter}',(200,200), cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+    # self.iReceiveCounter += 1
+    # cv.putText(currImage, f'{self.iReceiveCounter}',(200,200), cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
     #cv.destroyAllWindows()
 
 
