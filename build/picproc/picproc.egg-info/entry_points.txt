@@ -1,0 +1,3 @@
+[console_scripts]
+picproc_node = picproc.picproc_node:main
+

@@ -1,0 +1,37 @@
+[11.827s] Invoking command in '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/src/picproc': PYTHONPATH=/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/picproc build --build-base /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build install --prefix /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc --record /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/install.log --single-version-externally-managed
+[14.955s] running egg_info
+[14.960s] creating ../../../build/picproc/picproc.egg-info
+[14.963s] writing ../../../build/picproc/picproc.egg-info/PKG-INFO
+[14.968s] writing dependency_links to ../../../build/picproc/picproc.egg-info/dependency_links.txt
+[14.975s] writing entry points to ../../../build/picproc/picproc.egg-info/entry_points.txt
+[14.976s] writing requirements to ../../../build/picproc/picproc.egg-info/requires.txt
+[14.979s] writing top-level names to ../../../build/picproc/picproc.egg-info/top_level.txt
+[15.009s] writing manifest file '../../../build/picproc/picproc.egg-info/SOURCES.txt'
+[15.331s] reading manifest file '../../../build/picproc/picproc.egg-info/SOURCES.txt'
+[15.335s] writing manifest file '../../../build/picproc/picproc.egg-info/SOURCES.txt'
+[15.336s] running build
+[15.337s] running build_py
+[15.338s] creating /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build
+[15.339s] creating /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build/lib
+[15.340s] creating /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc
+[15.341s] copying picproc/__init__.py -> /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc
+[15.341s] copying picproc/picproc_node.py -> /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc
+[15.343s] running install
+[15.347s] running install_lib
+[15.352s] creating /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc
+[15.353s] copying /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc/__init__.py -> /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc
+[15.354s] copying /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build/lib/picproc/picproc_node.py -> /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc
+[15.357s] byte-compiling /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc/__init__.py to __init__.cpython-38.pyc
+[15.363s] byte-compiling /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc/picproc_node.py to picproc_node.cpython-38.pyc
+[15.383s] running install_data
+[15.387s] creating /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/ament_index
+[15.388s] creating /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/ament_index/resource_index
+[15.389s] creating /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/ament_index/resource_index/packages
+[15.390s] copying resource/picproc -> /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/ament_index/resource_index/packages
+[15.391s] copying package.xml -> /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/share/picproc
+[15.392s] running install_egg_info
+[15.393s] Copying ../../../build/picproc/picproc.egg-info to /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages/picproc-0.0.0-py3.8.egg-info
+[15.397s] running install_scripts
+[15.534s] Installing picproc_node script to /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/picproc
+[15.540s] writing list of installed files to '/home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/install.log'
+[15.785s] Invoked command in '/home/ubuntu/AutoSys-TurtlebotRos2/picproc_ws/src/picproc' returned '0': PYTHONPATH=/home/ubuntu/AutoSys-TurtlebotRos2/install/picproc/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../../build/picproc build --build-base /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/build install --prefix /home/ubuntu/AutoSys-TurtlebotRos2/install/picproc --record /home/ubuntu/AutoSys-TurtlebotRos2/build/picproc/install.log --single-version-externally-managed
