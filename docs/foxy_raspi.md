@@ -211,6 +211,7 @@ To create a new package, cd into the `src` folder and run the following command.
     ros2 pkg create --build-type ament_python talker_listener
 
 Create your Node file in `.../src/talker_listener/talker_listener` as talker_node.py. Copy the code from below.
+    
     import rclpy
     from rclpy.node import Node
 
