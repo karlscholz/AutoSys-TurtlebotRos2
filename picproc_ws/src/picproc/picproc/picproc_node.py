@@ -14,6 +14,10 @@ from time import sleep
 class MinimalPublisher(Node):
     msg = Twist()   
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
+    PGain = 1.95567563236331
+    IGain = 0.0875050087822827
+    integral = 0
+    error = 0
     def __init__(self):
         super().__init__('minimal_publisher')
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', self.qosProfile)
@@ -45,22 +49,43 @@ class MinimalPublisher(Node):
                 dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[28].x)**2+ (results.pose_landmarks.landmark[26].y-results.pose_landmarks.landmark[28].y)**2)
                 print(f"distr = {dist_r}")
             
-            deadzone = deadzonePer*self.imgRGB.shape[1]
+            # deadzone = deadzonePer*self.imgRGB.shape[1]
+            # if dist_l >= dist_r:
+            #     dir = (results.pose_landmarks.landmark[24].x+results.pose_landmarks.landmark[26].x)/2 * self.imgRGB.shape[1]
+            # else:
+            #     dir = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[25].x)/2 * self.imgRGB.shape[1]
+            # print(f"dir = {dir}")
+            # if abs(dir-middle) < deadzone:
+            #     self.msg.angular.x = 0.0
+            #     self.msg.angular.y = 0.0
+            #     self.msg.angular.z = 0.0
+            # elif dir < middle:
+            #     self.msg.angular.z = 0.5
+            #     cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+            #     print("Left")
+            # elif dir > middle:
+            #     self.msg.angular.z = -0.5
+            #     cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+            #     print("Right")
             if dist_l >= dist_r:
-                dir = (results.pose_landmarks.landmark[24].x+results.pose_landmarks.landmark[26].x)/2 * self.imgRGB.shape[1]
+                dir = (results.pose_landmarks.landmark[24].x+results.pose_landmarks.landmark[26].x)/2
             else:
-                dir = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[25].x)/2 * self.imgRGB.shape[1]
-            print(f"dir = {dir}")
-            if abs(dir-middle) < deadzone:
-                self.msg.angular.x = 0.0
-                self.msg.angular.y = 0.0
-                self.msg.angular.z = 0.0
-            elif dir < middle:
-                self.msg.angular.z = 0.5
+                dir = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[25].x)/2
+            self.error = 0.5-dir
+            print(f"error = {self.error}")
+            effort = self.error*self.PGain + self.IGain * self.integral
+            if effort > 2:
+                effort = 2
+            elif effort < -2:
+                effort = -2
+            self.msg.angular.z = effort
+            if abs(effort) < 2:
+                self.integral = self.integral + self.error
+                
+            if dir < 0.5:
                 cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 print("Left")
-            elif dir > middle:
-                self.msg.angular.z = -0.5
+            elif dir > 0.5:
                 cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 print("Right")
         else:
