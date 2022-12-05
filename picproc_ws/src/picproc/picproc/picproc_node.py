@@ -13,10 +13,10 @@ from time import sleep
 
 class MinimalPublisher(Node):
     msg = Twist()   
-    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
+    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_ALL)
     def __init__(self):
         super().__init__('minimal_publisher')
-        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', self.qosProfile)
+        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)#self.qosProfile)
 
     def readImg(self,imgRGBin):
         self.imgRGB = imgRGBin
