@@ -14,6 +14,19 @@ from time import sleep
 class MinimalPublisher(Node):
     msg = Twist()   
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
+
+
+    P_Gain = 1.0 / 10.0
+    I_Gain = 1.0 / 10.0
+    D_Gain = 1.0 / 10.0
+
+    I_Limit = 10
+    Max_Control = .5
+
+    last_error = 0.0
+    integral = 0.0
+
+
     def __init__(self):
         super().__init__('minimal_publisher')
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', self.qosProfile)
@@ -51,18 +64,20 @@ class MinimalPublisher(Node):
             else:
                 dir = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[25].x)/2 * self.imgRGB.shape[1]
             print(f"dir = {dir}")
+            self.msg.angular = self.PID_control(dir, middle)
             if abs(dir-middle) < deadzone:
-                self.msg.angular.x = 0.0
-                self.msg.angular.y = 0.0
-                self.msg.angular.z = 0.0
+                pass
+            #     self.msg.angular.x = 0.0
+            #     self.msg.angular.y = 0.0
+            #     self.msg.angular.z = 0.0
             elif dir < middle:
-                self.msg.angular.z = 0.5
-                cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Left")
+            #     self.msg.angular.z = 0.5
+                 cv.putText(self.imgRGB,f"Left, {output}",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+            #     print("Left")
             elif dir > middle:
-                self.msg.angular.z = -0.5
-                cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Right")
+            #     self.msg.angular.z = -0.5
+                 cv.putText(self.imgRGB,f"Right, {output}",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+            #     print("Right")
         else:
             self.msg.linear.x = 0.0
             self.msg.linear.y = 0.0
@@ -78,7 +93,21 @@ class MinimalPublisher(Node):
         
         self.publisher_.publish(self.msg)
         self.get_logger().info(f"Publishing: {self.msg.angular.z}")
- 
+    
+    def constrain(self, val, min_val, max_val):
+        return min(max_val, max(min_val, val))
+
+    def PID_control(self, measurement, setpoint):
+        error = setpoint - measurement
+        self.integral = self.constrain(self.integral + error, -self.I_Limit, self.I_Limit)
+        derivative = error - self.last_error
+        output = self.constrain(self.P_Gain * error + self.I_Gain * self.integral + self.D_Gain * derivative, -self.Max_Control, self.Max_Control)
+        self.last_error = error
+
+        
+        print("output", output, "error", error, "integral", self.integral, "derivative", derivative)
+        return output     
+
 class ImageSubscriber(Node):
   """
   Create an ImageSubscriber class, which is a subclass of the Node class.
