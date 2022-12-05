@@ -99,3 +99,9 @@ You can also run the bringup launch file on the Turtlebot to test if it is drivi
 And RViz2 on the PC to see the robot in the simulation:
 
     rviz2
+
+## To automate installation of your own node on startup, write this to the bottom of your `~/.bashrc` file.
+
+    cd ~/AutoSys-TurtlebotRos2/YOURWORKSPACE/
+    . install/setup.bash
+    cd ~

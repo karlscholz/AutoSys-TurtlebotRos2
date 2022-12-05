@@ -29,7 +29,7 @@ class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('minimal_publisher')
-        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', self.qosProfile)
+        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)#self.qosProfile)
 
     def readImg(self,imgRGBin):
         self.imgRGB = imgRGBin
