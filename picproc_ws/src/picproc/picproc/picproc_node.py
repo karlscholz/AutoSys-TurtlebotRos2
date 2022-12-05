@@ -64,19 +64,20 @@ class MinimalPublisher(Node):
             else:
                 dir = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[25].x)/2 * self.imgRGB.shape[1]
             print(f"dir = {dir}")
-            self.msg.angular = self.PID_control(dir, middle)
+            self.msg.angular.z = self.PID_control(dir, middle)
             if abs(dir-middle) < deadzone:
                 pass
+                self.msg.linear.x=1.0
             #     self.msg.angular.x = 0.0
             #     self.msg.angular.y = 0.0
             #     self.msg.angular.z = 0.0
             elif dir < middle:
             #     self.msg.angular.z = 0.5
-                 cv.putText(self.imgRGB,f"Left, {output}",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                 cv.putText(self.imgRGB,f"Left, {self.msg.angular.z}",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
             #     print("Left")
             elif dir > middle:
             #     self.msg.angular.z = -0.5
-                 cv.putText(self.imgRGB,f"Right, {output}",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                 cv.putText(self.imgRGB,f"Right, {self.msg.angular.z}",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
             #     print("Right")
         else:
             self.msg.linear.x = 0.0
