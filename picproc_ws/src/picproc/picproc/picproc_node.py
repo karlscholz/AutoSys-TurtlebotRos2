@@ -35,31 +35,31 @@ class MinimalPublisher(Node):
         cv.line(self.imgRGB,(int(middle-deadzonePer*middle),0),(int(middle-deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         cv.line(self.imgRGB,(int(middle+deadzonePer*middle),0),(int(middle+deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         if results.pose_landmarks:
-            
+            x_is = 0.5*self.imgRGB.shape[1]
             deadzone = deadzonePer*self.imgRGB.shape[1]
             if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
                 x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2 * self.imgRGB.shape[1]
-                print(f"x_is = {x_is}")
-                if abs(x_is-middle) < deadzone:
-                    self.msg.angular.x = 0.0
-                    self.msg.angular.y = 0.0
-                    self.msg.angular.z = 0.0
-                elif x_is < middle:
-                    self.msg.angular.z = 0.5
-                    cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                    print("Left")
-                elif x_is > middle:
-                    self.msg.angular.z = -0.5
-                    cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                    print("Right")
+            elif results.pose_landmarks.landmark[24]:
+                x_is = results.pose_landmarks.landmark[24].x * self.imgRGB.shape[1]
+            elif results.pose_landmarks.landmark[23]:
+                x_is = results.pose_landmarks.landmark[23].x * self.imgRGB.shape[1]
             else:
-                print("Hiplandmarks not recognized!")
-                self.msg.linear.x = 0.0
-                self.msg.linear.y = 0.0
-                self.msg.linear.z = 0.0
+                print("No hiplandmarks recognized!")
+            
+            print(f"x_is = {x_is}")
+
+            if abs(x_is-middle) < deadzone:
                 self.msg.angular.x = 0.0
                 self.msg.angular.y = 0.0
                 self.msg.angular.z = 0.0
+            elif x_is < middle:
+                self.msg.angular.z = 0.5
+                cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                print("Left")
+            elif x_is > middle:
+                self.msg.angular.z = -0.5
+                cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                print("Right")
         else:
             print("No landmarks not recognized!")
             self.msg.linear.x = 0.0
