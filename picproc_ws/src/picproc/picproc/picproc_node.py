@@ -35,35 +35,33 @@ class MinimalPublisher(Node):
         cv.line(self.imgRGB,(int(middle-deadzonePer*middle),0),(int(middle-deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         cv.line(self.imgRGB,(int(middle+deadzonePer*middle),0),(int(middle+deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         if results.pose_landmarks:
-            dist_l = 0
-            dist_r = 0
-            mpDraw.draw_landmarks(self.imgRGB, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
-            if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[26]:
-                dist_l = np.sqrt((results.pose_landmarks.landmark[25].x-results.pose_landmarks.landmark[27].x)**2+ (results.pose_landmarks.landmark[25].y-results.pose_landmarks.landmark[27].y)**2)
-                print(f"distl = {dist_l}")
-            if results.pose_landmarks.landmark[23] and results.pose_landmarks.landmark[25]:  
-                dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[28].x)**2+ (results.pose_landmarks.landmark[26].y-results.pose_landmarks.landmark[28].y)**2)
-                print(f"distr = {dist_r}")
             
             deadzone = deadzonePer*self.imgRGB.shape[1]
-            if dist_l >= dist_r:
-                dir = (results.pose_landmarks.landmark[24].x+results.pose_landmarks.landmark[26].x)/2 * self.imgRGB.shape[1]
+            if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
+                x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2 * self.imgRGB.shape[1]
+                print(f"x_is = {x_is}")
+                if abs(x_is-middle) < deadzone:
+                    self.msg.angular.x = 0.0
+                    self.msg.angular.y = 0.0
+                    self.msg.angular.z = 0.0
+                elif x_is < middle:
+                    self.msg.angular.z = 0.5
+                    cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                    print("Left")
+                elif x_is > middle:
+                    self.msg.angular.z = -0.5
+                    cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                    print("Right")
             else:
-                dir = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[25].x)/2 * self.imgRGB.shape[1]
-            print(f"dir = {dir}")
-            if abs(dir-middle) < deadzone:
+                print("Hiplandmarks not recognized!")
+                self.msg.linear.x = 0.0
+                self.msg.linear.y = 0.0
+                self.msg.linear.z = 0.0
                 self.msg.angular.x = 0.0
                 self.msg.angular.y = 0.0
                 self.msg.angular.z = 0.0
-            elif dir < middle:
-                self.msg.angular.z = 0.5
-                cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Left")
-            elif dir > middle:
-                self.msg.angular.z = -0.5
-                cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Right")
         else:
+            print("No landmarks not recognized!")
             self.msg.linear.x = 0.0
             self.msg.linear.y = 0.0
             self.msg.linear.z = 0.0
@@ -72,9 +70,6 @@ class MinimalPublisher(Node):
             self.msg.angular.z = 0.0
                 
             
-
-        #cv.imshow('frame', self.imgRGB)
-        #cv.imshow('frame2', self.imgRGB) #once again, because last imshow is always black for some reason
         
         self.publisher_.publish(self.msg)
         self.get_logger().info(f"Publishing: {self.msg.angular.z}")
