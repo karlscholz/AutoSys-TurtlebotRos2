@@ -35,6 +35,7 @@ class MinimalPublisher(Node):
         cv.line(self.imgRGB,(int(middle-deadzonePer*middle),0),(int(middle-deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         cv.line(self.imgRGB,(int(middle+deadzonePer*middle),0),(int(middle+deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         if results.pose_landmarks:
+            mpDraw.draw_landmarks(self.imgRGB, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
             x_is = 0.5*self.imgRGB.shape[1]
             deadzone = deadzonePer*self.imgRGB.shape[1]
             if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
