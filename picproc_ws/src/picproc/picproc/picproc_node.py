@@ -15,8 +15,8 @@ class MinimalPublisher(Node):
     msg = Twist()   
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_ALL)
     integral = 0
-    PGain = 0
-    IGain = 0
+    PGain = 1.95567563236331
+    IGain = 0.4375250435
     Ts = 0.2
     def __init__(self):
         super().__init__('minimal_publisher')
