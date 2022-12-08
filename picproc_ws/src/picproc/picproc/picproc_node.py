@@ -1,7 +1,7 @@
 # Import the necessary libraries
 import rclpy # Python library for ROS 2
 from rclpy.node import Node # Handles the creation of nodes
-from sensor_msgs.msg import Image # Image is the message type
+from sensor_msgs.msg import CompressedImage # Image is the message type
 from cv_bridge import CvBridge # Package to convert between ROS and OpenCV Images
 import cv2 as cv# OpenCV library
 import numpy as np
@@ -84,7 +84,7 @@ class ImageSubscriber(Node):
   Create an ImageSubscriber class, which is a subclass of the Node class.
   """
   iReceiveCounter = 0
-  qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.SYSTEM_DEFAULT,depth=1)
+  qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
   def __init__(self):
     """
     Class constructor to set up the node
@@ -95,7 +95,7 @@ class ImageSubscriber(Node):
     # Create the subscriber. This subscriber will receive an Image
     # from the video_frames topic. The queue size is 10 messages.
     
-    self.subscription = self.create_subscription(Image,'imagePi', self.listener_callback, self.qosProfile)
+    self.subscription = self.create_subscription(CompressedImage,'imagePi', self.listener_callback, self.qosProfile)
     self.subscription # prevent unused variable warning
        
     # Used to convert between ROS and OpenCV images
@@ -110,7 +110,7 @@ class ImageSubscriber(Node):
     self.get_logger().info('Receiving Image')
     
     # Convert ROS Image message to OpenCV image
-    currImage = self.br.imgmsg_to_cv2(data)
+    currImage = self.br.compressed_imgmsg_to_cv2(data)
     
     # self.iReceiveCounter += 1
     # cv.putText(currImage, f'{self.iReceiveCounter}',(200,200), cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
