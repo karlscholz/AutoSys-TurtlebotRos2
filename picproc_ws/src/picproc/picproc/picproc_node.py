@@ -41,6 +41,7 @@ class MinimalPublisher(Node):
         if results.pose_landmarks:
             # Watch out: x_is is relative!
             x_is = 0.5
+            mpDraw.draw_landmarks(self.imgRGB, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
             deadzone = deadzonePer*self.imgRGB.shape[1]
             if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
                 x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2
