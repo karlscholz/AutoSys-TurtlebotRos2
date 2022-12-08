@@ -14,6 +14,10 @@ from time import sleep
 class MinimalPublisher(Node):
     msg = Twist()   
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_ALL)
+    integral = 0
+    PGain = 0
+    IGain = 0
+    Ts = 0.2
     def __init__(self):
         super().__init__('minimal_publisher')
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)#self.qosProfile)
@@ -35,29 +39,38 @@ class MinimalPublisher(Node):
         cv.line(self.imgRGB,(int(middle-deadzonePer*middle),0),(int(middle-deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         cv.line(self.imgRGB,(int(middle+deadzonePer*middle),0),(int(middle+deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         if results.pose_landmarks:
-            x_is = 0.5*self.imgRGB.shape[1]
+            # Watch out: x_is is relative!
+            x_is = 0.5
             deadzone = deadzonePer*self.imgRGB.shape[1]
             if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
-                x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2 * self.imgRGB.shape[1]
+                x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2
             elif results.pose_landmarks.landmark[24]:
-                x_is = results.pose_landmarks.landmark[24].x * self.imgRGB.shape[1]
+                x_is = results.pose_landmarks.landmark[24].x
             elif results.pose_landmarks.landmark[23]:
-                x_is = results.pose_landmarks.landmark[23].x * self.imgRGB.shape[1]
+                x_is = results.pose_landmarks.landmark[23].x
             else:
                 print("No hiplandmarks recognized!")
-            
-            print(f"x_is = {x_is}")
+            print(f"x_is_absolute = {x_is*self.imgRGB.shape[1]}")
+            print(f"x_is_rel = {x_is}")
 
-            if abs(x_is-middle) < deadzone:
-                self.msg.angular.x = 0.0
-                self.msg.angular.y = 0.0
-                self.msg.angular.z = 0.0
-            elif x_is < middle:
-                self.msg.angular.z = 0.5
+            # Compute controller effort
+            error = 0.5 - x_is
+            controllerEffort = self.PGain * error + self.IGain * self.integral
+            # Saturation
+            if controllerEffort > 2:
+                controllerEffort = 2
+            elif controllerEffort < -2:
+                controllerEffort = -2
+            # Clamping
+            if abs(controllerEffort) < 2:
+                self.integral += error*self.Ts
+
+            self.msg.angular.z = controllerEffort
+
+            if controllerEffort > 0:
                 cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 print("Left")
-            elif x_is > middle:
-                self.msg.angular.z = -0.5
+            elif controllerEffort < 0:
                 cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 print("Right")
         else:
