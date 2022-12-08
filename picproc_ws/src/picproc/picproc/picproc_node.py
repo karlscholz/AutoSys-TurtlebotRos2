@@ -14,6 +14,10 @@ from time import sleep
 class MinimalPublisher(Node):
     msg = Twist()   
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_ALL)
+    integral = 0
+    PGain = 1.95567563236331
+    IGain = 0.4375250435
+    Ts = 0.2
     def __init__(self):
         super().__init__('minimal_publisher')
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)#self.qosProfile)
@@ -35,35 +39,43 @@ class MinimalPublisher(Node):
         cv.line(self.imgRGB,(int(middle-deadzonePer*middle),0),(int(middle-deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         cv.line(self.imgRGB,(int(middle+deadzonePer*middle),0),(int(middle+deadzonePer*middle),self.imgRGB.shape[0]),(0,0,255),thickness=2)
         if results.pose_landmarks:
-            dist_l = 0
-            dist_r = 0
+            # Watch out: x_is is relative!
+            x_is = 0.5
             mpDraw.draw_landmarks(self.imgRGB, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
-            if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[26]:
-                dist_l = np.sqrt((results.pose_landmarks.landmark[25].x-results.pose_landmarks.landmark[27].x)**2+ (results.pose_landmarks.landmark[25].y-results.pose_landmarks.landmark[27].y)**2)
-                print(f"distl = {dist_l}")
-            if results.pose_landmarks.landmark[23] and results.pose_landmarks.landmark[25]:  
-                dist_r = np.sqrt((results.pose_landmarks.landmark[26].x-results.pose_landmarks.landmark[28].x)**2+ (results.pose_landmarks.landmark[26].y-results.pose_landmarks.landmark[28].y)**2)
-                print(f"distr = {dist_r}")
-            
             deadzone = deadzonePer*self.imgRGB.shape[1]
-            if dist_l >= dist_r:
-                dir = (results.pose_landmarks.landmark[24].x+results.pose_landmarks.landmark[26].x)/2 * self.imgRGB.shape[1]
+            if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
+                x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2
+            elif results.pose_landmarks.landmark[24]:
+                x_is = results.pose_landmarks.landmark[24].x
+            elif results.pose_landmarks.landmark[23]:
+                x_is = results.pose_landmarks.landmark[23].x
             else:
-                dir = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[25].x)/2 * self.imgRGB.shape[1]
-            print(f"dir = {dir}")
-            if abs(dir-middle) < deadzone:
-                self.msg.angular.x = 0.0
-                self.msg.angular.y = 0.0
-                self.msg.angular.z = 0.0
-            elif dir < middle:
-                self.msg.angular.z = 0.5
+                print("No hiplandmarks recognized!")
+            print(f"x_is_absolute = {x_is*self.imgRGB.shape[1]}")
+            print(f"x_is_rel = {x_is}")
+
+            # Compute controller effort
+            error = 0.5 - x_is
+            controllerEffort = self.PGain * error + self.IGain * self.integral
+            # Saturation
+            if controllerEffort > 2:
+                controllerEffort = 2
+            elif controllerEffort < -2:
+                controllerEffort = -2
+            # Clamping
+            if abs(controllerEffort) < 2:
+                self.integral += error*self.Ts
+
+            self.msg.angular.z = controllerEffort
+
+            if controllerEffort > 0:
                 cv.putText(self.imgRGB,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 print("Left")
-            elif dir > middle:
-                self.msg.angular.z = -0.5
+            elif controllerEffort < 0:
                 cv.putText(self.imgRGB,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 print("Right")
         else:
+            print("No landmarks not recognized!")
             self.msg.linear.x = 0.0
             self.msg.linear.y = 0.0
             self.msg.linear.z = 0.0
@@ -72,9 +84,6 @@ class MinimalPublisher(Node):
             self.msg.angular.z = 0.0
                 
             
-
-        #cv.imshow('frame', self.imgRGB)
-        #cv.imshow('frame2', self.imgRGB) #once again, because last imshow is always black for some reason
         
         self.publisher_.publish(self.msg)
         self.get_logger().info(f"Publishing: {self.msg.angular.z}")
