@@ -21,6 +21,7 @@ class MinimalPublisher(Node):
     PGainLin = 1.7
     IGainLin = 0.4375250435
     integralLin = 0
+    
     def __init__(self):
         super().__init__('minimal_publisher')
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)#self.qosProfile)
@@ -136,7 +137,7 @@ class ImageSubscriber(Node):
     Create an ImageSubscriber class, which is a subclass of the Node class.
     """
     iReceiveCounter = 0
-    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
+    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
     def __init__(self):
         """
         Class constructor to set up the node
