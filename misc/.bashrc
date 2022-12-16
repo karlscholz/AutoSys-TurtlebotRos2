@@ -128,7 +128,7 @@ export TURTLEBOT3_MODEL=waffle
 
 cd ~/AutoSys-TurtlebotRos2/picproc_ws/
 . install/setup.bash
-cd ~
+cd -
 
 alias rto='ros2 run turtlebot3_teleop teleop_keyboard'
 alias picproc='ros2 run picproc picproc_node'
