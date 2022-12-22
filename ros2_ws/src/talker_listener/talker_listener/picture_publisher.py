@@ -21,7 +21,7 @@ class CameraBufferFlusherThread(threading.Thread):
             ret, self.last_frame = self.camera.read()
 
 class MinimalPublisher(Node):
-    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,depth=1)
+    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_ALL) #KEEP_LAST,depth=1)
     iCounter = 0
     cap = cv.VideoCapture(0)
     cam_cleaner = CameraBufferFlusherThread(cap)
