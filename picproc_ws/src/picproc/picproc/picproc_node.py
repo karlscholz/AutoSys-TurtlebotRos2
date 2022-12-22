@@ -19,10 +19,13 @@ class ImageSubscriber(Node):
     IGainRot = 0.4375250435
     Ts = 0.1
     PGainLin = 4
-    IGainLin = 1.5
+    IGainLin = 1.0
     integralLin = 0
     iReceiveCounter = 0
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
+    yLast = 0
+    yCurrent = 0
+    xLast = 0
     
 
     def __init__(self):
@@ -139,9 +142,15 @@ class ImageSubscriber(Node):
                     cv.putText(currImage,"Backwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                     print("Backwards")
             
+            self.yLast = controllerEffortLin
         else:
             print("No landmarks not recognized!")
-            self.msg.linear.x = 0.0
+
+            # TP
+            self.yCurrent = 0.1181*self.xLast+0.8819*self.yLast
+            self.yLast = self.yCurrent
+            self.xLast = 0
+            self.msg.linear.x = self.yCurrent
             self.msg.linear.y = 0.0
             self.msg.linear.z = 0.0
             self.msg.angular.x = 0.0
