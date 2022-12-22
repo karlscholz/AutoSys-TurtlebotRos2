@@ -39,20 +39,20 @@ class PicturePublisher(Node):
     def timer_callback(self):
         
         cv_image = self.cam_cleaner.last_frame  # get last image
-        cv.resize(cv_image,(int(cv_image.shape[1]/4),int(cv_image.shape[0]/4)),interpolation=cv.INTER_LINEAR)
-        cv.putText(cv_image, f'{self.counter}',(50,50), cv.FONT_HERSHEY_TRIPLEX, 1, (255,0,0), thickness=2)
-        print(self.counter)
-        self.publisher.publish(self.bridge.cv2_to_compressed_imgmsg(cv_image))
+        cv.resize(cv_image,(int(cv_image.shape[1]/4),int(cv_image.shape[0]/4)),interpolation=cv.INTER_LINEAR)     # make image smaller
+        cv.putText(cv_image, f'{self.counter}',(50,50), cv.FONT_HERSHEY_TRIPLEX, 1, (255,0,0), thickness=2)        # add image counter to the top left corner
+        print(self.counter)       # print image counter
+        self.publisher.publish(self.bridge.cv2_to_compressed_imgmsg(cv_image))      #publish compressed image
         self.get_logger().info('Publishing an image')
-        self.counter += 1
+        self.counter += 1         # update picture counter
         cv.waitKey(1)
 
 def main(args=None):
-    rclpy.init(args=args)
-    picture_publisher = PicturePublisher()
-    rclpy.spin(picture_publisher)
-    picture_publisher.destroy_node()
-    rclpy.shutdown()
+    rclpy.init(args=args)                     # initialize ROS
+    picture_publisher = PicturePublisher()    # create picture publisher node
+    rclpy.spin(picture_publisher)             # execute picture publisher node until it is shut down
+    picture_publisher.destroy_node()          # destroy picture publisher node if it stops running
+    rclpy.shutdown()                          # shutdown ROS
 
 if __name__ == '__main__':
    main()
