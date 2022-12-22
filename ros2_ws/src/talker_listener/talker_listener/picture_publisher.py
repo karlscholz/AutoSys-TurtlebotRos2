@@ -17,6 +17,9 @@ class CameraBufferFlusherThread(threading.Thread):
     def run(self):
         while True:
             ret, self.last_frame = self.camera.read()
+            global stop_threads
+            if stop_threads:
+                break
 
 # picture publisher node
 class PicturePublisher(Node):
@@ -48,11 +51,19 @@ class PicturePublisher(Node):
         cv.waitKey(1)
 
 def main(args=None):
-    rclpy.init(args=args)                     # initialize ROS
-    picture_publisher = PicturePublisher()    # create picture publisher node
-    rclpy.spin(picture_publisher)             # execute picture publisher node until it is shut down
+    try:
+        rclpy.init(args=args)                     # initialize ROS
+        picture_publisher = PicturePublisher()    # create picture publisher node
+        rclpy.spin(picture_publisher)             # execute picture publisher node until it is shut down
+
+    except KeyboardInterrupt as e:
+        print("\nEnded with: KeyboardInterrupt")
+        stop_threads = True
+    
     picture_publisher.destroy_node()          # destroy picture publisher node if it stops running
     rclpy.shutdown()                          # shutdown ROS
+
+    
 
 if __name__ == '__main__':
    main()
