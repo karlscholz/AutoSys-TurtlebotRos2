@@ -24,6 +24,7 @@ class ImageSubscriber(Node):
     iReceiveCounter = 0
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
     
+    last_error_lin = 0
 
     def __init__(self):
         """
@@ -82,8 +83,8 @@ class ImageSubscriber(Node):
                 print(f"x_is_rel = {x_is}")
 
             # Compute controller effort for rotation
-            error = 0.5 - x_is
-            controllerEffortRot = self.PGainRot * error + self.IGainRot * self.integralRot
+            error_rot = 0.5 - x_is
+            controllerEffortRot = self.PGainRot * error_rot + self.IGainRot * self.integralRot
             # Saturation
             if controllerEffortRot > 1.82:
                 controllerEffortRot = 1.82
@@ -91,7 +92,7 @@ class ImageSubscriber(Node):
                 controllerEffortRot = -1.82
             # Clamping
             if abs(controllerEffortRot) < 1.82:
-                self.integralRot += error*self.Ts
+                self.integralRot += error_rot*self.Ts
 
             self.msg.angular.z = float(controllerEffortRot)
           
@@ -103,6 +104,7 @@ class ImageSubscriber(Node):
                 cv.putText(currImage,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 print("Right")
 
+            y_setpoint = 0.23 
             y_distance = -1 
             #both visible
             if results.pose_landmarks.landmark[23] and results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[25] and results.pose_landmarks.landmark[26]:
@@ -115,29 +117,26 @@ class ImageSubscriber(Node):
                 y_distance = results.pose_landmarks.landmark[26].y - results.pose_landmarks.landmark[24].y
 
 
-            print("#############",y_distance)
-
             if y_distance > 0:
                  # Compute controller effort for linear velocity
-                error = 0.23 - y_distance
-                controllerEffortLin = self.PGainLin * error + self.IGainLin * self.integralLin
-                # Saturation
+                error_lin = y_setpoint - y_distance
+                self.last_error_lin = error_lin
+                controllerEffortLin = self.PGainLin * error_lin + self.IGainLin * self.integralLin
+                # Saturation, max speed 0.26
                 if controllerEffortLin > 0.26:
                     controllerEffortLin = 0.26
                 elif controllerEffortLin < -0.26:
                     controllerEffortLin = -0.26
                 # Clamping
                 if abs(controllerEffortLin )< 0.26:
-                    self.integralLin += error*self.Ts
+                    self.integralLin += error_lin*self.Ts
 
                 self.msg.linear.x = float(controllerEffortLin)
 
                 if controllerEffortLin > 0:
                     cv.putText(currImage,"Forwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                    print("Forwards")
                 elif controllerEffortLin < 0:
                     cv.putText(currImage,"Backwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                    print("Backwards")
             
         else:
             print("No landmarks not recognized!")
@@ -149,6 +148,34 @@ class ImageSubscriber(Node):
             self.msg.angular.z = 0.0
             self.integralLin = 0
             self.integralRot = 0
+
+            error_lin = self.last_error_lin
+            if error_lin != 0:
+                 # Compute controller effort for linear velocity
+                error_inc = 0.02
+                bool_positive_error = error_lin > 0
+                error_lin += [error_inc, -error_inc][bool_positive_error]
+                print("#####################################",error_lin)
+                if abs(error_lin) <= 0.03:
+                    error_lin = 0
+
+                self.last_error_lin = error_lin
+                controllerEffortLin = self.PGainLin * error_lin + self.IGainLin * self.integralLin
+                # Saturation, max speed 0.26
+                if controllerEffortLin > 0.26:
+                    controllerEffortLin = 0.26
+                elif controllerEffortLin < -0.26:
+                    controllerEffortLin = -0.26
+                # Clamping
+                if abs(controllerEffortLin )< 0.26:
+                    self.integralLin += error_lin*self.Ts
+
+                self.msg.linear.x = float(controllerEffortLin)
+
+                if controllerEffortLin > 0:
+                    cv.putText(currImage,"Forwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                elif controllerEffortLin < 0:
+                    cv.putText(currImage,"Backwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 
             
         
