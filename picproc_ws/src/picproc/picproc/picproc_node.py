@@ -17,9 +17,9 @@ class ImageSubscriber(Node):
     integralRot = 0
     PGainRot = 1.95567563236331
     IGainRot = 0.4375250435
-    Ts = 0.2
-    PGainLin = 1.7
-    IGainLin = 0.4375250435
+    Ts = 0.1
+    PGainLin = 4
+    IGainLin = 1.5
     integralLin = 0
     iReceiveCounter = 0
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
@@ -85,12 +85,12 @@ class ImageSubscriber(Node):
             error = 0.5 - x_is
             controllerEffortRot = self.PGainRot * error + self.IGainRot * self.integralRot
             # Saturation
-            if controllerEffortRot > 2:
-                controllerEffortRot = 2
-            elif controllerEffortRot < -2:
-                controllerEffortRot = -2
+            if controllerEffortRot > 1.82:
+                controllerEffortRot = 1.82
+            elif controllerEffortRot < -1.82:
+                controllerEffortRot = -1.82
             # Clamping
-            if abs(controllerEffortRot) < 2:
+            if abs(controllerEffortRot) < 1.82:
                 self.integralRot += error*self.Ts
 
             self.msg.angular.z = float(controllerEffortRot)
@@ -122,12 +122,12 @@ class ImageSubscriber(Node):
                 error = 0.23 - y_distance
                 controllerEffortLin = self.PGainLin * error + self.IGainLin * self.integralLin
                 # Saturation
-                if controllerEffortLin > 2:
-                    controllerEffortLin = 2
-                elif controllerEffortLin < -2:
-                    controllerEffortLin = -2
+                if controllerEffortLin > 0.26:
+                    controllerEffortLin = 0.26
+                elif controllerEffortLin < -0.26:
+                    controllerEffortLin = -0.26
                 # Clamping
-                if abs(controllerEffortLin )< 2:
+                if abs(controllerEffortLin )< 0.26:
                     self.integralLin += error*self.Ts
 
                 self.msg.linear.x = float(controllerEffortLin)
