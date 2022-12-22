@@ -23,6 +23,8 @@ class ImageSubscriber(Node):
     integralLin = 0
     iReceiveCounter = 0
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
+    
+
     def __init__(self):
         """
         Class constructor to set up the node
@@ -37,6 +39,10 @@ class ImageSubscriber(Node):
         
         # Used to convert between ROS and OpenCV images
         self.br = CvBridge()
+        self.mpDraw = mp.solutions.drawing_utils
+        self.mpPose = mp.solutions.pose
+        self.pose = self.mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
+        
     
     def listener_callback(self, data):
         """
@@ -51,11 +57,8 @@ class ImageSubscriber(Node):
         print("start cal")
         
         # calcuate cmd_vel
-        mpDraw = mp.solutions.drawing_utils
-        mpPose = mp.solutions.pose
-        pose = mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
         print("Verreckst du da?")
-        results = pose.process(currImage)
+        results = self.pose.process(currImage)
         #cv.imshow('image', currImage)
         #cv.imshow('prevents crashing', currImage)
         middle = currImage.shape[1]/2
@@ -65,7 +68,7 @@ class ImageSubscriber(Node):
         if results.pose_landmarks:
             # Watch out: x_is is relative!
             x_is = 0.5
-            mpDraw.draw_landmarks(currImage, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
+            self.mpDraw.draw_landmarks(currImage, results.pose_landmarks, self.mpPose.POSE_CONNECTIONS)
             #deadzone = deadzonePer*currImage.shape[1]
             if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
                 x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2
