@@ -104,4 +104,4 @@ And RViz2 on the PC to see the robot in the simulation:
 
     cd ~/AutoSys-TurtlebotRos2/YOURWORKSPACE/
     . install/setup.bash
-    cd ~
+    cd -
