@@ -211,6 +211,7 @@ To create a new package, cd into the `src` folder and run the following command.
     ros2 pkg create --build-type ament_python talker_listener
 
 Create your Node file in `.../src/talker_listener/talker_listener` as talker_node.py. Copy the code from below.
+    
     import rclpy
     from rclpy.node import Node
 
@@ -302,6 +303,14 @@ check it by running one of the following commands
 
     ros2 topic list
     ros2 topic echo /topic
+
+## To automate installation of your own code on startup, write this to the bottom of your `~/.bash.rc` file.
+
+    cd ~/AutoSys-TurtlebotRos2/YOURWORKSPACE/
+    . install/setup.bash
+    cd ~
+    # Add shortcut to simplify bringup command
+    alias r2b='ros2 launch turtlebot3_bringup robot.launch.py'
 
 ## Create Follower Node
 

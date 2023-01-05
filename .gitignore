@@ -1,9 +1,3 @@
-build/*
-install/*
-log/*
-
-picproc_ws/*
-!picproc_ws/src/picproc/*
-
-ros2_ws/*
-!ros2_ws/src/talker_listener/*
+**/build/*
+**/install/*
+**/log/*
