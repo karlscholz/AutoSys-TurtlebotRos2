@@ -13,7 +13,13 @@ class ImageSubscriber(Node):
     """
     Create an ImageSubscriber class, which is a subclass of the Node class.
     """
+    #
+    #
+    # Your Code
     msg = Twist()   
+    #
+    #
+    #
     integralRot = 0
     PGainRot = 1.95567563236331
     IGainRot = 0.4375250435
@@ -21,8 +27,13 @@ class ImageSubscriber(Node):
     PGainLin = 4
     IGainLin = 1.0
     integralLin = 0
-    iReceiveCounter = 0
+    #
+    #
+    # Your Code 
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
+    #
+    #
+    #
     yLast = 0
     yCurrent = 0
     xLast = 0
@@ -33,12 +44,18 @@ class ImageSubscriber(Node):
         Class constructor to set up the node
         """
         # Initiate the Node class's constructor and give it a name
+        #
+        #
+        # Your Code
         super().__init__('image_subscriber')
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
         self.publisher_ # prevent unused variable warning
         # Create the subscriber. This subscriber will receive an Image        
         self.subscription = self.create_subscription(CompressedImage,'imagePi', self.listener_callback, self.qosProfile)
         self.subscription # prevent unused variable warning
+        #
+        #
+        #
         
         # Used to convert between ROS and OpenCV images
         self.br = CvBridge()
@@ -51,8 +68,14 @@ class ImageSubscriber(Node):
         """
         Callback function.
         """
-        # Display the message on the console
-        self.get_logger().info('Receiving Image')
+        
+        #
+        #
+        # Your Code
+        self.get_logger().info('Receiving Image')   # Display the message on the console
+        #
+        #
+        #
         
         # Convert ROS Image message to OpenCV image
         currImage = self.br.compressed_imgmsg_to_cv2(data)
@@ -96,7 +119,13 @@ class ImageSubscriber(Node):
             if abs(controllerEffortRot) < 1.82:
                 self.integralRot += error*self.Ts
 
+            #
+            #
+            # Your Code
             self.msg.angular.z = float(controllerEffortRot)
+            #
+            #
+            #
           
 
             if controllerEffortRot > 0:
@@ -133,7 +162,13 @@ class ImageSubscriber(Node):
                 if abs(controllerEffortLin )< 0.26:
                     self.integralLin += error*self.Ts
 
+                #
+                #
+                # Your Code
                 self.msg.linear.x = float(controllerEffortLin)
+                #
+                #
+                #
 
                 if controllerEffortLin > 0:
                     cv.putText(currImage,"Forwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
@@ -146,24 +181,31 @@ class ImageSubscriber(Node):
         else:
             print("No landmarks not recognized!")
 
-            # TP
-            self.yCurrent = 0.1181*self.xLast+0.8819*self.yLast
-            self.yLast = self.yCurrent
-            self.xLast = 0
-            self.msg.linear.x = self.yCurrent
+            #
+            #
+            # Your Code
+            self.msg.linear.x = 0.0
             self.msg.linear.y = 0.0
             self.msg.linear.z = 0.0
             self.msg.angular.x = 0.0
             self.msg.angular.y = 0.0
             self.msg.angular.z = 0.0
+            #
+            #
+            #
             self.integralLin = 0
             self.integralRot = 0
                 
             
-        
+        #
+        #
+        # Your Code
         self.publisher_.publish(self.msg)
         self.get_logger().info(f"Publishing ang: {self.msg.angular.z}")
         self.get_logger().info(f"Publishing lin: {self.msg.linear.x}")
+        #
+        #
+        #
         cv.imshow("Live View", currImage)
         cv.waitKey(1)
         print("cmd_vel")
@@ -172,21 +214,26 @@ class ImageSubscriber(Node):
   
 def main(args=None):
     try:
+        #
+        #
+        # YOur Code
         rclpy.init(args=args)
         image_subscriber = ImageSubscriber()
         # Spin the node so the callback function is called.
         rclpy.spin(image_subscriber)
+        #
+        #
+        #
         
 
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
-    except MemoryError as e:
-        print("MemoryError")
-    except OverflowError as e:
-        print("MemoryError")
     except BaseException as e:
-        print("MemoryError")
-  
+        print("Exception")
+    
+    #
+    #
+    # Your Code
     image_subscriber.msg.linear.x = 0.0
     image_subscriber.msg.linear.y = 0.0
     image_subscriber.msg.linear.z = 0.0
@@ -203,6 +250,9 @@ def main(args=None):
     
     # Shutdown the ROS client library for Python
     rclpy.shutdown()
+    #
+    #
+    #
   
 if __name__ == '__main__':
   main()
