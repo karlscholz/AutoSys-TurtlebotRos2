@@ -17,27 +17,21 @@ class ImageSubscriber(Node):
     #
     # Your Code
     msg = Twist()   
-    #
-    #
-    #
-    integralRot = 0
-    PGainRot = 1.95567563236331
-    IGainRot = 0.4375250435
-    Ts = 0.1
-    PGainLin = 4
-    IGainLin = 1.0
-    integralLin = 0
-    #
-    #
-    # Your Code 
     qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
     #
     #
     #
-    yLast = 0
-    yCurrent = 0
-    xLast = 0
-    
+
+    # Sampletime: Period of picture_Publisher_node
+    Ts = 0.1
+    # Rotation PID-Controller
+    integralRot = 0
+    PGainRot = 1.95567563236331
+    IGainRot = 0.4375250435
+    # Translation PID-Controller
+    PGainLin = 4
+    IGainLin = 1.0
+    integralLin = 0
 
     def __init__(self):
         """
@@ -47,7 +41,7 @@ class ImageSubscriber(Node):
         #
         #
         # Your Code
-        super().__init__('image_subscriber')
+        super().__init__('image_subscriber') # Not Ros, super().__init__ calls __init__ of parent class (super() returns proxy object of parent)
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
         self.publisher_ # prevent unused variable warning
         # Create the subscriber. This subscriber will receive an Image        
@@ -58,12 +52,12 @@ class ImageSubscriber(Node):
         #
         
         # Used to convert between ROS and OpenCV images
-        self.br = CvBridge()
+        self.br = CvBridge()                                                                         
         self.mpDraw = mp.solutions.drawing_utils
         self.mpPose = mp.solutions.pose
         self.pose = self.mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
         
-    
+    # Callback is called when an image is received
     def listener_callback(self, data):
         """
         Callback function.
@@ -83,19 +77,17 @@ class ImageSubscriber(Node):
         print("start cal")
         
         # calcuate cmd_vel
-        print("Verreckst du da?")
         results = self.pose.process(currImage)
-        #cv.imshow('image', currImage)
-        #cv.imshow('prevents crashing', currImage)
         middle = currImage.shape[1]/2
         #deadzonePer = 0.2
         print(f"middle = {middle}")
         cv.line(currImage,(int(middle),0),(int(middle),currImage.shape[0]),(255,0,0),thickness=2)
         if results.pose_landmarks:
-            # Watch out: x_is is relative!
-            x_is = 0.5
             self.mpDraw.draw_landmarks(currImage, results.pose_landmarks, self.mpPose.POSE_CONNECTIONS)
-            #deadzone = deadzonePer*currImage.shape[1]
+
+
+            # Watch out: x_is is relative!
+            x_is = -1
             if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
                 x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2
             elif results.pose_landmarks.landmark[24]:
@@ -104,36 +96,35 @@ class ImageSubscriber(Node):
                 x_is = results.pose_landmarks.landmark[23].x
             else:
                 print("No hiplandmarks recognized!")
-                print(f"x_is_absolute = {x_is*currImage.shape[1]}")
-                print(f"x_is_rel = {x_is}")
 
-            # Compute controller effort for rotation
-            error = 0.5 - x_is
-            controllerEffortRot = self.PGainRot * error + self.IGainRot * self.integralRot
-            # Saturation
-            if controllerEffortRot > 1.82:
-                controllerEffortRot = 1.82
-            elif controllerEffortRot < -1.82:
-                controllerEffortRot = -1.82
-            # Clamping
-            if abs(controllerEffortRot) < 1.82:
-                self.integralRot += error*self.Ts
+            ### PID Rotation
+            if x_is > 0:
+                error = 0.5 - x_is
+                controllerEffortRot = self.PGainRot * error + self.IGainRot * self.integralRot
+                # Saturation
+                if controllerEffortRot > 1.82:
+                    controllerEffortRot = 1.82
+                elif controllerEffortRot < -1.82:
+                    controllerEffortRot = -1.82
+                # Clamping
+                if abs(controllerEffortRot) < 1.82:
+                    self.integralRot += error*self.Ts
 
-            #
-            #
-            # Your Code
-            self.msg.angular.z = float(controllerEffortRot)
-            #
-            #
-            #
+                if controllerEffortRot > 0:
+                    cv.putText(currImage,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                    print("Left")
+                elif controllerEffortRot < 0:
+                    cv.putText(currImage,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                    print("Right")
+            else:
+                # if no x_is can be determined, set controllereffort to 0 and reset the integrator
+                controllerEffortRot = 0
+                self.integralRot = 0
+
+
           
 
-            if controllerEffortRot > 0:
-                cv.putText(currImage,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Left")
-            elif controllerEffortRot < 0:
-                cv.putText(currImage,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Right")
+            
 
             y_distance = -1 
             #both visible
@@ -147,10 +138,10 @@ class ImageSubscriber(Node):
                 y_distance = results.pose_landmarks.landmark[26].y - results.pose_landmarks.landmark[24].y
 
 
-            print("#############",y_distance)
+            print(f"# y_distance = {y_distance} #")
 
             if y_distance > 0:
-                 # Compute controller effort for linear velocity
+                # Compute controller effort for linear velocity
                 error = 0.23 - y_distance
                 controllerEffortLin = self.PGainLin * error + self.IGainLin * self.integralLin
                 # Saturation
@@ -161,25 +152,29 @@ class ImageSubscriber(Node):
                 # Clamping
                 if abs(controllerEffortLin )< 0.26:
                     self.integralLin += error*self.Ts
-
-                #
-                #
-                # Your Code
-                self.msg.linear.x = float(controllerEffortLin)
-                #
-                #
-                #
-
+                # Visualisation
                 if controllerEffortLin > 0:
                     cv.putText(currImage,"Forwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                     print("Forwards")
                 elif controllerEffortLin < 0:
                     cv.putText(currImage,"Backwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                     print("Backwards")
+            else:
+                # if no y_distance can be determined, set controllereffort to 0 and reset the integrator
+                controllerEffortLin = 0
+                self.integralLin = 0
+
+            #
+            #
+            # Your Code
+            self.msg.linear.x = float(controllerEffortLin)
+            self.msg.angular.z = float(controllerEffortRot)
+            #
+            #
+            #
             
-            self.yLast = controllerEffortLin
         else:
-            print("No landmarks not recognized!")
+            print("=> No landmarks recognized!")
 
             #
             #
@@ -219,7 +214,7 @@ def main(args=None):
         # YOur Code
         rclpy.init(args=args)
         image_subscriber = ImageSubscriber()
-        # Spin the node so the callback function is called.
+        # Spin the node so the callback function is called continiously.
         rclpy.spin(image_subscriber)
         #
         #
