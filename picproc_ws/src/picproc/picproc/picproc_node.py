@@ -180,12 +180,8 @@ def main(args=None):
 
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
-    except MemoryError as e:
-        print("MemoryError")
-    except OverflowError as e:
-        print("MemoryError")
     except BaseException as e:
-        print("MemoryError")
+        print("BaseException", repr(e))
   
     image_subscriber.msg.linear.x = 0.0
     image_subscriber.msg.linear.y = 0.0

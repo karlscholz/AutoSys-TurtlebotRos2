@@ -100,8 +100,79 @@ And RViz2 on the PC to see the robot in the simulation:
 
     rviz2
 
-## To automate installation of your own node on startup, write this to the bottom of your `~/.bashrc` file.
+## To automate installation of your built nodes on startup, write this to the bottom of your `~/.bashrc` file.
 
     cd ~/AutoSys-TurtlebotRos2/YOURWORKSPACE/
     . install/setup.bash
     cd -
+
+## Running the Visual Follower Project of this Repository:
+
+> **_NOTE:_**
+> First, the the Turtlebot's Raspberry Pi takes a Picture with its Pycam and publishes it to a topic. This is done by our Picture Publisher Node.
+> 
+> The Remote PC subscribes to this topic and calculates angular and linear velocity for the Turtlebot the picture with the Picture Processor Node. In Exchange, this Node then publishes the calculated velocities to cmd_vel.
+>
+> cmd_vel is subscribed by a built in Node from Turtlebot. It is launched by running the Turtlebot3 bringup Command, mentioned above. Now the Turtlebot drives accordingly.
+
+1. Install the Python Packages for the Picture Processor Node
+
+        pip install opencv-contrib-python==4.6.0.66
+        pip install opencv-python==4.6.0.66
+        pip install numpy==1.24.0
+        pip install protobuf==3.20.0
+        pip install mediapipe==TODO VERSION VOM RASPI
+
+2. Build the Picture Processor workspace, you''ll need to fetch the dependencies only once
+    
+        cd ~/AutoSys-TurtlebotRos2/picproc_ws
+        sudo apt install python3-rosdep2 -y
+        rosdep update
+        rosdep install -i --from-path src --rosdistro foxy -y
+        colcon build
+        . install/setup.bash
+
+3. Run the Picture Processor Node
+   
+        ros2 run picproc picproc_node
+
+If something is off it's a good idea to check for differences in your `~/.bashrc` file with ours in  `AutoSys-TurtlebotRos2/misc/`.
+
+## Some additional information about the project
+> **_NOTE:_**
+> We got the file `PoseEstimationMin.py` by doing the "Advanced Computer Vision with Python - Full Course" from freeCodeCamp on youtube [https://youtu.be/01sAkU_NvOY]. It uses OpenCV and Mediapipe to detect the pose of a person in a frame. We use it to get the landmarks of the foot and kneww for our follower node.
+
+### Implementing stop on code abort
+
+If we stop the Node, the Turtlebot will just continue driving with the last command it got. To get the Turtlebot to stop when the Node gets destroyed or `CTRL+C` is input in the console, we put a try and catch block from start to the call of the `spin` Medhod in `main(args=none)`.
+    
+    try:
+        rclpy.init(args=args)
+        image_subscriber = ImageSubscriber()
+        # Spin the node so the callback function is called.
+        rclpy.spin(image_subscriber)
+        
+
+    except KeyboardInterrupt as e:
+        print("\nEnded with: KeyboardInterrupt")
+    except BaseException as e:
+        print("BaseException", repr(e))
+        
+After that, the stop `cmd_vel` message is created. This should be done on the same layer as `except` and not inside `ecxept` since we it to stop always, not just on `CTRL+C` or Exceptions.
+
+    image_subscriber.msg.linear.x = 0.0
+    image_subscriber.msg.linear.y = 0.0
+    image_subscriber.msg.linear.z = 0.0
+
+    image_subscriber.msg.angular.x = 0.0
+    image_subscriber.msg.angular.y = 0.0
+    image_subscriber.msg.angular.z = 0.0
+    image_subscriber.publisher_.publish(image_subscriber.msg)
+
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    image_subscriber.destroy_node()
+    
+    # Shutdown the ROS client library for Python
+    rclpy.shutdown()
