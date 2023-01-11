@@ -109,7 +109,7 @@ And RViz2 on the PC to see the robot in the simulation:
 ## Running the Visual Follower Project of this Repository:
 
 > **_NOTE:_**
-> First, the the Turtlebot's Raspberry Pi takes a Picture with its Pycam and publishes it to a topic. This is done by our Picture Publisher Node.
+> At first the Turtlebot's Raspberry Pi takes a Picture with its Pycam and publishes it to a topic. This is done by our Picture Publisher Node.
 > 
 > The Remote PC subscribes to this topic and calculates angular and linear velocity for the Turtlebot the picture with the Picture Processor Node. In Exchange, this Node then publishes the calculated velocities to cmd_vel.
 >
