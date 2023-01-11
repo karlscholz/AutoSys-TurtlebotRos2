@@ -325,8 +325,8 @@ check it by running one of the following commands
 
 1. Install the Python Packages for the Picture Publisher Node
 
-        pip install opencv-contrib-python==4.6.0.66 TODO CHECKVERSION
-        pip install opencv-python==4.6.0.66 TODO CHECKVERSION
+        pip install opencv-contrib-python==4.6.0.66 TODO CHECK VERSION AND NAME
+        pip install opencv-python==4.6.0.66 TODO CHECK VERSION AND NAME
 
 2. Build the Picture Publisher workspace, you''ll need to fetch the dependencies only once
     
