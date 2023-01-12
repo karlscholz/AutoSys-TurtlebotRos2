@@ -17,33 +17,31 @@ class ImageProcesser(Node):
     """
     Create an ImageSubscriber class, which is a subclass of the Node class.
     """
-    # ------------------------------------------------------------------------------------------------------------------------------
-
-    # Create Twist-message object
-    msg = Twist()
-    # Define Quality of Service profile
-    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
-
-    # ------------------------------------------------------------------------------------------------------------------------------
-
-    # Sampletime: Period of picture_Publisher_node
-    Ts = 0.2
-    # Rotation PID-Controller parameters
-    integralRot = 0
-    PGainRot = 1.95567563236331
-    IGainRot = 0.4375250435
-    # Translation PID-Controller parameters
-    PGainLin = 4
-    IGainLin = 1.0
-    integralLin = 0
 
     def __init__(self):
-        """
-        Class constructor to set up the node
-        """
+        # Sampletime: Period of picture_Publisher_node
+        self.Ts = 0.2
+        # Rotation PID-Controller parameters
+        self.integralRot = 0
+        self.PGainRot = 1.95567563236331
+        self.IGainRot = 0.4375250435
+        # Translation PID-Controller parameters
+        self.PGainLin = 4
+        self.IGainLin = 1.0
+        self.integralLin = 0
+        # for conversion between OpenCV and ROS2 msg
+        self.br = CvBridge()         
+        # For img classification                                                                
+        self.mpDraw = mp.solutions.drawing_utils
+        self.mpPose = mp.solutions.pose
+        self.pose = self.mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
         
         # ------------------------------------------------------------------------------------------------------------------------------
-
+        
+        # Create Twist-message object
+        self.msg = Twist()
+        # Define Quality of Service profile
+        self.qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
         # Initiate the Node class's constructor and give it a name
         super().__init__('image_subscriber') # Not Ros, super().__init__ calls __init__ of parent class (super() returns proxy object of parent)
         # Create publisher
@@ -57,13 +55,6 @@ class ImageProcesser(Node):
 
         # ------------------------------------------------------------------------------------------------------------------------------
         
-        # for conversion between OpenCV and ROS2 msg
-        self.br = CvBridge()         
-        # For img classification                                                                
-        self.mpDraw = mp.solutions.drawing_utils
-        self.mpPose = mp.solutions.pose
-        self.pose = self.mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-    
 
     def calcX_is(self,results):
         x_is = -1
@@ -244,6 +235,7 @@ def main(args=None):
         print("Exception")
     
     # ----------------------------------------------------------------------------------------------------------------------------------
+    
     image_processer.msg.linear.x = 0.0
     image_processer.msg.linear.y = 0.0
     image_processer.msg.linear.z = 0.0
