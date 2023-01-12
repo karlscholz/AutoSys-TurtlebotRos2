@@ -26,17 +26,17 @@ class PicturePublisher(Node):
     def __init__(self):
         # -------------------------------------------------------------------------------------------------------------------
         # call constructor
-        super().__init__('picture_publisher')
+        
         # create capture object
-        self.cap = cv.VideoCapture(0)    # creates an object of the raspi cam
+        self.cap = 
         # create qos-profile
-        self.qos_Profile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_ALL) # QoSProfile specifies communication between nodes
+        self.qos_Profile = 
         # create publisher 
-        self.publisher = self.create_publisher(CompressedImage, 'imagePi', self.qos_Profile)  # object to publish images in topic /imagePi
+        self.publisher = 
         # set cycle time
-        timer_period = 0.2  # seconds
+        timer_period =   # seconds
         # create callback call
-        self.timer = self.create_timer(timer_period, self.timer_callback)  
+        self.timer = 
         # --------------------------------------------------------------------------------------------------------------------
         
         self.cam_cleaner = CameraBufferFlusherThread(self.cap)    # saves the images of the raspi cam
@@ -49,7 +49,7 @@ class PicturePublisher(Node):
     def timer_callback(self):
         # -------------------------------------------------------------------------------------------------------------------
         # get last image
-        cv_image = self.cam_cleaner.last_frame  # get last image
+        cv_image = 
         # -------------------------------------------------------------------------------------------------------------------
         
         cv.resize(cv_image,(int(cv_image.shape[1]/4),int(cv_image.shape[0]/4)),interpolation=cv.INTER_LINEAR)     # make image smaller
@@ -58,9 +58,9 @@ class PicturePublisher(Node):
        
         # -------------------------------------------------------------------------------------------------------------------
         # publish image
-        self.publisher.publish(self.bridge.cv2_to_compressed_imgmsg(cv_image))      #publish compressed image
+        
         # log publishing
-        self.get_logger().info('Publishing an image')
+       
         # -------------------------------------------------------------------------------------------------------------------
        
         self.counter += 1         # update picture counter
@@ -69,19 +69,23 @@ class PicturePublisher(Node):
 def main(args=None):
     try:
         # -------------------------------------------------------------------------------------------------------------------
-        rclpy.init(args=args)                     # initialize ROS
-        picture_publisher = PicturePublisher()    # create picture publisher node
-        
-        rclpy.spin(picture_publisher)             # execute picture publisher node until it is shut down
-         # -------------------------------------------------------------------------------------------------------------------
+        # initialize ROS
+
+        # create picture publisher node
+        picture_publisher = 
+        # execute picture publisher node until it is shut down
+
+        # -------------------------------------------------------------------------------------------------------------------
 
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
         picture_publisher.cam_cleaner.stop_threads = True
    
     # -------------------------------------------------------------------------------------------------------------------
-    picture_publisher.destroy_node()             # destroy picture publisher node if it stops running
-    rclpy.shutdown()                             # shutdown ROS
+    # destroy picture publisher node if it stops running
+
+    # shutdown ROS
+    
     # -------------------------------------------------------------------------------------------------------------------
     
 
