@@ -17,39 +17,31 @@ class ImageProcesser(Node):
     """
     Create an ImageSubscriber class, which is a subclass of the Node class.
     """
-    #
-    ##
-    ### Your Code
-
-    # Create Twist-message object
-    msg = Twist()
-    # Define Quality of Service profile
-    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
-
-    ###
-    ##
-    #
-
-    # Sampletime: Period of picture_Publisher_node
-    Ts = 0.2
-    # Rotation PID-Controller parameters
-    integralRot = 0
-    PGainRot = 1.95567563236331
-    IGainRot = 0.4375250435
-    # Translation PID-Controller parameters
-    PGainLin = 4
-    IGainLin = 1.0
-    integralLin = 0
 
     def __init__(self):
-        """
-        Class constructor to set up the node
-        """
+        # Sampletime: Period of picture_Publisher_node
+        self.Ts = 0.2
+        # Rotation PID-Controller parameters
+        self.integralRot = 0
+        self.PGainRot = 1.95567563236331
+        self.IGainRot = 0.4375250435
+        # Translation PID-Controller parameters
+        self.PGainLin = 4
+        self.IGainLin = 1.0
+        self.integralLin = 0
+        # for conversion between OpenCV and ROS2 msg
+        self.br = CvBridge()         
+        # For img classification                                                                
+        self.mpDraw = mp.solutions.drawing_utils
+        self.mpPose = mp.solutions.pose
+        self.pose = self.mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
         
-        #
-        ##
-        ### Your Code
-
+        # ------------------------------------------------------------------------------------------------------------------------------
+        
+        # Create Twist-message object
+        self.msg = Twist()
+        # Define Quality of Service profile
+        self.qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
         # Initiate the Node class's constructor and give it a name
         super().__init__('image_subscriber') # Not Ros, super().__init__ calls __init__ of parent class (super() returns proxy object of parent)
         # Create publisher
@@ -61,17 +53,8 @@ class ImageProcesser(Node):
         # Prevent unused variable warning
         self.subscription 
 
-        ###
-        ##
-        #
+        # ------------------------------------------------------------------------------------------------------------------------------
         
-        # for conversion between OpenCV and ROS2 msg
-        self.br = CvBridge()         
-        # For img classification                                                                
-        self.mpDraw = mp.solutions.drawing_utils
-        self.mpPose = mp.solutions.pose
-        self.pose = self.mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-    
 
     def calcX_is(self,results):
         x_is = -1
@@ -160,15 +143,11 @@ class ImageProcesser(Node):
         Callback function.
         """
         
-        #
-        ##
-        ### Your Code
+        # ------------------------------------------------------------------------------------------------------------------------------
 
         self.get_logger().info('Receiving Image')   # Display the message on the console
 
-        ###
-        ##
-        #
+        # ------------------------------------------------------------------------------------------------------------------------------
         
         # Convert OpenCV image to ROS Image message
         currImage = self.br.compressed_imgmsg_to_cv2(data)
@@ -192,16 +171,12 @@ class ImageProcesser(Node):
             # PIDLin 
             controllerEffortLin = self.PIDLin(y_distance,currImage)
 
-            #
-            ##
-            ### Your Code
+            # ---------------------------------------------------------------------------------------------------------------------------
 
             self.msg.linear.x = float(controllerEffortLin)
             self.msg.angular.z = float(controllerEffortRot)
 
-            ###
-            ##
-            #
+            # ---------------------------------------------------------------------------------------------------------------------------
             
         else:
             # Reset integators
@@ -209,9 +184,7 @@ class ImageProcesser(Node):
             self.integralRot = 0
             print("No landmarks recognized!")
 
-            #
-            ##
-            ### Your Code
+            # ---------------------------------------------------------------------------------------------------------------------------
 
             self.msg.linear.x = 0.0
             self.msg.linear.y = 0.0
@@ -220,16 +193,12 @@ class ImageProcesser(Node):
             self.msg.angular.y = 0.0
             self.msg.angular.z = 0.0
 
-            ###
-            ##
-            #
+            # --------------------------------------------------------------------------------------------------------------------------
 
 
                 
             
-        #
-        ##
-        # Your Code
+        # ------------------------------------------------------------------------------------------------------------------------------
 
         # Publish the message
         self.publisher_.publish(self.msg)
@@ -237,9 +206,7 @@ class ImageProcesser(Node):
         self.get_logger().info(f"Publishing ang: {self.msg.angular.z}")
         self.get_logger().info(f"Publishing lin: {self.msg.linear.x}")
 
-        ###
-        ##
-        #
+        # ------------------------------------------------------------------------------------------------------------------------------
 
         # Show the processed image
         cv.imshow("Live View", currImage)
@@ -250,9 +217,7 @@ class ImageProcesser(Node):
   
 def main(args=None):
     try:
-        #
-        ##
-        ### Your Code
+        # ------------------------------------------------------------------------------------------------------------------------------
 
         # Initialization
         rclpy.init(args=args)
@@ -261,16 +226,16 @@ def main(args=None):
         # Spin the node so the callback function is called continiously.
         rclpy.spin(image_processer)
 
-        ###
-        ##
-        #
+        # ------------------------------------------------------------------------------------------------------------------------------
         
 
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
     except BaseException as e:
         print("Exception")
-  
+    
+    # ----------------------------------------------------------------------------------------------------------------------------------
+    
     image_processer.msg.linear.x = 0.0
     image_processer.msg.linear.y = 0.0
     image_processer.msg.linear.z = 0.0
@@ -286,9 +251,7 @@ def main(args=None):
     # Shutdown the ROS client library for Python
     rclpy.shutdown()
     
-    ###
-    ##
-    #
+    # ----------------------------------------------------------------------------------------------------------------------------------
   
 if __name__ == '__main__':
   main()
