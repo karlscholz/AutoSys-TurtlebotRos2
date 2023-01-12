@@ -1,90 +1,108 @@
 # Import the necessary libraries
-import rclpy # Python library for ROS 2
-from rclpy.node import Node # Handles the creation of nodes
-from sensor_msgs.msg import CompressedImage # Image is the message type
-from cv_bridge import CvBridge # Package to convert between ROS and OpenCV Images
-import cv2 as cv# OpenCV library
-import numpy as np
-from geometry_msgs.msg import Twist
-import mediapipe as mp
-from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
+import rclpy                                                                # Python library for ROS 2
+from rclpy.node import Node                                                 # Handles the creation of nodes
+from sensor_msgs.msg import CompressedImage                                 # For image-messages
+from geometry_msgs.msg import Twist                                         # For velocity-messages
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy    # For Quality of Service
+               
+import cv2 as cv                                                            # For image processing 
+import mediapipe as mp                                                      # For image recognition
+from cv_bridge import CvBridge                                              # For conversion form OpenCV to ROS2 messages
 
-class ImageSubscriber(Node):
+
+
+
+
+class ImageProcesser(Node):
     """
     Create an ImageSubscriber class, which is a subclass of the Node class.
     """
-    msg = Twist()   
+    #
+    ##
+    ### Your Code
+
+    # Create Twist-message object
+    msg = Twist()
+    # Define Quality of Service profile
+    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
+
+    ###
+    ##
+    #
+
+    # Sampletime: Period of picture_Publisher_node
+    Ts = 0.1
+    # Rotation PID-Controller parameters
     integralRot = 0
     PGainRot = 1.95567563236331
     IGainRot = 0.4375250435
-    Ts = 0.1
+    # Translation PID-Controller parameters
     PGainLin = 4
     IGainLin = 1.0
     integralLin = 0
-    iReceiveCounter = 0
-    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
-    yLast = 0
-    yCurrent = 0
-    xLast = 0
-    
 
     def __init__(self):
         """
         Class constructor to set up the node
         """
-        # Initiate the Node class's constructor and give it a name
-        super().__init__('image_subscriber')
-        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
-        self.publisher_ # prevent unused variable warning
-        # Create the subscriber. This subscriber will receive an Image        
-        self.subscription = self.create_subscription(CompressedImage,'imagePi', self.listener_callback, self.qosProfile)
-        self.subscription # prevent unused variable warning
         
-        # Used to convert between ROS and OpenCV images
-        self.br = CvBridge()
+        #
+        ##
+        ### Your Code
+
+        # Initiate the Node class's constructor and give it a name
+        super().__init__('image_subscriber') # Not Ros, super().__init__ calls __init__ of parent class (super() returns proxy object of parent)
+        # Create publisher
+        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
+        # Prevent unused variable warning
+        self.publisher_ 
+        # Create subscriber       
+        self.subscription = self.create_subscription(CompressedImage,'imagePi', self.listener_callback, self.qosProfile)
+        # Prevent unused variable warning
+        self.subscription 
+
+        ###
+        ##
+        #
+        
+        # for conversion between OpenCV and ROS2 msg
+        self.br = CvBridge()         
+        # For img classification                                                                
         self.mpDraw = mp.solutions.drawing_utils
         self.mpPose = mp.solutions.pose
         self.pose = self.mpPose.Pose(static_image_mode=False, model_complexity=1, smooth_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-        
     
-    def listener_callback(self, data):
-        """
-        Callback function.
-        """
-        # Display the message on the console
-        self.get_logger().info('Receiving Image')
-        
-        # Convert ROS Image message to OpenCV image
-        currImage = self.br.compressed_imgmsg_to_cv2(data)
-        
-        print("start cal")
-        
-        # calcuate cmd_vel
-        print("Verreckst du da?")
-        results = self.pose.process(currImage)
-        #cv.imshow('image', currImage)
-        #cv.imshow('prevents crashing', currImage)
-        middle = currImage.shape[1]/2
-        #deadzonePer = 0.2
-        print(f"middle = {middle}")
-        cv.line(currImage,(int(middle),0),(int(middle),currImage.shape[0]),(255,0,0),thickness=2)
-        if results.pose_landmarks:
-            # Watch out: x_is is relative!
-            x_is = 0.5
-            self.mpDraw.draw_landmarks(currImage, results.pose_landmarks, self.mpPose.POSE_CONNECTIONS)
-            #deadzone = deadzonePer*currImage.shape[1]
-            if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
-                x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2
-            elif results.pose_landmarks.landmark[24]:
-                x_is = results.pose_landmarks.landmark[24].x
-            elif results.pose_landmarks.landmark[23]:
-                x_is = results.pose_landmarks.landmark[23].x
-            else:
-                print("No hiplandmarks recognized!")
-                print(f"x_is_absolute = {x_is*currImage.shape[1]}")
-                print(f"x_is_rel = {x_is}")
 
-            # Compute controller effort for rotation
+    def calcX_is(self,results):
+        x_is = -1
+        if results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[23]:
+            x_is = (results.pose_landmarks.landmark[23].x+results.pose_landmarks.landmark[24].x)/2
+        elif results.pose_landmarks.landmark[24]:
+            x_is = results.pose_landmarks.landmark[24].x
+        elif results.pose_landmarks.landmark[23]:
+            x_is = results.pose_landmarks.landmark[23].x
+        else:
+            print("Needed landmarks for x_is not recognized!")
+        return x_is
+
+    def calcY_distance(self,results):
+        y_distance = -1 
+        #both visible
+        if results.pose_landmarks.landmark[23] and results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[25] and results.pose_landmarks.landmark[26]:
+            y_distance = (results.pose_landmarks.landmark[25].y+results.pose_landmarks.landmark[26].y)/2 - (results.pose_landmarks.landmark[23].y+results.pose_landmarks.landmark[23].y)/2
+        #left visible
+        elif results.pose_landmarks.landmark[23] and results.pose_landmarks.landmark[25]:
+            y_distance = results.pose_landmarks.landmark[25].y - results.pose_landmarks.landmark[23].y
+        #right visible
+        elif results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[26]:
+            y_distance = results.pose_landmarks.landmark[26].y - results.pose_landmarks.landmark[24].y
+        else:
+             print("Needed landmarks for y_distance not recognized!")
+        return y_distance
+
+    def PIDRot(self, x_is, currImage):
+        if x_is > 0:
+            # Compute controller effort for rotationary velocity in z
             error = 0.5 - x_is
             controllerEffortRot = self.PGainRot * error + self.IGainRot * self.integralRot
             # Saturation
@@ -95,110 +113,186 @@ class ImageSubscriber(Node):
             # Clamping
             if abs(controllerEffortRot) < 1.82:
                 self.integralRot += error*self.Ts
-
-            self.msg.angular.z = float(controllerEffortRot)
-          
-
+            # Visualisation in image
             if controllerEffortRot > 0:
                 cv.putText(currImage,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 print("Left")
             elif controllerEffortRot < 0:
                 cv.putText(currImage,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
                 print("Right")
-
-            y_distance = -1 
-            #both visible
-            if results.pose_landmarks.landmark[23] and results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[25] and results.pose_landmarks.landmark[26]:
-                y_distance = (results.pose_landmarks.landmark[25].y+results.pose_landmarks.landmark[26].y)/2 - (results.pose_landmarks.landmark[23].y+results.pose_landmarks.landmark[23].y)/2
-            #left visible
-            elif results.pose_landmarks.landmark[23] and results.pose_landmarks.landmark[25]:
-                y_distance = results.pose_landmarks.landmark[25].y - results.pose_landmarks.landmark[23].y
-            #right visible
-            elif results.pose_landmarks.landmark[24] and results.pose_landmarks.landmark[26]:
-                y_distance = results.pose_landmarks.landmark[26].y - results.pose_landmarks.landmark[24].y
-
-
-            print("#############",y_distance)
-
-            if y_distance > 0:
-                 # Compute controller effort for linear velocity
-                error = 0.23 - y_distance
-                controllerEffortLin = self.PGainLin * error + self.IGainLin * self.integralLin
-                # Saturation
-                if controllerEffortLin > 0.26:
-                    controllerEffortLin = 0.26
-                elif controllerEffortLin < -0.26:
-                    controllerEffortLin = -0.26
-                # Clamping
-                if abs(controllerEffortLin )< 0.26:
-                    self.integralLin += error*self.Ts
-
-                self.msg.linear.x = float(controllerEffortLin)
-
-                if controllerEffortLin > 0:
-                    cv.putText(currImage,"Forwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                    print("Forwards")
-                elif controllerEffortLin < 0:
-                    cv.putText(currImage,"Backwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                    print("Backwards")
-            
-            self.yLast = controllerEffortLin
         else:
-            print("No landmarks not recognized!")
+            # if no x_is can be determined, set controllereffort to 0 and reset the integrator
+            controllerEffortRot = 0
+            self.integralRot = 0
+        return controllerEffortRot
 
-            # TP
-            self.yCurrent = 0.1181*self.xLast+0.8819*self.yLast
-            self.yLast = self.yCurrent
-            self.xLast = 0
-            self.msg.linear.x = self.yCurrent
+    def PIDLin(self, y_distance, currImage):
+        if y_distance > 0:
+            # Compute controller effort for linear velocity in x
+            error = 0.23 - y_distance
+            controllerEffortLin = self.PGainLin * error + self.IGainLin * self.integralLin
+            # Saturation
+            if controllerEffortLin > 0.26:
+                controllerEffortLin = 0.26
+            elif controllerEffortLin < -0.26:
+                controllerEffortLin = -0.26
+            # Clamping
+            if abs(controllerEffortLin )< 0.26:
+                self.integralLin += error*self.Ts
+            # Visualisation
+            if controllerEffortLin > 0:
+                cv.putText(currImage,"Forwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                print("Forwards")
+            elif controllerEffortLin < 0:
+                cv.putText(currImage,"Backwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
+                print("Backwards")
+        else:
+            # if no y_distance can be determined, set controllereffort to 0 and reset the integrator
+            controllerEffortLin = 0
+            self.integralLin = 0
+        return controllerEffortLin
+        
+
+
+    # Callback is called when an image is received
+    def listener_callback(self, data):
+        """
+        Callback function.
+        """
+        
+        #
+        ##
+        ### Your Code
+
+        self.get_logger().info('Receiving Image')   # Display the message on the console
+
+        ###
+        ##
+        #
+        
+        # Convert OpenCV image to ROS Image message
+        currImage = self.br.compressed_imgmsg_to_cv2(data)
+        
+        # Process image
+        results = self.pose.process(currImage)
+        middle = currImage.shape[1]/2
+        # Draw center line
+        cv.line(currImage,(int(middle),0),(int(middle),currImage.shape[0]),(255,0,0),thickness=2)
+
+        # If landmarks recognized
+        if results.pose_landmarks:
+            # Draw landmarks into image
+            self.mpDraw.draw_landmarks(currImage, results.pose_landmarks, self.mpPose.POSE_CONNECTIONS)
+            # calc x_is
+            x_is = self.calcX_is
+            # PID Rotation
+            controllerEffortRot =self.PIDRot(x_is,currImage)
+            # calc y_distance
+            y_distance = self.calcY_distance
+            # PIDLin 
+            controllerEffortLin = self.PIDLin(y_distance,currImage)
+
+            #
+            ##
+            ### Your Code
+
+            self.msg.linear.x = float(controllerEffortLin)
+            self.msg.angular.z = float(controllerEffortRot)
+
+            ###
+            ##
+            #
+            
+        else:
+            # Reset integators
+            self.integralLin = 0
+            self.integralRot = 0
+            print("No landmarks recognized!")
+
+            #
+            ##
+            ### Your Code
+
+            self.msg.linear.x = 0.0
             self.msg.linear.y = 0.0
             self.msg.linear.z = 0.0
             self.msg.angular.x = 0.0
             self.msg.angular.y = 0.0
             self.msg.angular.z = 0.0
-            self.integralLin = 0
-            self.integralRot = 0
+
+            ###
+            ##
+            #
+
+
                 
             
-        
+        #
+        ##
+        # Your Code
+
+        # Publish the message
         self.publisher_.publish(self.msg)
+        # Log the relevant velocities 
         self.get_logger().info(f"Publishing ang: {self.msg.angular.z}")
         self.get_logger().info(f"Publishing lin: {self.msg.linear.x}")
+
+        ###
+        ##
+        #
+
+        # Show the processed image
         cv.imshow("Live View", currImage)
         cv.waitKey(1)
-        print("cmd_vel")
+
     
 
   
 def main(args=None):
     try:
+        #
+        ##
+        ### Your Code
+
+        # Initialization
         rclpy.init(args=args)
-        image_subscriber = ImageSubscriber()
-        # Spin the node so the callback function is called.
-        rclpy.spin(image_subscriber)
+        # Create Image Processer Object
+        image_processer = ImageProcesser()
+        # Spin the node so the callback function is called continiously.
+        rclpy.spin(image_processer)
+
+        ###
+        ##
+        #
         
 
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
+    except MemoryError as e:
+        print("MemoryError")
+    except OverflowError as e:
+        print("MemoryError")
     except BaseException as e:
-        print("BaseException", repr(e))
+        print("MemoryError")
   
     image_subscriber.msg.linear.x = 0.0
     image_subscriber.msg.linear.y = 0.0
     image_subscriber.msg.linear.z = 0.0
 
-    image_subscriber.msg.angular.x = 0.0
-    image_subscriber.msg.angular.y = 0.0
-    image_subscriber.msg.angular.z = 0.0
-    image_subscriber.publisher_.publish(image_subscriber.msg)
+    image_processer.msg.angular.x = 0.0
+    image_processer.msg.angular.y = 0.0
+    image_processer.msg.angular.z = 0.0
+    image_processer.publisher_.publish(image_processer.msg)
 
     # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
-    image_subscriber.destroy_node()
+    image_processer.destroy_node()
     
     # Shutdown the ROS client library for Python
     rclpy.shutdown()
+    
+    ###
+    ##
+    #
   
 if __name__ == '__main__':
   main()
