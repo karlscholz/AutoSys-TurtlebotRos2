@@ -24,7 +24,7 @@ class ImageProcesser(Node):
     # Create Twist-message object
     msg = Twist()
     # Define Quality of Service profile
-    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
+    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_ALL)
 
     ###
     ##
@@ -184,11 +184,11 @@ class ImageProcesser(Node):
             # Draw landmarks into image
             self.mpDraw.draw_landmarks(currImage, results.pose_landmarks, self.mpPose.POSE_CONNECTIONS)
             # calc x_is
-            x_is = self.calcX_is
+            x_is = self.calcX_is(results=results)
             # PID Rotation
             controllerEffortRot =self.PIDRot(x_is,currImage)
             # calc y_distance
-            y_distance = self.calcY_distance
+            y_distance = self.calcY_distance(results=results)
             # PIDLin 
             controllerEffortLin = self.PIDLin(y_distance,currImage)
 
@@ -268,16 +268,12 @@ def main(args=None):
 
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
-    except MemoryError as e:
-        print("MemoryError")
-    except OverflowError as e:
-        print("MemoryError")
     except BaseException as e:
-        print("MemoryError")
+        print("Exception")
   
-    image_subscriber.msg.linear.x = 0.0
-    image_subscriber.msg.linear.y = 0.0
-    image_subscriber.msg.linear.z = 0.0
+    image_processer.msg.linear.x = 0.0
+    image_processer.msg.linear.y = 0.0
+    image_processer.msg.linear.z = 0.0
 
     image_processer.msg.angular.x = 0.0
     image_processer.msg.angular.y = 0.0
