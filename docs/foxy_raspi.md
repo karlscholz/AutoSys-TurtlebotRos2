@@ -312,81 +312,38 @@ check it by running one of the following commands
     # Add shortcut to simplify bringup command
     alias r2b='ros2 launch turtlebot3_bringup robot.launch.py'
 
-## Create Follower Node
-
-Install the following package
-
-    sudo apt install mediapipe
-
-Copy the talker node and rename it to `follower_node.py`
-
-Make your new Node known to `setup.py` by adding this line: `'follower = talker_listener.follower_node:main'` to the `entry_points` dictionary, so it looks like this:
-
-    entry_points={
-        'console_scripts': [
-                'talker_listener = talker_listener.talker_node:main',
-                'follower = talker_listener.follower_node:main'
-        ],
-    },
-
-# TODO ADD DEPENDENCIES
+## Running the Visual Follower Project of this Repository:
 
 > **_NOTE:_**
-> We got the file `PoseEstimationMin.py` by doing the "Advanced Computer Vision with Python - Full Course" from freeCodeCamp on youtube [https://youtu.be/01sAkU_NvOY]. It uses OpenCV and Mediapipe to detect the pose of a person in a frame. We use it to get the landmarks of the foot and kneww for our follower node.
+> At first the Turtlebot's Raspberry Pi takes a Picture with its Pycam and publishes it to a topic. This is done by our Picture Publisher Node.
+> 
+> The Remote PC subscribes to this topic and calculates angular and linear velocity for the Turtlebot the picture with the Picture Processor Node. In Exchange, this Node then publishes the calculated velocities to cmd_vel.
+>
+> cmd_vel is subscribed by a built in Node from Turtlebot. It is launched by running the Turtlebot3 bringup Command, mentioned above. Now the Turtlebot drives accordingly.
+>
 
-## Install additional libraries
 
-    pip install mediapipe
-    pip install protobuf==3.20.0
+1. Install the Python Packages for the Picture Publisher Node
 
-## Adding the libraries
+        pip install opencv-contrib-python==4.6.0.66 TODO CHECK VERSION AND NAME
+        pip install opencv-python==4.6.0.66 TODO CHECK VERSION AND NAME
 
-Import the libraries for the Computer Vision Part and the ROS2 Node `Twist`, which contains the driving commands for the Turtlebot.
-
-    import cv2 as cv
-    import mediapipe as mp
-    import time 
-
-    from geometry_msgs.msg import Twist
-
-## Modyfing the Publisher.
-
-In the __init__ function we swap out the datatype `String`with `Twist` and change the topic `topic` to `cmd_vel`.
-
-    self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
-
-Next, we change the Method `timer_callback(self)` to include the logic of our program...
-
-# TODO LOGIC
-
-## Implementing stop on code abort
-
-If we stop the Node, the Turtlebot will just continue driving with the last command it got. To get the Turtlebot to stop when the Node gets destroyed or `CTRL+C` is input in the console, we put a try and catch block from start to the call of the `spin` Medhod in `main(args=none)`.
+2. Build the Picture Publisher workspace, you''ll need to fetch the dependencies only once
     
-    try:
-            rclpy.init(args=args)
-            minimal_publisher = MinimalPublisher()
-            rclpy.spin(minimal_publisher)
-            
+        cd ~/AutoSys-TurtlebotRos2/TODO WORKSPACENAME
+        sudo apt install python3-rosdep2 -y
+        rosdep update
+        rosdep install -i --from-path src --rosdistro foxy -y
+        colcon build
+        . install/setup.bash
 
-        except KeyboardInterrupt as e:
-            print("Ended with: KeyboardInterrupt")
-        
-After that we create another node to publish the stop `cmd_vel` message. This should be done on the same layer as `except` and not inside `ecxept` since we it to stop always, not just on `CTRL+C`.
+3. Run the Picture Publisher Node
+   
+        ros2 run picproc picpub_node
 
-    #stop regardless of how the node stopped spinning:
-    print("Stopping \"Follower\" - Node")
-    node = rclpy.create_node('stop_follower')
-    pub = node.create_publisher(Twist, 'cmd_vel', 10)
-    twist = Twist()
-    twist.linear.x = 0.0
-    twist.linear.y = 0.0
-    twist.linear.z = 0.0
-    
-    twist.angular.x = 0.0
-    twist.angular.y = 0.0
-    twist.angular.z = 0.0
-    pub.publish(twist)
+4. Open another terminal and run the Turtlebot3 bringup Command
 
-    minimal_publisher.destroy_node()
-    rclpy.shutdown()
+        ros2 launch turtlebot3_bringup robot.launch.py
+
+
+If something is off it's a good idea to check for differences in your `~/.bashrc` file with ours in  `AutoSys-TurtlebotRos2/misc/`.

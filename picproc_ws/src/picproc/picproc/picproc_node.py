@@ -268,16 +268,16 @@ def main(args=None):
 
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
+    except MemoryError as e:
+        print("MemoryError")
+    except OverflowError as e:
+        print("MemoryError")
     except BaseException as e:
-        print("Exception")
-    
-    #
-    ##
-    ### Your Code
-
-    image_processer.msg.linear.x = 0.0
-    image_processer.msg.linear.y = 0.0
-    image_processer.msg.linear.z = 0.0
+        print("MemoryError")
+  
+    image_subscriber.msg.linear.x = 0.0
+    image_subscriber.msg.linear.y = 0.0
+    image_subscriber.msg.linear.z = 0.0
 
     image_processer.msg.angular.x = 0.0
     image_processer.msg.angular.y = 0.0
