@@ -30,7 +30,7 @@ class PicturePublisher(Node):
         # create capture object
         self.cap = cv.VideoCapture(0)    # creates an object of the raspi cam
         # create qos-profile
-        self.qos_Profile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_ALL) # QoSProfile specifies communication between nodes
+        self.qos_Profile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST, depth = 1) # QoSProfile specifies communication between nodes
         # create publisher 
         self.publisher = self.create_publisher(CompressedImage, 'imagePi', self.qos_Profile)  # object to publish images in topic /imagePi
         # set cycle time

@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'picture_publisher = picpub.picture_publisher:main'
+            'picture_publisher_node = picpub.picture_publisher_node:main'
         ],
     },
 )
