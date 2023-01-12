@@ -22,7 +22,6 @@ setup(
         'console_scripts': [
                 'talker_listener = talker_listener.talker_node:main',
                 'follower = talker_listener.follower_node:main',
-                'picture_publisher = talker_listener.picture_publisher:main'
         ],
     },
 )
