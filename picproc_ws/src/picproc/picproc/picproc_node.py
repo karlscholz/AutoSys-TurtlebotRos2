@@ -24,14 +24,14 @@ class ImageProcesser(Node):
     # Create Twist-message object
     msg = Twist()
     # Define Quality of Service profile
-    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_ALL)
+    qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
 
     ###
     ##
     #
 
     # Sampletime: Period of picture_Publisher_node
-    Ts = 0.1
+    Ts = 0.2
     # Rotation PID-Controller parameters
     integralRot = 0
     PGainRot = 1.95567563236331
