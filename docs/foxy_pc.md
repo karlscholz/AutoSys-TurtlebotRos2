@@ -117,10 +117,8 @@ And RViz2 on the PC to see the robot in the simulation:
 
 1. Install the Python Packages for the Picture Processor Node
 
-        pip install opencv-contrib-python==4.6.0.66
         pip install opencv-python==4.6.0.66
         pip install numpy==1.24.0
-        pip install protobuf==3.20.0
         pip install mediapipe==0.9.0
 
 2. Build the Picture Processor workspace, you''ll need to fetch the dependencies only once
