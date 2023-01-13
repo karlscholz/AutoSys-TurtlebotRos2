@@ -78,7 +78,7 @@ def main(args=None):
         # -------------------------------------------------------------------------------------------------------------------
 
     except KeyboardInterrupt as e:
-        print("\nEnded with: KeyboardInterrupt")
+        print("\nEnded with: KeyboardInterrupt: ", repr(e))
         picture_publisher.cam_cleaner.stop_threads = True
    
     # -------------------------------------------------------------------------------------------------------------------
