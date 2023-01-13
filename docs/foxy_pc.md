@@ -3,10 +3,39 @@ title: foxy on PC
 page_id: foxy_pc
 ---
 
-# Instructions for ROS2 Foxy on PC
+## Running the Visual Follower Project of this Repository (RemotePC Part):
 
 > **_NOTE:_**
-> This tutorial is tested on Ubuntu 20.04.5 LTS. 
+> At first the Turtlebot's Raspberry Pi takes a Picture with its Pycam and publishes it to a topic. This is done by our Picture Publisher Node.
+> 
+> The Remote PC subscribes to this topic and calculates angular and linear velocity for the Turtlebot the picture with the Picture Processor Node. In Exchange, this Node then publishes the calculated velocities to cmd_vel.
+>
+> cmd_vel is subscribed by a built in Node from Turtlebot. It is launched by running the Turtlebot3 bringup Command, mentioned above. Now the Turtlebot drives accordingly.
+
+1. Install the Python Packages for the Picture Processor Node
+
+        pip install opencv-python==4.6.0.66
+        pip install numpy==1.24.0
+        pip install mediapipe==0.9.0
+
+2. Build the Picture Processor workspace, you''ll need to fetch the dependencies only once
+    
+        cd ~/AutoSys-TurtlebotRos2/picproc_ws
+        sudo apt install python3-rosdep2 -y
+        rosdep update
+        rosdep install -i --from-path src --rosdistro foxy -y
+        colcon build
+        . install/setup.bash
+
+3. Run the Picture Processor Node
+   
+        ros2 run picproc picproc_node
+
+
+# Install Instructions for ROS2 Foxy on PC
+
+> **_NOTE:_**
+> This tutorial was tested on Ubuntu 20.04.5 LTS. 
 
 ## WSL2 - skip to Ubuntu if you're running Ubuntu natively
 
@@ -106,33 +135,6 @@ And RViz2 on the PC to see the robot in the simulation:
     . install/setup.bash
     cd -
 
-## Running the Visual Follower Project of this Repository:
-
-> **_NOTE:_**
-> At first the Turtlebot's Raspberry Pi takes a Picture with its Pycam and publishes it to a topic. This is done by our Picture Publisher Node.
-> 
-> The Remote PC subscribes to this topic and calculates angular and linear velocity for the Turtlebot the picture with the Picture Processor Node. In Exchange, this Node then publishes the calculated velocities to cmd_vel.
->
-> cmd_vel is subscribed by a built in Node from Turtlebot. It is launched by running the Turtlebot3 bringup Command, mentioned above. Now the Turtlebot drives accordingly.
-
-1. Install the Python Packages for the Picture Processor Node
-
-        pip install opencv-python==4.6.0.66
-        pip install numpy==1.24.0
-        pip install mediapipe==0.9.0
-
-2. Build the Picture Processor workspace, you''ll need to fetch the dependencies only once
-    
-        cd ~/AutoSys-TurtlebotRos2/picproc_ws
-        sudo apt install python3-rosdep2 -y
-        rosdep update
-        rosdep install -i --from-path src --rosdistro foxy -y
-        colcon build
-        . install/setup.bash
-
-3. Run the Picture Processor Node
-   
-        ros2 run picproc picproc_node
 
 If something is off it's a good idea to check for differences in your `~/.bashrc` file with ours in  `AutoSys-TurtlebotRos2/misc/`.
 
