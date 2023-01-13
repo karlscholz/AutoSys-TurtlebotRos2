@@ -78,7 +78,9 @@ def main(args=None):
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
         picture_publisher.cam_cleaner.stop_threads = True
-   
+    except BaseException as e:
+        print("Exception:", repr(e))
+        picture_publisher.cam_cleaner.stop_threads = True
     # -------------------------------------------------------------------------------------------------------------------
     picture_publisher.destroy_node()             # destroy picture publisher node if it stops running
     rclpy.shutdown()                             # shutdown ROS

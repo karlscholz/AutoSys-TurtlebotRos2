@@ -232,7 +232,7 @@ def main(args=None):
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
     except BaseException as e:
-        print("Exception")
+        print("Exception:", repr(e))
     
     # ----------------------------------------------------------------------------------------------------------------------------------
     
