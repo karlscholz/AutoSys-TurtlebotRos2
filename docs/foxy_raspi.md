@@ -345,4 +345,40 @@ check it by running one of the following commands
     # Add shortcut to simplify bringup command
     alias r2b='ros2 launch turtlebot3_bringup robot.launch.py'
 
+<<<<<<< HEAD
+=======
+## Running the Visual Follower Project of this Repository:
+
+> **_NOTE:_**
+> At first the Turtlebot's Raspberry Pi takes a Picture with its Pycam and publishes it to a topic. This is done by our Picture Publisher Node.
+> 
+> The Remote PC subscribes to this topic and calculates angular and linear velocity for the Turtlebot the picture with the Picture Processor Node. In Exchange, this Node then publishes the calculated velocities to cmd_vel.
+>
+> cmd_vel is subscribed by a built in Node from Turtlebot. It is launched by running the Turtlebot3 bringup Command, mentioned above. Now the Turtlebot drives accordingly.
+>
+
+
+1. Install the Python Packages for the Picture Publisher Node
+
+        pip install opencv-python==4.6.0.66 
+
+2. Build the Picture Publisher workspace, you''ll need to fetch the dependencies only once
+    
+        cd ~/AutoSys-TurtlebotRos2/picpub_ws
+        sudo apt install python3-rosdep2 -y
+        rosdep update
+        rosdep install -i --from-path src --rosdistro foxy -y
+        colcon build
+        . install/setup.bash
+
+3. Run the Picture Publisher Node
+   
+        ros2 run picproc picpub_node
+
+4. Open another terminal and run the Turtlebot3 bringup Command
+
+        ros2 launch turtlebot3_bringup robot.launch.py
+
+
+>>>>>>> 48d290ed49410df48e0e9f2665095845bc8a5f4f
 If something is off it's a good idea to check for differences in your `~/.bashrc` file with ours in  `AutoSys-TurtlebotRos2/misc/`.

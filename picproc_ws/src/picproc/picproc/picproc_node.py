@@ -38,20 +38,16 @@ class ImageProcesser(Node):
         
         # ------------------------------------------------------------------------------------------------------------------------------
         
-        # Create Twist-message object
-        self.msg = Twist()
+        # call constructor
+
         # Define Quality of Service profile
         self.qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
-        # Initiate the Node class's constructor and give it a name
-        super().__init__('image_subscriber') # Not Ros, super().__init__ calls __init__ of parent class (super() returns proxy object of parent)
         # Create publisher
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
-        # Prevent unused variable warning
-        self.publisher_ 
         # Create subscriber       
         self.subscription = self.create_subscription(CompressedImage,'imagePi', self.listener_callback, self.qosProfile)
-        # Prevent unused variable warning
-        self.subscription 
+        # Create Twist-message object
+        self.msg = Twist()
 
         # ------------------------------------------------------------------------------------------------------------------------------
         
@@ -145,7 +141,8 @@ class ImageProcesser(Node):
         
         # ------------------------------------------------------------------------------------------------------------------------------
 
-        self.get_logger().info('Receiving Image')   # Display the message on the console
+        # logging 
+        self.get_logger().info('Receiving Image')   
 
         # ------------------------------------------------------------------------------------------------------------------------------
         
@@ -173,6 +170,7 @@ class ImageProcesser(Node):
 
             # ---------------------------------------------------------------------------------------------------------------------------
 
+            # Set linear x and angular z velocity
             self.msg.linear.x = float(controllerEffortLin)
             self.msg.angular.z = float(controllerEffortRot)
 
@@ -187,10 +185,6 @@ class ImageProcesser(Node):
             # ---------------------------------------------------------------------------------------------------------------------------
 
             self.msg.linear.x = 0.0
-            self.msg.linear.y = 0.0
-            self.msg.linear.z = 0.0
-            self.msg.angular.x = 0.0
-            self.msg.angular.y = 0.0
             self.msg.angular.z = 0.0
 
             # --------------------------------------------------------------------------------------------------------------------------
@@ -232,16 +226,12 @@ def main(args=None):
     except KeyboardInterrupt as e:
         print("\nEnded with: KeyboardInterrupt")
     except BaseException as e:
-        print("Exception:", repr(e))
+        print("Exception: ", repr(e))
     
     # ----------------------------------------------------------------------------------------------------------------------------------
     
+    # Stop the Turtlebot
     image_processer.msg.linear.x = 0.0
-    image_processer.msg.linear.y = 0.0
-    image_processer.msg.linear.z = 0.0
-
-    image_processer.msg.angular.x = 0.0
-    image_processer.msg.angular.y = 0.0
     image_processer.msg.angular.z = 0.0
     image_processer.publisher_.publish(image_processer.msg)
 
