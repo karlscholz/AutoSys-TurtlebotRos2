@@ -41,13 +41,13 @@ class ImageProcesser(Node):
         # call constructor
 
         # Define Quality of Service profile
-        self.qosProfile = QoSProfile(reliability=QoSReliabilityPolicy.BEST_EFFORT,history=QoSHistoryPolicy.KEEP_LAST,depth=1)
+        self.qosProfile = 
         # Create publisher
-        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.publisher_ = 
         # Create subscriber       
-        self.subscription = self.create_subscription(CompressedImage,'imagePi', self.listener_callback, self.qosProfile)
+        self.subscription = 
         # Create Twist-message object
-        self.msg = Twist()
+        self.msg = 
 
         # ------------------------------------------------------------------------------------------------------------------------------
         
@@ -142,7 +142,7 @@ class ImageProcesser(Node):
         # ------------------------------------------------------------------------------------------------------------------------------
 
         # logging 
-        self.get_logger().info('Receiving Image')   
+          
 
         # ------------------------------------------------------------------------------------------------------------------------------
         
@@ -170,9 +170,8 @@ class ImageProcesser(Node):
 
             # ---------------------------------------------------------------------------------------------------------------------------
 
-            # Set linear x and angular z velocity
-            self.msg.linear.x = float(controllerEffortLin)
-            self.msg.angular.z = float(controllerEffortRot)
+            # Set linear x and angular z velocity: case landmarks recognized 
+            
 
             # ---------------------------------------------------------------------------------------------------------------------------
             
@@ -184,8 +183,8 @@ class ImageProcesser(Node):
 
             # ---------------------------------------------------------------------------------------------------------------------------
 
-            self.msg.linear.x = 0.0
-            self.msg.angular.z = 0.0
+            # Set linear x and angular z velocity: case landmarks not recognized 
+
 
             # --------------------------------------------------------------------------------------------------------------------------
 
@@ -195,10 +194,10 @@ class ImageProcesser(Node):
         # ------------------------------------------------------------------------------------------------------------------------------
 
         # Publish the message
-        self.publisher_.publish(self.msg)
+        
         # Log the relevant velocities 
-        self.get_logger().info(f"Publishing ang: {self.msg.angular.z}")
-        self.get_logger().info(f"Publishing lin: {self.msg.linear.x}")
+        
+
 
         # ------------------------------------------------------------------------------------------------------------------------------
 
@@ -214,11 +213,11 @@ def main(args=None):
         # ------------------------------------------------------------------------------------------------------------------------------
 
         # Initialization
-        rclpy.init(args=args)
+        
         # Create Image Processer Object
-        image_processer = ImageProcesser()
+        
         # Spin the node so the callback function is called continiously.
-        rclpy.spin(image_processer)
+        
 
         # ------------------------------------------------------------------------------------------------------------------------------
         
@@ -231,15 +230,15 @@ def main(args=None):
     # ----------------------------------------------------------------------------------------------------------------------------------
     
     # Stop the Turtlebot
-    image_processer.msg.linear.x = 0.0
-    image_processer.msg.angular.z = 0.0
-    image_processer.publisher_.publish(image_processer.msg)
+    
+
+
 
     # Destroy the node explicitly
-    image_processer.destroy_node()
+    
     
     # Shutdown the ROS client library for Python
-    rclpy.shutdown()
+    
     
     # ----------------------------------------------------------------------------------------------------------------------------------
   
