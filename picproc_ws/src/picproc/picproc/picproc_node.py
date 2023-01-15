@@ -83,7 +83,7 @@ class ImageProcesser(Node):
              print("Needed landmarks for y_distance not recognized!")
         return y_distance
 
-    def PIDRot(self, x_is, currImage):
+    def PIDRot(self, x_is):
         if x_is > 0:
             # Compute controller effort for rotationary velocity in z
             error = 0.5 - x_is
@@ -96,20 +96,13 @@ class ImageProcesser(Node):
             # Clamping
             if abs(controllerEffortRot) < 1.82:
                 self.integralRot += error*self.Ts
-            # Visualisation in image
-            if controllerEffortRot > 0:
-                cv.putText(currImage,"Left",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Left")
-            elif controllerEffortRot < 0:
-                cv.putText(currImage,"Right",(200,100),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Right")
         else:
             # if no x_is can be determined, set controllereffort to 0 and reset the integrator
             controllerEffortRot = 0
             self.integralRot = 0
         return controllerEffortRot
 
-    def PIDLin(self, y_distance, currImage):
+    def PIDLin(self, y_distance):
         if y_distance > 0:
             # Compute controller effort for linear velocity in x
             error = 0.23 - y_distance
@@ -122,13 +115,6 @@ class ImageProcesser(Node):
             # Clamping
             if abs(controllerEffortLin )< 0.26:
                 self.integralLin += error*self.Ts
-            # Visualisation
-            if controllerEffortLin > 0:
-                cv.putText(currImage,"Forwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Forwards")
-            elif controllerEffortLin < 0:
-                cv.putText(currImage,"Backwards",(200,200),cv.FONT_HERSHEY_TRIPLEX, 2.5, (0,255,0), thickness=2)
-                print("Backwards")
         else:
             # if no y_distance can be determined, set controllereffort to 0 and reset the integrator
             controllerEffortLin = 0
@@ -154,9 +140,6 @@ class ImageProcesser(Node):
         
         # Process image
         results = self.pose.process(currImage)
-        middle = currImage.shape[1]/2
-        # Draw center line
-        cv.line(currImage,(int(middle),0),(int(middle),currImage.shape[0]),(255,0,0),thickness=2)
 
         # If landmarks recognized
         if results.pose_landmarks:
@@ -165,11 +148,11 @@ class ImageProcesser(Node):
             # calc x_is
             x_is = self.calcX_is(results=results)
             # PID Rotation
-            controllerEffortRot =self.PIDRot(x_is,currImage)
+            controllerEffortRot =self.PIDRot(x_is)
             # calc y_distance
             y_distance = self.calcY_distance(results=results)
             # PIDLin 
-            controllerEffortLin = self.PIDLin(y_distance,currImage)
+            controllerEffortLin = self.PIDLin(y_distance)
 
             # ---------------------------------------------------------------------------------------------------------------------------
 
@@ -204,6 +187,18 @@ class ImageProcesser(Node):
 
         # ------------------------------------------------------------------------------------------------------------------------------
 
+
+        # Draw the visualisation of the controller effort / driving commands
+        height, width = currImage.shape[:2]
+        # Steering, horizontal bar on the bottom of the image
+        cv.rectangle(currImage, (50, height-30), (width-50, height - 10), (0, 255, 0), 3)
+        cv.rectangle(currImage, (int(width/2), height-30), (int((width/2)-(width/2 -50)*self.msg.angular.z/1.82), height -10), (0, 255, 0), cv.FILLED)
+        # Throttle, vertical bar on the right of the image
+        cv.rectangle(currImage, (width -10, 50), (width-30, height - 50), (0, 0, 255), 3)
+        cv.rectangle(currImage, (width -10, int(height/2)), (width-30,int((height/2)-(height/2 -50)*self.msg.linear.x/0.26)), (0, 0, 255), cv.FILLED)
+        # Text
+        cv.putText(currImage, f'Steering: {float("{:.2f}".format(self.msg.angular.z))} ', (50, height-50), cv.FONT_HERSHEY_COMPLEX, .75, (0, 255, 0), 2)
+        cv.putText(currImage, f'                            Throttle: {float("{:.2f}".format(self.msg.linear.x))} ', (50, height-50), cv.FONT_HERSHEY_COMPLEX, .75, (0, 0, 255), 2)
         # Show the processed image
         cv.imshow("Live View", currImage)
         cv.waitKey(1)
